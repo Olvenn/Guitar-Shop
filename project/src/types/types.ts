@@ -25,28 +25,11 @@ export type Comment = {
   commentData: CommentPost,
 }
 
-export type PersonData = {
-  avatarUrl: string;
-  id: number;
-  isPro: boolean;
-  name: string;
+export type Coupon = {
+  coupon: string;
 }
 
-export type AuthData = PersonData & {
-  email: string;
-  token: string;
+export type Order = {
+  coupon: string | null;
+  guitarsIds: number[];
 }
-
-
-export type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
-
-export type City = {
-  name: string;
-  location: Location;
-}
-
-

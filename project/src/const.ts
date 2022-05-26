@@ -38,7 +38,7 @@ export enum AppRoute {
 // export const TIMEOUT_SHOW_ERROR = 2000;
 
 export enum APIRoute {
-  Guitars = '/hotels/',
+  Guitars = '/guitars/',
   Coupons = '/coupons',
   Orders = '/orders',
   Comments = '/comments',
@@ -46,14 +46,13 @@ export enum APIRoute {
 
 export enum HTTP_CODE {
   BAD_REQUEST = 400,
-  UNAUTHORIZED = 401,
   NOT_FOUND = 404,
 }
 
-// export enum NameSpace {
-//   Offers = 'OFFERS',
-//   Favorites = 'FAVORITES',
-//   Comments = 'COMMENTS',
-//   User = 'USER',
-//   Main = 'MAIN',
-// }
+export enum NameSpace {
+  // Offers = 'OFFERS',
+  // Favorites = 'FAVORITES',
+  // Comments = 'COMMENTS',
+  // User = 'USER',
+  Main = 'MAIN',
+}
