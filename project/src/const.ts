@@ -30,10 +30,21 @@
 
 export enum AppRoute {
   Root = '/',
-  Property = '/guitar/:id',
+  Card = '/guitar/:id',
+  Basket = '/basket',
   // Favorites = '/favorites',
   NotFound = '/not-found',
+  // Contacts = '/not-found',
+  Buy = '/not-found',
+  About = '/not-found',
+
 }
+
+export const mainNavItems: { [index: string]: string[] } = {
+  Catalog: ['Каталог', AppRoute.Root],
+  Buy: ['Где купить?', AppRoute.Buy],
+  About: ['О компании', AppRoute.About],
+};
 
 // export const TIMEOUT_SHOW_ERROR = 2000;
 

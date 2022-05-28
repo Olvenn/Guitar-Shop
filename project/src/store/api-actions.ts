@@ -26,13 +26,16 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<Guitar[]>(APIRoute.Guitars);
+      // eslint-disable-next-line no-console
       console.log(data);
+      // eslint-disable-next-line no-console
       console.log('dasdfe');
 
 
       // dispatch(loadOffers(data));
       // dispatch(setError(''));
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log('dasdfe');
       // dispatch(setError('Something was wrong. Try it more later.'));
       // dispatch(loadOffers([]));
