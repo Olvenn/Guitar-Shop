@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { AxiosInstance } from 'axios';
 import { Guitar } from '../types/types';
+import { loadGuitars, changeCity } from './reducers/guitars';
+import { setError } from '../store/action';
 // import { setError, redirectToRoute } from './action';
 // import { saveToken, dropToken } from '../services/token';
 import { APIRoute } from '../const';
@@ -30,9 +32,8 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
       console.log(data);
       // eslint-disable-next-line no-console
       console.log('dasdfe');
-
-
-      // dispatch(loadOffers(data));
+      dispatch(loadGuitars(data));
+      dispatch(setError('data'));
       // dispatch(setError(''));
     } catch (error) {
       // eslint-disable-next-line no-console

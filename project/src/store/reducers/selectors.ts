@@ -1,6 +1,6 @@
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
-// import { Comment, Offer } from '../../types/types';
+import { Guitar } from '../../types/types';
 
 // export const getOffers = (state: State): Offer[] => state[NameSpace.Offers].offers;
 // export const getOffersNearby = (state: State): Offer[] => state[NameSpace.Offers].offersNearby;
@@ -18,4 +18,5 @@ import { State } from '../../types/state';
 // export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.User].authorizationStatus;
 // export const getEmail = (state: State): string => state[NameSpace.User].email;
 
+export const getGuitars = (state: State): Guitar[] => state[NameSpace.Guitars].guitars;
 export const getError = (state: State): string => state[NameSpace.Main].error;

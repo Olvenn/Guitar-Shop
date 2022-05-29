@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 // import { useAppSelector } from '../../hooks';
-import Catalog from '../main-page/main-page';
-import Basket from '../basket/basket';
-import Card from '../card/card';
+import CatalogPage from '../../pages/сatalog-page/сatalog-page';
+import ItemPage from '../../pages/item-page/item-page';
+import CartPage from '../../pages/card-page/card-page';
 import { AppRoute } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
 // import LoadingScreen from '../loading-screen/loading-screen';
@@ -12,15 +12,15 @@ function App(): JSX.Element {
     <Routes>
       <Route
         path={AppRoute.Root}
-        element={<Catalog />}
+        element={<CatalogPage />}
       />
       <Route
-        path={AppRoute.Root}
-        element={<Card />}
+        path={AppRoute.Item}
+        element={<ItemPage />}
       />
       <Route
-        path={AppRoute.Basket}
-        element={<Basket />}
+        path={AppRoute.Cart}
+        element={<CartPage />}
       />
       <Route
         path="*"

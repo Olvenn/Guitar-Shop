@@ -11,6 +11,8 @@ import { fetchOffersAction } from './store/api-actions';
 store.dispatch(fetchOffersAction());
 // store.dispatch(fetchFavoritesAction());
 // store.dispatch(checkAuthAction());
+// eslint-disable-next-line no-console
+console.log(store);
 
 ReactDOM.render(
   <React.StrictMode>

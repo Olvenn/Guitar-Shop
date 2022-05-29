@@ -1,10 +1,8 @@
-import Header from '../header/header';
-import Footer from '../footer/footer';
+import Layout from '../../components/layout/layout';
 
-function Card(): JSX.Element {
+function CartPage(): JSX.Element {
   return (
-    <div className="wrapper">
-      {<Header />}
+    <Layout>
       <main className="page-content">
         <div className="container">
           <h1 className="page-content__title title title--bigger">Товар</h1>
@@ -155,8 +153,7 @@ function Card(): JSX.Element {
           </section>
         </div>
       </main>
-      {<Footer />}
-    </div>
+    </Layout>
   );
 }
-export default Card;
+export default CartPage;

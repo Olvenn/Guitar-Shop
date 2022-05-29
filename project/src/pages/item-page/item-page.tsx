@@ -1,10 +1,8 @@
-import Header from '../header/header';
-import Footer from '../footer/footer';
+import Layout from '../../components/layout/layout';
 
-function Basket(): JSX.Element {
+function ItemPage(): JSX.Element {
   return (
-    <div className="wrapper">
-      {<Header />}
+    <Layout>
       <main className="page-content">
         <div className="container">
           <h1 className="title title--bigger page-content__title">Корзина</h1>
@@ -92,8 +90,7 @@ function Basket(): JSX.Element {
           </div>
         </div>
       </main>
-      {<Footer />}
-    </div>
+    </Layout>
   );
 }
-export default Basket;
+export default ItemPage;

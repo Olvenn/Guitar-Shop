@@ -3,12 +3,15 @@
 // export const MAX_LENGTH = 300;
 // export const MIN_LENGTH = 50;
 
-// export enum SortTypes {
-//   Default = 'Popular',
-//   PriceLowToHigh = 'PriceLowToHigh',
-//   PriceHighToLow = 'PriceHighToLow',
-//   Rating = 'Rating',
-// }
+export enum SortTypes {
+  Default = 'по цене',
+  PriceLowToHigh = 'по популярности',
+}
+
+export enum SortPrice {
+  Default = 'По возрастанию',
+  PriceLowToHigh = 'По убыванию',
+}
 
 // export const cities: { [index: string]: string } = {
 //   Paris: 'Paris',
@@ -30,8 +33,8 @@
 
 export enum AppRoute {
   Root = '/',
-  Card = '/guitar/:id',
-  Basket = '/basket',
+  Item = '/guitar/:id',
+  Cart = '/basket',
   // Favorites = '/favorites',
   NotFound = '/not-found',
   // Contacts = '/not-found',
@@ -61,7 +64,7 @@ export enum HTTP_CODE {
 }
 
 export enum NameSpace {
-  // Offers = 'OFFERS',
+  Guitars = 'GUITARS',
   // Favorites = 'FAVORITES',
   // Comments = 'COMMENTS',
   // User = 'USER',

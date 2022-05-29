@@ -1,19 +1,13 @@
 import { store } from '../store/index.js';
-
-// import { Offer, Comment } from '../types/types';
+import { Guitar } from '../types/types';
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-
-// export type OffersProcess = {
-//   town: string,
-//   offers: Offer[],
-//   isLoading: boolean,
-//   activeOffer?: Offer,
-//   changedOffer?: Offer,
-//   offersNearby: Offer[],
-// };
+export type GuitarsProcess = {
+  guitars: Guitar[],
+  town: string,
+};
 
 // export type FAVORITES = {
 //   favorites: Offer[],

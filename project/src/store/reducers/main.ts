@@ -6,7 +6,7 @@ type InitalState = {
 };
 
 const initialState: InitalState = {
-  error: '',
+  error: '1',
 };
 
 const main = createReducer(initialState, (builder) => {
@@ -15,5 +15,8 @@ const main = createReducer(initialState, (builder) => {
       state.error = action.payload;
     });
 });
+
+console.log(initialState.error);
+
 
 export { main };

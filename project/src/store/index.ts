@@ -4,16 +4,17 @@ import { redirect } from './middlewares/redirect';
 import { createAPI } from '../services/api';
 import { main } from './reducers/main';
 // import { user } from './reducers/user';
-// import { offers } from './reducers/offers';
 // import { comments } from './reducers/comments';
 // import { favorites } from './reducers/favorites';
 import { NameSpace } from '../const';
+import { guitars } from './reducers/guitars';
 
 export const api = createAPI();
 export const reducer = combineReducers({
   [NameSpace.Main]: main,
+  [NameSpace.Guitars]: guitars.reducer,
   // [NameSpace.User]: user.reducer,
-  // [NameSpace.Offers]: offers.reducer,
+
   // [NameSpace.Favorites]: favorites.reducer,
   // [NameSpace.Comments]: comments.reducer,
 });
