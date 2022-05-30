@@ -1,17 +1,17 @@
 import { useAppSelector } from '../../hooks/';
 // import CitiesList from '../cities-list/cities-list';
 import { getGuitars } from '../../store/reducers/selectors';
-import CatalogItem from '../catalog-item/catalog-item';
+import CartItem from '../cart-item/cart-item';
 
-function CatalogList(): JSX.Element {
-  const guitars = useAppSelector(getGuitars);
+function CartList(): JSX.Element {
+  const guitars = useAppSelector(getGuitars).slice(6, 9);
   // eslint-disable-next-line no-console
   console.log('guitars', guitars);
 
   return (
-    <div className="cards catalog__cards">
+    <div className="cart">
       {guitars.map((guitar) => (
-        <CatalogItem
+        <CartItem
           key={guitar.id}
           guitar={guitar}
         />
@@ -19,4 +19,4 @@ function CatalogList(): JSX.Element {
     </div>
   );
 }
-export default CatalogList;
+export default CartList;

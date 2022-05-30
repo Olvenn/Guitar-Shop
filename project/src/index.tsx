@@ -6,9 +6,10 @@ import App from './components/app/app';
 import HistoryRouter from '../src/components/history-route/history-route';
 import browserHistory from './browser-history';
 import ErrorMessage from './components/error-message/error-message';
-import { fetchOffersAction } from './store/api-actions';
+import { fetchGuitarsAction, fetchReviewsAction } from './store/api-actions';
 
-store.dispatch(fetchOffersAction());
+store.dispatch(fetchGuitarsAction());
+store.dispatch(fetchReviewsAction());
 // store.dispatch(fetchFavoritesAction());
 // store.dispatch(checkAuthAction());
 // eslint-disable-next-line no-console

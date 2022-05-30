@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { AxiosInstance } from 'axios';
-import { Guitar } from '../types/types';
-import { loadGuitars, changeCity } from './reducers/guitars';
+import { Guitar, Review } from '../types/types';
+import { loadGuitars, loadReviews } from './reducers/guitars';
 import { setError } from '../store/action';
 // import { setError, redirectToRoute } from './action';
 // import { saveToken, dropToken } from '../services/token';
@@ -19,7 +19,7 @@ import { APIRoute } from '../const';
 // import { changeOffers } from './reducers/offers';
 // import { store } from '../store';
 
-export const fetchOffersAction = createAsyncThunk<void, undefined, {
+export const fetchGuitarsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -34,6 +34,32 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
       console.log('dasdfe');
       dispatch(loadGuitars(data));
       dispatch(setError('data'));
+      // dispatch(setError(''));
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log('dasdfe');
+      // dispatch(setError('Something was wrong. Try it more later.'));
+      // dispatch(loadOffers([]));
+      // handleError(error);
+    }
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchOffers',
+  async (_arg, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<Review[]>(APIRoute.Reviews);
+      // eslint-disable-next-line no-console
+      console.log(data);
+      // eslint-disable-next-line no-console
+      console.log('dasdfe');
+      dispatch(loadReviews(data));
+      // dispatch(setError('data'));
       // dispatch(setError(''));
     } catch (error) {
       // eslint-disable-next-line no-console

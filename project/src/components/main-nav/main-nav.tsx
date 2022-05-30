@@ -8,13 +8,9 @@ function MainNavList(): JSX.Element {
     <nav className="main-nav">
       <ul className="main-nav__list">
         {(Object.entries(mainNavItems)).map(([key, item]) => (
-          // <li key={key} ><a className="link main-nav__link link--current" href="#">{item}</a>
-          // </li>
           <MainNavItem
             key={key}
             item={item}
-          // onClick={handleCityClick}
-          // cityActive={town}
           />
         ))}
 

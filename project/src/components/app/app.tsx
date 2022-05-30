@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 // import { useAppSelector } from '../../hooks';
 import CatalogPage from '../../pages/сatalog-page/сatalog-page';
+import CartPage from '../../pages/cart-page/cart-page';
 import ItemPage from '../../pages/item-page/item-page';
-import CartPage from '../../pages/card-page/card-page';
 import { AppRoute } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
 // import LoadingScreen from '../loading-screen/loading-screen';

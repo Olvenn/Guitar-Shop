@@ -10,7 +10,7 @@ export type Guitar = {
   price: number,
 }
 
-export type CommentPost = {
+export type ReviewPost = {
   userName: string,
   advantage: string,
   disadvantage: string,
@@ -19,10 +19,10 @@ export type CommentPost = {
   guitarId: number,
 }
 
-export type Comment = {
+export type Review = {
   id: string,
   createAt: string,
-  commentData: CommentPost,
+  commentData: ReviewPost,
 }
 
 export type Coupon = {

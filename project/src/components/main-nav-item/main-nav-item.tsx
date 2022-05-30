@@ -6,11 +6,6 @@ type MainNavItemProps = {
 }
 
 function MainNavItem({ item }: MainNavItemProps): JSX.Element {
-  // const handleClick = () => {
-  //   onClick(city);
-  // };
-  // eslint-disable-next-line no-console
-  console.log(item);
   const tmpItemActive = 'Каталог';
   return (
     <li>
@@ -19,9 +14,3 @@ function MainNavItem({ item }: MainNavItemProps): JSX.Element {
   );
 }
 export default MainNavItem;
-
-// <li onClick={handleClick} className="locations__item">
-// <Link className={city === cityActive ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'} to='/'>
-//   <span>{city}</span>
-// </Link>
-// </li>

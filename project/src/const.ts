@@ -33,8 +33,9 @@ export enum SortPrice {
 
 export enum AppRoute {
   Root = '/',
-  Item = '/guitar/:id',
-  Cart = '/basket',
+  // Item = '/guitar/:id',
+  Item = '/g',
+  Cart = '/Cart',
   // Favorites = '/favorites',
   NotFound = '/not-found',
   // Contacts = '/not-found',
@@ -55,7 +56,7 @@ export enum APIRoute {
   Guitars = '/guitars/',
   Coupons = '/coupons',
   Orders = '/orders',
-  Comments = '/comments',
+  Reviews = '/guitars/1/comments',
 }
 
 export enum HTTP_CODE {
