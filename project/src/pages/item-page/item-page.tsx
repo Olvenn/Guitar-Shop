@@ -62,7 +62,7 @@ function CartPage(): JSX.Element {
             </div>
           </div>
           <ReviewList />
-         </div>
+        </div>
       </main>
     </Layout>
   );
