@@ -1,12 +1,12 @@
-import MainNavList from '../main-nav/main-nav';
+import { MainNavList } from '../main-nav-list/main-nav-list';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-function Header(): JSX.Element {
+export function Header(): JSX.Element {
   return (
     <header className="header" id="header">
       <div className="container header__wrapper">
-        <Link className="header__logo logo" to={AppRoute.Root}>
+        <Link className="header__logo logo" to={AppRoute.Catalog}>
           <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип" />
         </Link>
         {<MainNavList />}
@@ -14,8 +14,9 @@ function Header(): JSX.Element {
           <form className="form-search__form" id="form-search">
             <button className="form-search__submit" type="submit">
               <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
-                <use xlinkHref="#icon-search"></use>
-              </svg><span className="visually-hidden">Начать поиск</span>
+                <use xlinkHref="#icon-search" />
+              </svg>
+              <span className="visually-hidden">Начать поиск</span>
             </button>
             <input className="form-search__input" id="search" type="text" autoComplete="off" placeholder="что вы ищите?" />
             <label className="visually-hidden" htmlFor="search">Поиск</label>
@@ -30,18 +31,18 @@ function Header(): JSX.Element {
           </ul>
           <button className="form-search__reset" type="reset" form="form-search">
             <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
-              <use xlinkHref="#icon-close"></use>
+              <use xlinkHref="#icon-close" />
             </svg><span className="visually-hidden">Сбросить поиск</span>
           </button>
         </div>
         <Link className="header__cart-link" to={AppRoute.Cart} aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
-            <use xlinkHref="#icon-basket"></use>
-          </svg><span className="visually-hidden">Перейти в корзину</span>
+            <use xlinkHref="#icon-basket" />
+          </svg>
+          <span className="visually-hidden">Перейти в корзину</span>
           <span className="header__cart-count">2</span>
         </Link>
       </div>
     </header>
   );
 }
-export default Header;

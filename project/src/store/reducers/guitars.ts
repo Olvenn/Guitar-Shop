@@ -19,7 +19,5 @@ export const guitars = createSlice({
     },
   },
 });
-console.log('1', initialState);
-
 
 export const { loadGuitars, loadReviews } = guitars.actions;

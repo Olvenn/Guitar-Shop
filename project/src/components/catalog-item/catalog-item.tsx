@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom';
 import { Guitar } from '../../types/types';
 import { firstToUpperCase, pictureNumber } from '../../utils';
 
@@ -6,10 +5,7 @@ type CatalogItemProps = {
   guitar: Guitar;
 }
 
-function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
-  // const handleClick = () => {
-  //   onClick(city);
-  // };
+export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
 
   return (
     <div className="product-card">
@@ -17,25 +13,30 @@ function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
       <div className="product-card__info">
         <div className="rate product-card__rate">
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
+            <use xlinkHref="#icon-full-star" />
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
+            <use xlinkHref="#icon-full-star" />
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
+            <use xlinkHref="#icon-full-star" />
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"></use>
+            <use xlinkHref="#icon-full-star" />
           </svg>
           <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-star"></use>
+            <use xlinkHref="#icon-star" />
           </svg>
           <p className="visually-hidden">Рейтинг: Хорошо</p>
-          <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>9</p>
+          <p className="rate__count">
+            <span className="visually-hidden">Всего оценок:</span>
+            9
+          </p>
         </div>
         <p className="product-card__title">{guitar.name} {firstToUpperCase(guitar.type)}</p>
-        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{guitar.price} ₽
+        <p className="product-card__price">
+          <span className="visually-hidden">Цена:</span>
+          {guitar.price} ₽
         </p>
       </div>
       <div className="product-card__buttons">
@@ -45,4 +46,3 @@ function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
     </div>
   );
 }
-export default CatalogItem;

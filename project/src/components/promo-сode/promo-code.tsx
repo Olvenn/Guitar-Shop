@@ -1,4 +1,4 @@
-function PromoCode(): JSX.Element {
+export function PromoCode(): JSX.Element {
   return (
     <div className="cart__coupon coupon">
       <h2 className="title title--little coupon__title">Промокод на скидку</h2>
@@ -14,4 +14,3 @@ function PromoCode(): JSX.Element {
     </div>
   );
 }
-export default PromoCode;

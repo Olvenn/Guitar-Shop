@@ -1,35 +1,32 @@
 import { Review } from '../../types/types';
-// import { firstToUpperCase, pictureNumber } from '../../utils';
 
 type ReviewsItemProps = {
   review: Review;
 }
 
-function ReviewItem({ review }: ReviewsItemProps): JSX.Element {
-  // const handleClick = () => {
-  //   onClick(city);
-  // };
-  // console.log(review);
+export function ReviewItem({ review }: ReviewsItemProps): JSX.Element {
+
   return (
     <div className="review">
       <div className="review__wrapper">
-        <h4 className="review__title review__title--author title title--lesser">Иванов Максим</h4><span className="review__date">12 декабря</span>
+        <h4 className="review__title review__title--author title title--lesser">Иванов Максим</h4>
+        <span className="review__date">12 декабря</span>
       </div>
       <div className="rate review__rating-panel">
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
+          <use xlinkHref="#icon-full-star" />
         </svg>
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
+          <use xlinkHref="#icon-full-star" />
         </svg>
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
+          <use xlinkHref="#icon-full-star" />
         </svg>
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-full-star"></use>
+          <use xlinkHref="#icon-full-star" />
         </svg>
         <svg width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-star"></use>
+          <use xlinkHref="#icon-star" />
         </svg>
         <p className="visually-hidden">Оценка: Хорошо</p>
       </div>
@@ -42,4 +39,3 @@ function ReviewItem({ review }: ReviewsItemProps): JSX.Element {
     </div>
   );
 }
-export default ReviewItem;

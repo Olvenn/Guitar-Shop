@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
-import Header from '../header/header';
-import Footer from '../footer/footer';
+import { Header } from '../header/header';
+import { Footer } from '../footer/footer';
 
 type LayoutProps = {
   children: ReactNode;
 }
 
-function Layout({ children }: LayoutProps): JSX.Element {
+export function Layout({ children }: LayoutProps): JSX.Element {
   return (
     <div className="wrapper">
       <Header />
@@ -15,5 +15,3 @@ function Layout({ children }: LayoutProps): JSX.Element {
     </div>
   );
 }
-
-export default Layout;

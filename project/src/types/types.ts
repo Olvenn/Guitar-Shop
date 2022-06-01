@@ -24,12 +24,3 @@ export type Review = {
   createAt: string,
   commentData: ReviewPost,
 }
-
-export type Coupon = {
-  coupon: string;
-}
-
-export type Order = {
-  coupon: string | null;
-  guitarsIds: number[];
-}

@@ -1,12 +1,9 @@
 import { useAppSelector } from '../../hooks/';
-// import CitiesList from '../cities-list/cities-list';
 import { getGuitars } from '../../store/reducers/selectors';
-import CartItem from '../cart-item/cart-item';
+import { CartItem } from '../cart-item/cart-item';
 
-function CartList(): JSX.Element {
+export function CartList(): JSX.Element {
   const guitars = useAppSelector(getGuitars).slice(6, 9);
-  // eslint-disable-next-line no-console
-  console.log('guitars', guitars);
 
   return (
     <div className="cart">
@@ -19,4 +16,3 @@ function CartList(): JSX.Element {
     </div>
   );
 }
-export default CartList;

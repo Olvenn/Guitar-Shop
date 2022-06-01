@@ -8,13 +8,3 @@ export type GuitarsProcess = {
   guitars: Guitar[],
   reviews: Review[],
 };
-
-// export type FAVORITES = {
-//   favorites: Offer[],
-// };
-
-// export type COMMENTS = {
-//   comments: Comment[],
-//   isLoading: boolean,
-//   isSuccessfully: number,
-// };
