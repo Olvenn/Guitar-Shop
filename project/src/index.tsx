@@ -5,9 +5,8 @@ import { store } from './store';
 import { App } from './components/app/app';
 import HistoryRouter from '../src/components/history-router/history-router';
 import browserHistory from './browser-history';
-import { fetchGuitarsAction, fetchReviewsAction } from './store/api-actions';
+import { fetchReviewsAction } from './store/api-actions';
 
-store.dispatch(fetchGuitarsAction());
 store.dispatch(fetchReviewsAction());
 
 ReactDOM.render(

@@ -3,6 +3,7 @@ import { CartList } from '../../components/cart-list/cart-list';
 import { PromoCode } from '../../components/promo-сode/promo-code';
 
 export function CartPage(): JSX.Element {
+
   return (
     <Layout>
       <main className="page-content">
