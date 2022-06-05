@@ -7,7 +7,6 @@ import HistoryRouter from '../src/components/history-router/history-router';
 import browserHistory from './browser-history';
 import { fetchReviewsAction } from './store/api-actions';
 
-
 store.dispatch(fetchReviewsAction());
 
 ReactDOM.render(
