@@ -1,8 +1,5 @@
 import { Guitar } from '../../types/types';
 import { firstToUpperCase, pictureNumber } from '../../utils';
-import { useAppDispatch } from '../../hooks/';
-import { fetchGuitarAction } from '../../store/api-actions';
-import { loadGuitarId } from '../../store/reducers/guitars';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { generatePath } from 'react-router-dom';
@@ -12,13 +9,7 @@ type CatalogItemProps = {
 }
 
 export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
-  const dispatch = useAppDispatch();
   const linkItem = generatePath(AppRoute.Item, { id: `${guitar.id}` });
-
-  const handleItemClick = () => {
-    dispatch(fetchGuitarAction(guitar.id));
-    dispatch(loadGuitarId(guitar.id));
-  };
 
   return (
     <div className="product-card">
@@ -53,7 +44,8 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <Link onClick={handleItemClick} className="button button--mini" to={linkItem}>Подробнее</Link>
+        {/* <Link onClick={handleItemClick} className="button button--mini" to={linkItem}>Подробнее</Link> */}
+        <Link className="button button--mini" to={linkItem}>Подробнее</Link>
         <a className="button button--red button--mini button--add-to-cart" href="#">Купить</a>
       </div>
     </div>
