@@ -1,7 +1,9 @@
+export const ITEMS_PER_PAGE = 9;
+
 export enum AppRoute {
   Root = '/',
   Catalog = '/catalog',
-  Item = '/item',
+  Item = '/item/:id',
   Cart = '/cart',
 }
 
