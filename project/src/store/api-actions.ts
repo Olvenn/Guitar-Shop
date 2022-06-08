@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { AxiosInstance } from 'axios';
-import { Guitar, Review } from '../types/types';
+import { Guitar, GuitarWithComments } from '../types/types';
 import { loadGuitars, loadReviews, setTotalCounts, loadGuitar } from './reducers/guitars';
 import { APIRoute } from '../const';
 
@@ -32,26 +32,48 @@ export const fetchGuitarAction = createAsyncThunk<void, number, {
   'data/fetchOffers',
   async (id, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<Guitar[]>(`${APIRoute.Guitars}${id}`);
-      dispatch(loadGuitar(data));
+      const { data } = await api.get<GuitarWithComments>(`${APIRoute.Guitars}${id}?_embed=comments`);
+      const { comments, ...guitar } = data;
+      dispatch(loadGuitar(guitar));
+      dispatch(loadReviews(comments));
+      // eslint-disable-next-line no-console
+      console.log(comments);
     } catch (error) {
       dispatch(loadGuitar(undefined));
     }
   },
 );
 
-export const fetchReviewsAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  'data/fetchOffers',
-  async (_arg, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.get<Review[]>(APIRoute.Reviews);
-      dispatch(loadReviews(data));
-    } catch (error) {
-      dispatch(loadReviews([]));
-    }
-  },
-);
+// export const fetchGuitarAction = createAsyncThunk<void, number, {
+//   dispatch: AppDispatch,
+//   state: State,
+//   extra: AxiosInstance
+// }>(
+//   'data/fetchOffers',
+//   async (id, { dispatch, extra: api }) => {
+//     try {
+//       const { data } = await api.get<Guitar>(`${APIRoute.Guitars}${id}`);
+//       dispatch(loadGuitar(data));
+//     } catch (error) {
+//       dispatch(loadGuitar(undefined));
+//     }
+//   },
+// );
+
+// export const fetchReviewsAction = createAsyncThunk<void, undefined, {
+//   dispatch: AppDispatch,
+//   state: State,
+//   extra: AxiosInstance
+// }>(
+//   'data/fetchOffers',
+//   async (_arg, { dispatch, extra: api }) => {
+//     try {
+//       const { data } = await api.get<Review[]>(APIRoute.Reviews);
+//       dispatch(loadReviews(data));
+//       // eslint-disable-next-line no-console
+//       console.log(data);
+//     } catch (error) {
+//       dispatch(loadReviews([]));
+//     }
+//   },
+// );

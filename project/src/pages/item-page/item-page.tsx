@@ -2,7 +2,7 @@ import { Layout } from '../../components/layout/layout';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { getGuitar } from '../../store/reducers/selectors';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { fetchGuitarAction } from '../../store/api-actions';
 import { firstToUpperCase, pictureNumber } from '../../utils';
 import { useEffect } from 'react';
@@ -10,14 +10,16 @@ import { useEffect } from 'react';
 export function ItemPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
+  const item = useAppSelector(getGuitar);
+  const location = useLocation();
+  const showCharacteristics = location.hash === '#characteristics';
+  const showDescription = location.hash === '#description';
 
   useEffect(() => {
     if (id) {
       dispatch(fetchGuitarAction(+id));
     }
   }, [id, dispatch]);
-
-  const item = useAppSelector(getGuitar);
 
   if (item === undefined) {
     return <div />;
@@ -62,24 +64,28 @@ export function ItemPage(): JSX.Element {
                 <p className="visually-hidden">Оценка: Хорошо</p>
               </div>
               <div className="tabs">
-                <a className="button button--medium tabs__button" href="#characteristics">Характеристики</a>
-                <a className="button button--black-border button--medium tabs__button" href="#description">Описание</a>
-                <div className="tabs__content" id="characteristics">
-                  <table className="tabs__table">
-                    <tr className="tabs__table-row">
-                      <td className="tabs__title">Артикул:</td>
-                      <td className="tabs__value">{item.vendorCode}</td>
-                    </tr>
-                    <tr className="tabs__table-row">
-                      <td className="tabs__title">Тип:</td>
-                      <td className="tabs__value">{firstToUpperCase(item.type)}</td>
-                    </tr>
-                    <tr className="tabs__table-row">
-                      <td className="tabs__title">Количество струн:</td>
-                      <td className="tabs__value">{item.stringCount} струнная</td>
-                    </tr>
-                  </table>
-                  <p className="tabs__product-description hidden">{item.description}</p>
+                <a className={`button  ${(showDescription) ? 'button--black-border' : ''} button--medium tabs__button`} href="#characteristics">Характеристики</a>
+                <a className={`button  ${(!showDescription) ? 'button--black-border' : ''} button--medium tabs__button`} href="#description">Описание</a>
+                <div className="tabs__content">
+                  {showCharacteristics &&
+                    <table className="tabs__table">
+                      <tbody>
+                        <tr className="tabs__table-row">
+                          <td className="tabs__title">Артикул:</td>
+                          <td className="tabs__value">{item.vendorCode}</td>
+                        </tr>
+                        <tr className="tabs__table-row">
+                          <td className="tabs__title">Тип:</td>
+                          <td className="tabs__value">{firstToUpperCase(item.type)}</td>
+                        </tr>
+                        <tr className="tabs__table-row">
+                          <td className="tabs__title">Количество струн:</td>
+                          <td className="tabs__value">{item.stringCount} струнная</td>
+                        </tr>
+                      </tbody>
+                    </table>}
+                  {showDescription &&
+                    <p className="tabs__product-description">{item.description}</p>}
                 </div>
               </div>
             </div>
@@ -92,6 +98,6 @@ export function ItemPage(): JSX.Element {
           <ReviewList />
         </div>
       </main>
-    </Layout>
+    </Layout >
   );
 }
