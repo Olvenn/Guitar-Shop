@@ -1,5 +1,5 @@
 import { Guitar } from '../../types/types';
-import { firstToUpperCase, pictureNumber } from '../../utils';
+import { capitalize, pictureNumber } from '../../utils';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { generatePath } from 'react-router-dom';
@@ -9,7 +9,7 @@ type CatalogItemProps = {
 }
 
 export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
-  const linkItem = generatePath(AppRoute.Item, { id: `${guitar.id}` });
+  const linkSrc = generatePath(AppRoute.Item, { id: `${guitar.id}` });
 
   return (
     <div className="product-card">
@@ -37,15 +37,14 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
             9
           </p>
         </div>
-        <p className="product-card__title">{guitar.name} {firstToUpperCase(guitar.type)}</p>
+        <p className="product-card__title">{guitar.name} {capitalize(guitar.type)}</p>
         <p className="product-card__price">
           <span className="visually-hidden">Цена:</span>
           {guitar.price} ₽
         </p>
       </div>
       <div className="product-card__buttons">
-        {/* <Link onClick={handleItemClick} className="button button--mini" to={linkItem}>Подробнее</Link> */}
-        <Link className="button button--mini" to={linkItem}>Подробнее</Link>
+        <Link className="button button--mini" to={linkSrc}>Подробнее</Link>
         <a className="button button--red button--mini button--add-to-cart" href="#">Купить</a>
       </div>
     </div>

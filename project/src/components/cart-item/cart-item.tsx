@@ -1,5 +1,5 @@
 import { Guitar } from '../../types/types';
-import { firstToUpperCase, pictureNumber } from '../../utils';
+import { capitalize, pictureNumber } from '../../utils';
 
 type CartItemProps = {
   guitar: Guitar;
@@ -18,7 +18,7 @@ export function CartItem({ guitar }: CartItemProps): JSX.Element {
       <div className="product-info cart-item__info">
         <p className="product-info__title">{guitar.name}</p>
         <p className="product-info__info">Артикул: {guitar.vendorCode}</p>
-        <p className="product-info__info">{firstToUpperCase(guitar.type)}, {guitar.stringCount} струнная</p>
+        <p className="product-info__info">{capitalize(guitar.type)}, {guitar.stringCount} струнная</p>
       </div>
       <div className="cart-item__price">{guitar.price} ₽</div>
       <div className="quantity cart-item__quantity">

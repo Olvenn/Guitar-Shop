@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { getGuitar } from '../../store/reducers/selectors';
 import { useParams, useLocation } from 'react-router-dom';
 import { fetchGuitarAction } from '../../store/api-actions';
-import { firstToUpperCase, pictureNumber } from '../../utils';
+import { capitalize, pictureNumber } from '../../utils';
 import { useEffect } from 'react';
 
 export function ItemPage(): JSX.Element {
@@ -76,7 +76,7 @@ export function ItemPage(): JSX.Element {
                         </tr>
                         <tr className="tabs__table-row">
                           <td className="tabs__title">Тип:</td>
-                          <td className="tabs__value">{firstToUpperCase(item.type)}</td>
+                          <td className="tabs__value">{capitalize(item.type)}</td>
                         </tr>
                         <tr className="tabs__table-row">
                           <td className="tabs__title">Количество струн:</td>

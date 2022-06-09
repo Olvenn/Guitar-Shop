@@ -4,7 +4,7 @@ export const pictureNumber = ((previewImg: string) => {
   return previewImg.substring(from, to);
 });
 
-export const firstToUpperCase = (str: string) => {
+export const capitalize = (str: string) => {
   if (!str) {
     return str;
   }

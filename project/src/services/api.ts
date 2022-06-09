@@ -8,12 +8,3 @@ export const createAPI = (): AxiosInstance =>
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
   });
-
-// export const createAPI = (): AxiosInstance => {
-//   const api = axios.create({
-//     baseURL: BACKEND_URL,
-//     timeout: REQUEST_TIMEOUT,
-//   });
-
-//   return api;
-// };
