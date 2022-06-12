@@ -4,7 +4,14 @@ import { Guitar, Review } from '../../types/types';
 
 type StateProps = {
   guitars: Guitar[],
+<<<<<<< HEAD
   guitar?: Guitar,
+<<<<<<< HEAD
+=======
+  guitarId?: number,
+=======
+>>>>>>> c81edab11eeb3f4cbea93529e666b372787e3844
+>>>>>>> main
   reviews: Review[],
   totalCounts: number,
 };
