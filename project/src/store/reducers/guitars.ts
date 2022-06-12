@@ -4,8 +4,11 @@ import { Guitar, Review } from '../../types/types';
 
 type StateProps = {
   guitars: Guitar[],
+<<<<<<< HEAD
   guitar?: Guitar,
   guitarId?: number,
+=======
+>>>>>>> c81edab11eeb3f4cbea93529e666b372787e3844
   reviews: Review[],
   totalCounts: number,
   currentPage: number,
@@ -30,9 +33,6 @@ export const guitars = createSlice({
     loadGuitar: (state, action) => {
       state.guitar = action.payload;
     },
-    loadGuitarId: (state, action) => {
-      state.guitarId = action.payload;
-    },
     setTotalCounts: (state, action) => {
       state.totalCounts = action.payload;
     },
@@ -42,4 +42,8 @@ export const guitars = createSlice({
   },
 });
 
+<<<<<<< HEAD
 export const { loadGuitars, loadReviews, setTotalCounts, loadGuitar, loadGuitarId } = guitars.actions;
+=======
+export const { loadGuitars, loadReviews, setTotalCounts, setCurrentPage } = guitars.actions;
+>>>>>>> c81edab11eeb3f4cbea93529e666b372787e3844

@@ -5,7 +5,6 @@ import { Guitar, GuitarWithComments } from '../types/types';
 import { loadGuitars, loadReviews, setTotalCounts, loadGuitar } from './reducers/guitars';
 import { APIRoute } from '../const';
 
-
 export const fetchGuitarsAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch,
   state: State,
@@ -16,6 +15,7 @@ export const fetchGuitarsAction = createAsyncThunk<void, string, {
     try {
       const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}${param}`);
       const totalCount = headers['x-total-count'];
+
       dispatch(loadGuitars(data));
       dispatch(setTotalCounts(totalCount));
     } catch (error) {
