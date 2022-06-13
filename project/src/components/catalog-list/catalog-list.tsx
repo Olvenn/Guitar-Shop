@@ -10,13 +10,12 @@ import { PaginationItem } from '../pagination-item/pagination-item';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 
-
 export function CatalogList(): JSX.Element {
   const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const guitarsCount = useAppSelector(getTotalCounts);
-  const numberOfPages = Math.ceil(guitarsCount / ITEMS_PER_PAGE);
-  const pages = Array.from({ length: numberOfPages }, (_, i) => i + 1);
+  const totalPagesCount = Math.ceil(guitarsCount / ITEMS_PER_PAGE);
+  const pages = Array.from({ length: totalPagesCount }, (_, i) => i + 1);
 
   useEffect(() => {
     store.dispatch(fetchGuitarsAction(`?_start=${currentPage}&_limit=${ITEMS_PER_PAGE}`));
@@ -59,7 +58,7 @@ export function CatalogList(): JSX.Element {
               onPageClick={handlePageClick}
             />
           ))}
-          <li className={currentPage === numberOfPages ? 'pagination__page pagination__page--next visually-hidden' : 'pagination__page pagination__page--prev'} id="next">
+          <li className={currentPage === totalPagesCount ? 'pagination__page pagination__page--next visually-hidden' : 'pagination__page pagination__page--prev'} id="next">
             <Link onClick={handleNextClick} className="link pagination__page-link" to={AppRoute.Catalog}>Далее</Link>
           </li>
         </ul>
