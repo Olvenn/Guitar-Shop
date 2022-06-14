@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { Modal } from '../../components/modal/modal';
 import { SuccessReviewPopup } from '../../components/success-review-popup/success-review-popup';
 
+import { useNavigate } from 'react-router-dom';
 
 export function ReviewList(): JSX.Element {
   const reviews = useAppSelector(getReviews);
@@ -39,10 +40,17 @@ export function ReviewList(): JSX.Element {
     setIsActive(true);
   };
 
+  const navigate = useNavigate();
+
+  const handleCloseClick = () => {
+    setIsActive(false);
+    navigate('/', { replace: true });
+  };
+
   return (
     <section className="reviews">
       <Modal isActive={isActive} setIsActive={setIsActive}>
-        <SuccessReviewPopup />
+        <SuccessReviewPopup onModalClick={handleCloseClick} />
       </Modal>
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
       <a onClick={handleModalClick} className="button button--red-border button--big reviews__sumbit-button" href="#">Оставить отзыв</a>

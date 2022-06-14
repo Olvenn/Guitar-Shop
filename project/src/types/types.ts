@@ -11,17 +11,17 @@ export type Guitar = {
 }
 
 export type Review = {
-  id: string,
-  createAt: string,
-  userName: string,
-  advantage: string,
-  disadvantage: string,
-  comment: string,
-  rating: number,
-  guitarId: number,
+  id: string;
+  createAt: string;
+  userName: string;
+  advantage: string;
+  disadvantage: string;
+  comment: string;
+  rating: number;
+  guitarId: number;
 }
 
 export type GuitarWithComments = Guitar & {
-  comments: Review[],
+  comments: Review[];
 }
 
