@@ -5,7 +5,11 @@ import { getGuitar } from '../../store/reducers/selectors';
 import { useParams, useLocation } from 'react-router-dom';
 import { fetchGuitarAction } from '../../store/api-actions';
 import { capitalize, pictureNumber } from '../../utils';
+import { getReviews } from '../../store/reducers/selectors';
 import { useEffect } from 'react';
+import { Raiting } from '../../components/rating/rating';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 export function ItemPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -14,6 +18,7 @@ export function ItemPage(): JSX.Element {
   const location = useLocation();
   const showCharacteristics = location.hash === '#characteristics';
   const showDescription = location.hash === '#description';
+  const reviews = useAppSelector(getReviews);
 
   useEffect(() => {
     if (id) {
@@ -32,10 +37,10 @@ export function ItemPage(): JSX.Element {
           <h1 className="page-content__title title title--bigger">{item?.name}</h1>
           <ul className="breadcrumbs page-content__breadcrumbs">
             <li className="breadcrumbs__item">
-              <a className="link" href="./main.html">Главная</a>
+              <Link className="link" to={AppRoute.Root}>Главная</Link>
             </li>
             <li className="breadcrumbs__item">
-              <a className="link" href="./main.html">Каталог</a>
+              <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
             </li>
             <li className="breadcrumbs__item">
               <a className="link">{item?.name}</a>
@@ -46,28 +51,15 @@ export function ItemPage(): JSX.Element {
             <div className="product-container__info-wrapper">
               <h2 className="product-container__title title title--big title--uppercase">{item?.name}</h2>
               <div className="rate product-container__rating">
-                <svg width="14" height="14" aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width="14" height="14" aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width="14" height="14" aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width="14" height="14" aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width="14" height="14" aria-hidden="true">
-                  <use xlinkHref="#icon-star" />
-                </svg>
+                <Raiting ratingCount={Math.floor(item.rating)} />
                 <p className="visually-hidden">Оценка: Хорошо</p>
+                <p style={{ fontSize: '12px', lineHeight: '25px', color: '#585757' }} >{reviews?.length}</p>
               </div>
               <div className="tabs">
                 <a className={`button  ${(showDescription) ? 'button--black-border' : ''} button--medium tabs__button`} href="#characteristics">Характеристики</a>
                 <a className={`button  ${(!showDescription) ? 'button--black-border' : ''} button--medium tabs__button`} href="#description">Описание</a>
                 <div className="tabs__content">
-                  {showCharacteristics &&
+                  {(showCharacteristics || (!showCharacteristics && !showDescription)) &&
                     <table className="tabs__table">
                       <tbody>
                         <tr className="tabs__table-row">

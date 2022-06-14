@@ -15,7 +15,6 @@ export const fetchGuitarsAction = createAsyncThunk<void, string, {
     try {
       const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}${param}`);
       const totalCount = headers['x-total-count'];
-
       dispatch(loadGuitars(data));
       dispatch(setTotalCounts(totalCount));
     } catch (error) {
@@ -41,4 +40,3 @@ export const fetchGuitarAction = createAsyncThunk<void, number, {
     }
   },
 );
-

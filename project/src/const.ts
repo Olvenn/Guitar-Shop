@@ -1,4 +1,5 @@
 export const ITEMS_PER_PAGE = 9;
+export const RATING_ITEMS = 5;
 
 export enum AppRoute {
   Root = '/',
@@ -17,3 +18,18 @@ export enum APIRoute {
 export enum NameSpace {
   Guitars = 'GUITARS',
 }
+
+export const Months = [
+  'Января',
+  'Февраля',
+  'Марта',
+  'Апреля',
+  'Мая',
+  'Июня',
+  'Июля',
+  'Августм',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабря',
+];
