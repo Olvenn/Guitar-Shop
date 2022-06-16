@@ -19,7 +19,7 @@ export enum NameSpace {
   Guitars = 'GUITARS',
 }
 
-export const Months = [
+export const months = [
   'Января',
   'Февраля',
   'Марта',

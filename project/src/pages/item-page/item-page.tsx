@@ -14,7 +14,7 @@ import { AppRoute } from '../../const';
 export function ItemPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
-  const item = useAppSelector(getGuitar);
+  const guitar = useAppSelector(getGuitar);
   const location = useLocation();
   const showCharacteristics = location.hash === '#characteristics';
   const showDescription = location.hash === '#description';
@@ -26,7 +26,7 @@ export function ItemPage(): JSX.Element {
     }
   }, [id, dispatch]);
 
-  if (item === undefined) {
+  if (guitar === undefined) {
     return <div />;
   }
 
@@ -34,7 +34,7 @@ export function ItemPage(): JSX.Element {
     <Layout>
       <main className="page-content">
         <div className="container">
-          <h1 className="page-content__title title title--bigger">{item?.name}</h1>
+          <h1 className="page-content__title title title--bigger">{guitar?.name}</h1>
           <ul className="breadcrumbs page-content__breadcrumbs">
             <li className="breadcrumbs__item">
               <Link className="link" to={AppRoute.Root}>Главная</Link>
@@ -43,15 +43,15 @@ export function ItemPage(): JSX.Element {
               <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
             </li>
             <li className="breadcrumbs__item">
-              <a className="link">{item?.name}</a>
+              <a className="link">{guitar?.name}</a>
             </li>
           </ul>
           <div className="product-container">
-            <img className="product-container__img" src={`../img/content/catalog-product-${pictureNumber(item.previewImg)}.jpg`} srcSet={`../img/content/catalog-product-${pictureNumber(item.previewImg)}@2x.jpg 2x`} width="90" height="235" alt="" />
+            <img className="product-container__img" src={`../img/content/catalog-product-${pictureNumber(guitar.previewImg)}.jpg`} srcSet={`../img/content/catalog-product-${pictureNumber(guitar.previewImg)}@2x.jpg 2x`} width="90" height="235" alt="" />
             <div className="product-container__info-wrapper">
-              <h2 className="product-container__title title title--big title--uppercase">{item?.name}</h2>
+              <h2 className="product-container__title title title--big title--uppercase">{guitar?.name}</h2>
               <div className="rate product-container__rating">
-                <Raiting ratingCount={Math.floor(item.rating)} />
+                <Raiting ratingCount={Math.floor(guitar.rating)} />
                 <p className="visually-hidden">Оценка: Хорошо</p>
                 <p style={{ fontSize: '12px', lineHeight: '25px', color: '#585757' }} >{reviews?.length}</p>
               </div>
@@ -64,26 +64,26 @@ export function ItemPage(): JSX.Element {
                       <tbody>
                         <tr className="tabs__table-row">
                           <td className="tabs__title">Артикул:</td>
-                          <td className="tabs__value">{item.vendorCode}</td>
+                          <td className="tabs__value">{guitar.vendorCode}</td>
                         </tr>
                         <tr className="tabs__table-row">
                           <td className="tabs__title">Тип:</td>
-                          <td className="tabs__value">{capitalize(item.type)}</td>
+                          <td className="tabs__value">{capitalize(guitar.type)}</td>
                         </tr>
                         <tr className="tabs__table-row">
                           <td className="tabs__title">Количество струн:</td>
-                          <td className="tabs__value">{item.stringCount} струнная</td>
+                          <td className="tabs__value">{guitar.stringCount} струнная</td>
                         </tr>
                       </tbody>
                     </table>}
                   {showDescription &&
-                    <p className="tabs__product-description">{item.description}</p>}
+                    <p className="tabs__product-description">{guitar.description}</p>}
                 </div>
               </div>
             </div>
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>
-              <p className="product-container__price-info product-container__price-info--value">{item.price} ₽</p>
+              <p className="product-container__price-info product-container__price-info--value">{guitar.price} ₽</p>
               <a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
             </div>
           </div>

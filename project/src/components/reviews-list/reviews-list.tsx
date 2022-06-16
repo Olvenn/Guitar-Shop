@@ -3,28 +3,31 @@ import { getReviews } from '../../store/reducers/selectors';
 import { ReviewItem } from '../reviews-item/reviews-item';
 import { useState, useEffect } from 'react';
 
-import { Modal } from '../../components/modal/modal';
-import { SuccessReviewPopup } from '../../components/success-review-popup/success-review-popup';
-
-import { useNavigate } from 'react-router-dom';
+// import { SuccessReviewPopup } from '../../components/success-review-popup/success-review-popup';
+import { ReviewPopup } from '../../components/review-popup/review-popup';
 
 export function ReviewList(): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const REVIEW_PRE_PAGE = 3;
 
-  const [startReview, setstartReview] = useState(0);
-  const [reviewsCount, setReviewsCount] = useState(reviews.length);
+  const [isUp, setisUp] = useState(false);
+  const [startReview, setstartReview] = useState(REVIEW_PRE_PAGE);
+  const [reviewsCount, setReviewsCount] = useState(0);
 
   const handleUpClick = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();
-    setstartReview(0);
+    setstartReview(REVIEW_PRE_PAGE);
+    setisUp(true);
+  };
+
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: 'smooth',
     });
-    setReviewsCount(reviews.length);
-  };
+    setisUp(false);
+  }, [isUp]);
 
   useEffect(() => {
     setReviewsCount(reviews.length);
@@ -32,35 +35,36 @@ export function ReviewList(): JSX.Element {
 
   const handleMoreClick = () => {
     setstartReview(startReview + REVIEW_PRE_PAGE);
-    setReviewsCount(reviewsCount - REVIEW_PRE_PAGE);
   };
 
-  const [isActive, setIsActive] = useState(false);
-  const handleModalClick = () => {
-    setIsActive(true);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+
+  const handleReviewModalClose = () => {
+    setShowReviewModal(false);
   };
 
-  const navigate = useNavigate();
-
-  const handleCloseClick = () => {
-    setIsActive(false);
-    navigate('/', { replace: true });
+  const handleReviewModalOpen = () => {
+    setShowReviewModal(true);
   };
 
   return (
     <section className="reviews">
-      <Modal isActive={isActive} setIsActive={setIsActive}>
-        <SuccessReviewPopup onModalClick={handleCloseClick} />
-      </Modal>
+      {showReviewModal && (
+        <div style={{ position: 'relative', width: '550px', height: '610px', marginBottom: '50px' }}>
+          <div className="modal is-active modal--review modal-for-ui-kit">
+            <ReviewPopup onClose={handleReviewModalClose} />
+          </div>
+        </div>
+      )}
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
-      <a onClick={handleModalClick} className="button button--red-border button--big reviews__sumbit-button" href="#">Оставить отзыв</a>
-      {reviews.slice(startReview, (startReview + REVIEW_PRE_PAGE)).map((review) => (
+      <a onClick={handleReviewModalOpen} className="button button--red-border button--big reviews__sumbit-button" href="#">Оставить отзыв</a>
+      {reviews.slice(0, startReview).map((review) => (
         <ReviewItem
           key={review.id}
           review={review}
         />
       ))}
-      {(reviewsCount > REVIEW_PRE_PAGE) && <button onClick={handleMoreClick} className="button button--medium reviews__more-button">Показать еще отзывы</button>}
+      {(reviewsCount !== startReview) && <button onClick={handleMoreClick} className="button button--medium reviews__more-button">Показать еще отзывы</button>}
       <a style={{ zIndex: '100' }} onClick={handleUpClick} className="button button--up button--red-border button--big reviews__up-button" href="#">Наверх</a>
     </section>
   );

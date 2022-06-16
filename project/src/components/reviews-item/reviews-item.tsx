@@ -1,21 +1,19 @@
 import { Review } from '../../types/types';
 import { Raiting } from '../../components/rating/rating';
-import { Months } from '../../const';
+import { months } from '../../const';
 
 type ReviewsItemProps = {
   review: Review;
 }
 
 export function ReviewItem({ review }: ReviewsItemProps): JSX.Element {
-  const reviewData = new Date(review.createAt);
-  const reviewDay = reviewData.getDate();
-  const reviewMonth = Months[reviewData.getMonth()];
+  const reviewDate = new Date(review.createAt);
 
   return (
     <div className="review">
       <div className="review__wrapper">
         <h4 className="review__title review__title--author title title--lesser">{review.userName}</h4>
-        <span className="review__date">{reviewDay} {reviewMonth}</span>
+        <span className="review__date">{reviewDate.getDate()} {months[reviewDate.getMonth()]}</span>
       </div>
       <div className="rate review__rating-panel">
         <Raiting ratingCount={review.rating} />

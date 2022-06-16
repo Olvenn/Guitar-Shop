@@ -21,7 +21,7 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
           <p className="visually-hidden">Рейтинг: Хорошо</p>
           <p className="rate__count">
             <span className="visually-hidden">Всего оценок:</span>
-            9
+            {guitar.comments?.length ? guitar.comments?.length : 0}
           </p>
         </div>
         <p className="product-card__title">{guitar.name} {capitalize(guitar.type)}</p>
@@ -32,7 +32,7 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
       </div>
       <div className="product-card__buttons">
         <Link className="button button--mini" to={linkSrc}>Подробнее</Link>
-        <a className="button button--red button--mini button--add-to-cart" href="#">Купить</a>
+        <Link className="button button--red button--mini button--add-to-cart" to="#">Купить</Link>
       </div>
     </div>
   );

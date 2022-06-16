@@ -4,6 +4,7 @@ import { CartItem } from '../cart-item/cart-item';
 
 export function CartList(): JSX.Element {
   const guitars = useAppSelector(getGuitars).slice(6, 9);
+  console.log(guitars);
 
   return (
     <div className="cart">
