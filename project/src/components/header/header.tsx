@@ -1,5 +1,5 @@
-import { MainNavList } from '../main-nav-list/main-nav-list';
 import { Link } from 'react-router-dom';
+import { MainNavList } from '../main-nav-list/main-nav-list';
 import { AppRoute } from '../../const';
 
 export function Header(): JSX.Element {

@@ -1,24 +1,24 @@
+import { useEffect } from 'react';
+import { Link, useParams, useLocation } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../hooks/';
+import { fetchGuitarAction } from '../../store/api-actions';
+import { getGuitar, getReviews } from '../../store/reducers/selectors';
+import { AppRoute } from '../../const';
+import { capitalize, pictureNumber } from '../../utils';
 import { Layout } from '../../components/layout/layout';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
-import { useAppSelector, useAppDispatch } from '../../hooks/';
-import { getGuitar } from '../../store/reducers/selectors';
-import { useParams, useLocation } from 'react-router-dom';
-import { fetchGuitarAction } from '../../store/api-actions';
-import { capitalize, pictureNumber } from '../../utils';
-import { getReviews } from '../../store/reducers/selectors';
-import { useEffect } from 'react';
 import { Raiting } from '../../components/rating/rating';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { NotFoundPage } from '../../components/not-found-page/not-found-page';
+
 
 export function ItemPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const reviews = useAppSelector(getReviews);
   const { id } = useParams<{ id: string }>();
   const guitar = useAppSelector(getGuitar);
-  const location = useLocation();
   const showCharacteristics = location.hash === '#characteristics';
   const showDescription = location.hash === '#description';
-  const reviews = useAppSelector(getReviews);
 
   useEffect(() => {
     if (id) {
@@ -27,7 +27,7 @@ export function ItemPage(): JSX.Element {
   }, [id, dispatch]);
 
   if (guitar === undefined) {
-    return <div />;
+    return <NotFoundPage />;
   }
 
   return (

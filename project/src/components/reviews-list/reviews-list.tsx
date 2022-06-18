@@ -1,18 +1,19 @@
+import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../hooks/';
 import { getReviews } from '../../store/reducers/selectors';
 import { ReviewItem } from '../reviews-item/reviews-item';
-import { useState, useEffect } from 'react';
+import { ReviewModal } from '../../components/review-modal/review-modal';
+import { SuccessReviewModal } from '../../components/success-review-modal/success-review-modal';
 
-// import { SuccessReviewPopup } from '../../components/success-review-popup/success-review-popup';
-import { ReviewPopup } from '../../components/review-popup/review-popup';
+const REVIEW_PRE_PAGE = 3;
 
 export function ReviewList(): JSX.Element {
   const reviews = useAppSelector(getReviews);
-  const REVIEW_PRE_PAGE = 3;
-
   const [isUp, setisUp] = useState(false);
   const [startReview, setstartReview] = useState(REVIEW_PRE_PAGE);
   const [reviewsCount, setReviewsCount] = useState(0);
+  const [showAddReviewModal, setShowAddReviewModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleUpClick = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();
@@ -36,25 +37,27 @@ export function ReviewList(): JSX.Element {
   const handleMoreClick = () => {
     setstartReview(startReview + REVIEW_PRE_PAGE);
   };
-
-  const [showReviewModal, setShowReviewModal] = useState(false);
-
-  const handleReviewModalClose = () => {
-    setShowReviewModal(false);
-  };
-
   const handleReviewModalOpen = () => {
-    setShowReviewModal(true);
+    setShowAddReviewModal(true);
+  };
+  const handleReviewModalClose = () => {
+    setShowAddReviewModal(false);
+  };
+  const handleReviewAdd = () => {
+    setShowAddReviewModal(false);
+    setShowSuccessModal(true);
+  };
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
   };
 
   return (
     <section className="reviews">
-      {showReviewModal && (
-        <div style={{ position: 'relative', width: '550px', height: '610px', marginBottom: '50px' }}>
-          <div className="modal is-active modal--review modal-for-ui-kit">
-            <ReviewPopup onClose={handleReviewModalClose} />
-          </div>
-        </div>
+      {showAddReviewModal && (
+        <ReviewModal onClose={handleReviewModalClose} onReviewAdd={handleReviewAdd} />
+      )}
+      {showSuccessModal && (
+        <SuccessReviewModal onClose={handleSuccessModalClose} />
       )}
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
       <a onClick={handleReviewModalOpen} className="button button--red-border button--big reviews__sumbit-button" href="#">Оставить отзыв</a>

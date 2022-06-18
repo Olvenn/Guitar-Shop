@@ -1,8 +1,8 @@
+import { generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Guitar } from '../../types/types';
 import { capitalize, pictureNumber } from '../../utils';
-import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { generatePath } from 'react-router-dom';
 import { Raiting } from '../../components/rating/rating';
 
 type CatalogItemProps = {

@@ -1,6 +1,6 @@
 import { Review } from '../../types/types';
-import { Raiting } from '../../components/rating/rating';
 import { months } from '../../const';
+import { Raiting } from '../../components/rating/rating';
 
 type ReviewsItemProps = {
   review: Review;

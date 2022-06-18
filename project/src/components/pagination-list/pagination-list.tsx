@@ -1,9 +1,8 @@
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/';
 import { getTotalCounts } from '../../store/reducers/selectors';
-import { ITEMS_PER_PAGE } from '../../const';
+import { ITEMS_PER_PAGE, AppRoute } from '../../const';
 import { PaginationItem } from '../pagination-item/pagination-item';
-import { AppRoute } from '../../const';
-import { Link } from 'react-router-dom';
 
 type Props = {
   currentPage: number,

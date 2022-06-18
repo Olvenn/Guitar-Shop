@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
+import { store } from '../../store';
+import { ITEMS_PER_PAGE } from '../../const';
 import { getGuitars } from '../../store/reducers/selectors';
 import { CatalogItem } from '../catalog-item/catalog-item';
 import { fetchGuitarsAction } from '../../store/api-actions';
-import { store } from '../../store';
-import { ITEMS_PER_PAGE } from '../../const';
-import { useEffect, useState } from 'react';
 import { PaginationList } from '../pagination-list/pagination-list';
 
 export function CatalogList(): JSX.Element {
@@ -20,11 +20,9 @@ export function CatalogList(): JSX.Element {
   const handlePageClick = (page: number) => {
     setCurrentPage(page);
   };
-
   const handleNextClick = () => {
     setCurrentPage((prev) => prev + 1);
   };
-
   const handlePrevClick = () => {
     setCurrentPage((prev) => prev - 1);
   };

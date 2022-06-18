@@ -1,9 +1,9 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { Layout } from '../../components/layout/layout';
 import { Sorting } from '../../components/sorting/sorting';
 import { Filters } from '../../components/filters/filters';
 import { CatalogList } from '../../components/catalog-list/catalog-list';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 
 export function CatalogPage(): JSX.Element {
   return (

@@ -1,29 +1,14 @@
-import { useState } from 'react';
 import { Guitar } from '../../types/types';
 import { capitalize, pictureNumber } from '../../utils';
-import { DeletePopup } from '../delete-popup/delete-popup';
 
 type CartItemProps = {
   guitar: Guitar;
 }
 
 export function CartItem({ guitar }: CartItemProps): JSX.Element {
-  const [showDeletModal, setShowDeletModal] = useState(false);
-
-  const handleModalClose = () => {
-    setShowDeletModal(false);
-  };
-  const handleModalOpen = () => {
-    setShowDeletModal(true);
-  };
-
-
   return (
     <div className="cart-item">
-      {showDeletModal && (
-        <DeletePopup onClose={handleModalClose} />
-      )}
-      <button onClick={handleModalOpen} className="cart-item__close-button button-cross" type="button" aria-label="Удалить">
+      <button className="cart-item__close-button button-cross" type="button" aria-label="Удалить">
         <span className="button-cross__icon" />
         <span className="cart-item__close-button-interactive-area" />
       </button>
