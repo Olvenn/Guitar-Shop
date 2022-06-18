@@ -15,13 +15,13 @@ function AddCartModal(): JSX.Element {
                 <p className="modal__price-wrapper">
                   <span className="modal__price">Цена:</span>
                   <span className="modal__price">17 500 ₽</span>
-                  </p>
+                </p>
               </div>
             </div>
             <div className="modal__button-container">
               <button className="button button--red button--big modal__button modal__button--add">
                 Добавить в корзину
-                </button>
+              </button>
             </div>
             <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть">
               <span className="button-cross__icon" />
