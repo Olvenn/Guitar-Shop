@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { Layout } from '../../components/layout/layout';
 import { Sorting } from '../../components/sorting/sorting';
 import { Filters } from '../../components/filters/filters';
@@ -11,7 +13,7 @@ export function CatalogPage(): JSX.Element {
           <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
           <ul className="breadcrumbs page-content__breadcrumbs">
             <li className="breadcrumbs__item">
-              <a className="link" href="./main.html">Главная</a>
+              <Link className="link" to={AppRoute.Root}>Главная</Link>
             </li>
             <li className="breadcrumbs__item">
               <a className="link">Каталог</a>
@@ -27,3 +29,4 @@ export function CatalogPage(): JSX.Element {
     </Layout>
   );
 }
+

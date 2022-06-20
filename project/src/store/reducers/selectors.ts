@@ -6,3 +6,4 @@ export const getReviews = (state: State): Review[] => state[NameSpace.Guitars].r
 export const getGuitars = (state: State): Guitar[] => state[NameSpace.Guitars].guitars;
 export const getGuitar = (state: State): Guitar | undefined => state[NameSpace.Guitars].guitar;
 export const getTotalCounts = (state: State): number => state[NameSpace.Guitars].totalCounts;
+export const getSuccessfully = (state: State): number => state[NameSpace.Guitars].isSuccessfully;

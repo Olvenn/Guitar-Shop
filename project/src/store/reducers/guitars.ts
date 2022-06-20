@@ -7,6 +7,7 @@ type StateProps = {
   guitar?: Guitar,
   reviews: Review[],
   totalCounts: number,
+  isSuccessfully: number,
 };
 
 const initialState: StateProps = {
@@ -14,6 +15,7 @@ const initialState: StateProps = {
   guitar: undefined,
   reviews: [],
   totalCounts: 0,
+  isSuccessfully: 0,
 };
 
 export const guitars = createSlice({
@@ -32,7 +34,10 @@ export const guitars = createSlice({
     loadReviews: (state, action) => {
       state.reviews = action.payload;
     },
+    setSuccessfully: (state, action) => {
+      state.isSuccessfully = action.payload;
+    },
   },
 });
 
-export const { loadGuitars, loadReviews, setTotalCounts, loadGuitar } = guitars.actions;
+export const { loadGuitars, loadReviews, setTotalCounts, loadGuitar, setSuccessfully } = guitars.actions;
