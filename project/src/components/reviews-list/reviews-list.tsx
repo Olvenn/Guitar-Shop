@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react';
-import { useAppSelector } from '../../hooks/';
-import { getReviews } from '../../store/reducers/selectors';
+import { Guitar } from '../../types/types';
 import { ReviewItem } from '../reviews-item/reviews-item';
 import { ReviewModal } from '../../components/review-modal/review-modal';
 import { SuccessReviewModal } from '../../components/success-review-modal/success-review-modal';
 
+type Props = {
+  guitar: Guitar,
+}
+
 const REVIEW_PRE_PAGE = 3;
 
-export function ReviewList(): JSX.Element {
-  const reviews = useAppSelector(getReviews);
+export function ReviewList({ guitar }: Props): JSX.Element {
   const [isUp, setisUp] = useState(false);
   const [startReview, setstartReview] = useState(REVIEW_PRE_PAGE);
   const [reviewsCount, setReviewsCount] = useState(0);
   const [showAddReviewModal, setShowAddReviewModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const reviews = guitar.comments;
 
   const handleUpClick = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();
@@ -31,7 +34,9 @@ export function ReviewList(): JSX.Element {
   }, [isUp]);
 
   useEffect(() => {
-    setReviewsCount(reviews.length);
+    if (reviews) {
+      setReviewsCount(reviews?.length);
+    }
   }, [reviews]);
 
   const handleMoreClick = () => {
@@ -61,7 +66,7 @@ export function ReviewList(): JSX.Element {
       )}
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
       <a onClick={handleReviewModalOpen} className="button button--red-border button--big reviews__sumbit-button" href="#">Оставить отзыв</a>
-      {reviews.slice(0, startReview).map((review) => (
+      {reviews?.slice(0, startReview).map((review) => (
         <ReviewItem
           key={review.id}
           review={review}
