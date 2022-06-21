@@ -1,4 +1,3 @@
-import { MouseEventHandler } from 'react';
 import { Modal } from '../../components/modal/modal';
 import { ReviewForm } from '../../components/review-form/review-form';
 
@@ -14,7 +13,7 @@ export function ReviewModal({ onClose, onReviewAdd }: Props): JSX.Element {
         <Modal onClose={onClose} >
           <h2 className="modal__header modal__header--review title title--medium">Оставить отзыв</h2>
           <h3 className="modal__product-name title title--medium-20 title--uppercase">СURT Z30 Plus</h3>
-          <ReviewForm onReviewAdd={onReviewAdd}/>
+          <ReviewForm onReviewAdd={onReviewAdd} />
         </Modal>
       </div>
     </div>
