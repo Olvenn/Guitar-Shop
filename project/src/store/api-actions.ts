@@ -1,21 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
-import { AxiosInstance } from 'axios';
-import { Guitar, GuitarWithComments } from '../types/types';
-import { loadGuitars, loadReviews, setTotalCounts, loadGuitar } from './reducers/guitars';
+import { Guitar } from '../types/types';
+import { loadGuitars, setTotalCounts } from './reducers/guitars';
 import { APIRoute } from '../const';
+import { api } from './index';
 
 export const fetchGuitarsAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch,
   state: State,
-  extra: AxiosInstance
 }>(
-  'data/fetchOffers',
-  async (param, { dispatch, extra: api }) => {
+  'data/fetchGuitars',
+  async (param, { dispatch }) => {
     try {
-      const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}${param}`);
+      const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}${param}&_embed=comments`);
       const totalCount = headers['x-total-count'];
-
       dispatch(loadGuitars(data));
       dispatch(setTotalCounts(totalCount));
     } catch (error) {
@@ -23,22 +21,3 @@ export const fetchGuitarsAction = createAsyncThunk<void, string, {
     }
   },
 );
-
-export const fetchGuitarAction = createAsyncThunk<void, number, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  'data/fetchOffers',
-  async (id, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.get<GuitarWithComments>(`${APIRoute.Guitars}${id}?_embed=comments`);
-      const { comments, ...guitar } = data;
-      dispatch(loadGuitar(guitar));
-      dispatch(loadReviews(comments));
-    } catch (error) {
-      dispatch(loadGuitar(undefined));
-    }
-  },
-);
-

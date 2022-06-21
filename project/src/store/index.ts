@@ -4,10 +4,12 @@ import { redirect } from './middlewares/redirect';
 import { createAPI } from '../services/api';
 import { NameSpace } from '../const';
 import { guitars } from './reducers/guitars';
+import { guitar } from './reducers/guitar';
 
 export const api = createAPI();
 export const reducer = combineReducers({
   [NameSpace.Guitars]: guitars.reducer,
+  [NameSpace.Guitar]: guitar.reducer,
 });
 
 export const store = configureStore({
