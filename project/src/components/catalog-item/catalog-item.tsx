@@ -1,9 +1,8 @@
 import { generatePath } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Guitar } from '../../types/types';
-import { capitalize, pictureNumber } from '../../utils';
+import { capitalize, pictureNumber, rating } from '../../utils';
 import { AppRoute } from '../../const';
-import { Raiting } from '../../components/rating/rating';
 
 type CatalogItemProps = {
   guitar: Guitar;
@@ -17,7 +16,13 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
       <img src={`img/content/catalog-product-${pictureNumber(guitar.previewImg)}.jpg`} srcSet={`img/content/catalog-product-${pictureNumber(guitar.previewImg)}@2x.jpg 2x`} width="75" height="190" alt={`${guitar.name}`} />
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          <Raiting ratingCount={Math.floor(guitar.rating)} />
+          {
+            rating.map((item) => (
+              <svg key={item} width="12" height="11" aria-hidden="true">
+                {Math.floor(guitar.rating) > item ? <use xlinkHref="#icon-full-star" /> : <use xlinkHref="#icon-star" />}
+              </svg>
+            ))
+          }
           <p className="visually-hidden">Рейтинг: Хорошо</p>
           <p className="rate__count">
             <span className="visually-hidden">Всего оценок:</span>

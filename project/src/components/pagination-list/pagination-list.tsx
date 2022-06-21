@@ -7,11 +7,21 @@ import { PaginationItem } from '../pagination-item/pagination-item';
 type Props = {
   currentPage: number,
   onPageClick: (page: number) => void,
-  onPrevClick: () => void,
-  onNextClick: () => void,
+  setCurrentPage: (page: number) => void,
 }
 
-export function PaginationList({ currentPage, onPageClick, onPrevClick, onNextClick }: Props): JSX.Element {
+export function PaginationList({ currentPage, onPageClick, setCurrentPage }: Props): JSX.Element {
+
+  const handleNextClick = () => {
+    const prev = currentPage + 1;
+    setCurrentPage(prev);
+  };
+
+  const handlePrevClick = () => {
+    const prev = currentPage - 1;
+    setCurrentPage(prev);
+  };
+
   const guitarsCount = useAppSelector(getTotalCounts);
   const totalPagesCount = Math.ceil(guitarsCount / ITEMS_PER_PAGE);
   const pages = Array.from({ length: totalPagesCount }, (_, i) => i + 1);
@@ -19,7 +29,7 @@ export function PaginationList({ currentPage, onPageClick, onPrevClick, onNextCl
   return (
     <ul className="pagination__list">
       <li className={currentPage === 1 ? 'pagination__page pagination__page--prev visually-hidden' : 'pagination__page pagination__page--prev'} id="prev">
-        <Link onClick={onPrevClick} className="link pagination__page-link" to={AppRoute.Catalog}>Назад</Link>
+        <Link onClick={handlePrevClick} className="link pagination__page-link" to={AppRoute.Catalog}>Назад</Link>
       </li>
       {pages.map((page) => (
         <PaginationItem
@@ -30,7 +40,7 @@ export function PaginationList({ currentPage, onPageClick, onPrevClick, onNextCl
         />
       ))}
       <li className={currentPage === totalPagesCount ? 'pagination__page pagination__page--next visually-hidden' : 'pagination__page pagination__page--prev'} id="next">
-        <Link onClick={onNextClick} className="link pagination__page-link" to={AppRoute.Catalog}>Далее</Link>
+        <Link onClick={handleNextClick} className="link pagination__page-link" to={AppRoute.Catalog}>Далее</Link>
       </li>
     </ul>
   );

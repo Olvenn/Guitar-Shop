@@ -7,15 +7,15 @@ import { AppRoute } from '../../const';
 import { capitalize, pictureNumber } from '../../utils';
 import { Layout } from '../../components/layout/layout';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
-import { Raiting } from '../../components/rating/rating';
+import { rating } from '../../utils';
 
 export function ItemPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
   const guitar = useAppSelector(getGuitar);
-  const guitarError = useAppSelector(getGuitarError);
-  const guitarLoading = useAppSelector(getGuitarLoading);
+  const error = useAppSelector(getGuitarError);
+  const loading = useAppSelector(getGuitarLoading);
   const showCharacteristics = location.hash === '#characteristics';
   const showDescription = location.hash === '#description';
 
@@ -29,13 +29,13 @@ export function ItemPage(): JSX.Element {
     <Layout>
       <main className="page-content">
         <div className="container">
-          {guitarLoading && (
+          {loading && (
             <h2 className="page-content__title title title--bigger">Идет загрузка...
             </h2>
           )}
-          {!guitar && guitarError && (
+          {!guitar && error && (
             <>
-              <h2 style={{ color: '#8b0000' }} className="page-content__title title title--bigger">{guitarError}</h2>
+              <h2 style={{ color: '#8b0000' }} className="page-content__title title title--bigger">{error}</h2>
               <br />
               <h3 className="page-content__title title title--bigger">
                 Что-то пошло не так. <br /> Попробуйте еще раз, или выберите другую гитару из каталога.
@@ -63,7 +63,11 @@ export function ItemPage(): JSX.Element {
                 <div className="product-container__info-wrapper">
                   <h2 className="product-container__title title title--big title--uppercase">{guitar?.name}</h2>
                   <div className="rate product-container__rating">
-                    <Raiting ratingCount={Math.floor(guitar.rating)} />
+                    {rating.map((item) => (
+                      <svg key={item} width="14" height="14" aria-hidden="true">
+                        {Math.floor(guitar.rating) > item ? <use xlinkHref="#icon-full-star" /> : <use xlinkHref="#icon-star" />}
+                      </svg>
+                    ))}
                     <p className="visually-hidden">Оценка: Хорошо</p>
                     <p style={{ fontSize: '12px', lineHeight: '25px', color: '#585757' }} >{guitar?.comments?.length}</p>
                   </div>

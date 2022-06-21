@@ -42,16 +42,20 @@ export function ReviewList({ guitar }: Props): JSX.Element {
   const handleMoreClick = () => {
     setstartReview(startReview + REVIEW_PRE_PAGE);
   };
+
   const handleReviewModalOpen = () => {
     setShowAddReviewModal(true);
   };
+
   const handleReviewModalClose = () => {
     setShowAddReviewModal(false);
   };
+
   const handleReviewAdd = () => {
     setShowAddReviewModal(false);
     setShowSuccessModal(true);
   };
+
   const handleSuccessModalClose = () => {
     setShowSuccessModal(false);
   };
