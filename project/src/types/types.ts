@@ -9,7 +9,6 @@ export type Review = {
   guitarId: number;
 }
 
-
 export type Guitar = {
   id: number;
   name: string;
@@ -22,3 +21,13 @@ export type Guitar = {
   price: number;
   comments?: Review[];
 }
+
+export type Comment = {
+  guitarId: number;
+  userName: string;
+  advantage: string;
+  disadvantage: string;
+  comment: string;
+  rating: number;
+}
+

@@ -12,11 +12,13 @@ export enum APIRoute {
   Guitars = '/guitars/',
   Coupons = '/coupons',
   Orders = '/orders',
+  Comments = '/comments',
 }
 
 export enum NameSpace {
   Guitars = 'GUITARS',
   Guitar = 'GUITAR',
+  Reviews = 'COMMENTS',
 }
 
 export const months = [
