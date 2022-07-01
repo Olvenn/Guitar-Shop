@@ -96,11 +96,12 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
           <label className="form-review__label form-review__label--required" htmlFor="user-name">
             Ваше Имя
           </label>
-          <input onChange={(evt) => handlerUserName(evt)} onBlur={(evt) => handleBlurChange(evt)} value={userName} className="form-review__input form-review__input--name" id="user-name" name="user-name" type="text" autoComplete="off" />
+          <input onChange={(evt) => handlerUserName(evt)} onBlur={(evt) => handleBlurChange(evt)} value={userName} className="form-review__input form-review__input--name" id="user-name" name="user-name" type="text" autoComplete="off" data-testid="userName" />
           {(userNameWasBlur && userName === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
           {(userNameWasBlur && userNameLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 20 символов.</p>}
         </div>
-        <div><span className="form-review__label form-review__label--required">Ваша Оценка</span>
+        <div>
+          <span className="form-review__label form-review__label--required">Ваша Оценка</span>
           <div className="rate rate--reverse">
             <input onChange={(evt) => handleRateChange(evt)} className="visually-hidden" id="star-5" name="rate" type="radio" value="5" />
             <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
@@ -119,19 +120,19 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
       <label className="form-review__label form-review__label--required" htmlFor="adv">
         Достоинства
       </label>
-      <input onChange={(evt) => handlerAdvantages(evt)} onBlur={(evt) => handleBlurChange(evt)} value={advantages} className="form-review__input" id="adv" name="adv" type="text" autoComplete="off" />
+      <input onChange={(evt) => handlerAdvantages(evt)} onBlur={(evt) => handleBlurChange(evt)} value={advantages} className="form-review__input" id="adv" name="adv" type="text" autoComplete="off" data-testid="adv" />
       {(advantagesWasBlur && advantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
       {(advantagesWasBlur && advantagesLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 60 символов.</p>}
       <label className="form-review__label form-review__label--required" htmlFor="disadv">
         Недостатки
       </label>
-      <input onChange={(evt) => handlerDisadvantages(evt)} onBlur={(evt) => handleBlurChange(evt)} value={disadvantages} className="form-review__input" id="disadv" name="disadv" type="text" autoComplete="off" />
+      <input onChange={(evt) => handlerDisadvantages(evt)} onBlur={(evt) => handleBlurChange(evt)} value={disadvantages} className="form-review__input" id="disadv" name="disadv" type="text" autoComplete="off" data-testid="disadv" />
       {(disadvantagesWasBlur && disadvantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
       {(disadvantagesWasBlur && disadvantagesLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 60 символов.</p>}
       <label className="form-review__label form-review__label--required" htmlFor="comment">
         Комментарий
       </label>
-      <textarea onChange={handlerComment} onBlur={(evt) => handleBlurTextareaChange(evt)} className="form-review__input form-review__input--textarea" id="comment" name="comment" rows={10} autoComplete="off"></textarea>
+      <textarea onChange={handlerComment} onBlur={(evt) => handleBlurTextareaChange(evt)} className="form-review__input form-review__input--textarea" id="comment" name="comment" rows={10} autoComplete="off" data-testid="comment" ></textarea>
       {(commentWasBlur && comment === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
       {(commentWasBlur && commentValid) && <p className="form-review__warning">Имя должно быть от 20 до 120 символов.</p>}
       <button onClick={handleReviewAdd} className="button button--medium-20 form-review__button" type="submit" >Отправить отзыв</button>

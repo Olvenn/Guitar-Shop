@@ -32,10 +32,11 @@ export function Header(): JSX.Element {
           <button className="form-search__reset" type="reset" form="form-search">
             <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
               <use xlinkHref="#icon-close" />
-            </svg><span className="visually-hidden">Сбросить поиск</span>
+            </svg>
+            <span className="visually-hidden">Сбросить поиск</span>
           </button>
         </div>
-        <Link className="header__cart-link" to={AppRoute.Cart} aria-label="Корзина">
+        <Link id="cart" className="header__cart-link" to={AppRoute.Cart} aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket" />
           </svg>

@@ -1,5 +1,5 @@
 export type Review = {
-  id: string;
+  id: number;
   createAt: string;
   userName: string;
   advantage: string;

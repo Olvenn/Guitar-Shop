@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Guitar } from '../../types/types';
 import { ReviewItem } from '../reviews-item/reviews-item';
 import { ReviewModal } from '../../components/review-modal/review-modal';
@@ -70,7 +71,7 @@ export function ReviewList({ guitar }: Props): JSX.Element {
         <SuccessReviewModal onClose={handleSuccessModalClose} />
       )}
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
-      <a onClick={handleReviewModalOpen} className="button button--red-border button--big reviews__sumbit-button" href="#">Оставить отзыв</a>
+      <Link onClick={handleReviewModalOpen} className="button button--red-border button--big reviews__sumbit-button" to="#">Оставить отзыв</Link>
       {reviews?.slice(0, startReview).map((review) => (
         <ReviewItem
           key={review.id}
@@ -78,7 +79,7 @@ export function ReviewList({ guitar }: Props): JSX.Element {
         />
       ))}
       {(reviewsCount !== startReview) && <button onClick={handleMoreClick} className="button button--medium reviews__more-button">Показать еще отзывы</button>}
-      <a style={{ zIndex: '100' }} onClick={handleUpClick} className="button button--up button--red-border button--big reviews__up-button" href="#">Наверх</a>
+      <Link style={{ zIndex: '100' }} onClick={handleUpClick} className="button button--up button--red-border button--big reviews__up-button" to="#">Наверх</Link>
     </section>
   );
 }
