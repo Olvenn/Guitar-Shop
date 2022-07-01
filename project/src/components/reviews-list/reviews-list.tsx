@@ -3,6 +3,7 @@ import { Guitar } from '../../types/types';
 import { ReviewItem } from '../reviews-item/reviews-item';
 import { ReviewModal } from '../../components/review-modal/review-modal';
 import { SuccessReviewModal } from '../../components/success-review-modal/success-review-modal';
+import { sortByDateAsc } from '../../utils';
 
 type Props = {
   guitar: Guitar,
@@ -16,7 +17,7 @@ export function ReviewList({ guitar }: Props): JSX.Element {
   const [reviewsCount, setReviewsCount] = useState(0);
   const [showAddReviewModal, setShowAddReviewModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const reviews = guitar.comments;
+  const reviews = (guitar.comments?.map((item) => item))?.sort(sortByDateAsc);
 
   const handleUpClick = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();

@@ -14,6 +14,7 @@ export const capitalize = (str: string) => {
   return str[0].toUpperCase() + str.slice(1);
 };
 
-export const sortByPriceAsc = (a: Review, b: Review) => (((new Date(a.createAt)).getTime()) - ((new Date(b.createAt)).getTime()));
+export const sortByDateAsc = (a: Review, b: Review) => (((new Date(b.createAt)).getTime()) - ((new Date(a.createAt)).getTime()));
+
 
 export const rating = Array.from(Array(RATING_ITEMS).keys());

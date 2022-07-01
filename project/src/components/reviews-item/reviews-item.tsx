@@ -1,6 +1,6 @@
 import { Review } from '../../types/types';
 import { months } from '../../const';
-import { Raiting } from '../../components/rating/rating';
+import { rating } from '../../utils';
 
 type ReviewsItemProps = {
   review: Review;
@@ -16,7 +16,13 @@ export function ReviewItem({ review }: ReviewsItemProps): JSX.Element {
         <span className="review__date">{reviewDate.getDate()} {months[reviewDate.getMonth()]}</span>
       </div>
       <div className="rate review__rating-panel">
-        <Raiting ratingCount={review.rating} />
+        {
+          rating.map((item) => (
+            <svg key={item} width="16" height="16" aria-hidden="true">
+              {Math.floor(review.rating) > item ? <use xlinkHref="#icon-full-star" /> : <use xlinkHref="#icon-star" />}
+            </svg>
+          ))
+        }
         <p className="visually-hidden">Оценка: Хорошо</p>
       </div>
       <h4 className="review__title title title--lesser">Достоинства:</h4>
