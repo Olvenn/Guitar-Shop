@@ -29,10 +29,9 @@ describe('Component: CartPage', () => {
       </Provider>,
     );
 
-    // expect(screen.getByTitle('Корзина')).toBeInTheDocument();
-    // expect(screen.getAllByRole('button')).toBeInTheDocument();
     expect(screen.getByText(/Скидка:/i)).toBeInTheDocument();
     expect(screen.getByText(/К оплате:/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Оформить заказ/i })).toBeInTheDocument();
+    // expect(screen.getByRole('link', { name: /Корзина/i })).toBeInTheDocument();
   });
 });

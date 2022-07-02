@@ -1,8 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { NameSpace, APIRoute } from '../../const';
 import { Guitar } from '../../types/types';
-import { api } from '../index';
+import { api } from '../../services/index';
 
 export const fetchGuitarAction = createAsyncThunk(
   'data/fetchGuitar',

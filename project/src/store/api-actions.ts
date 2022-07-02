@@ -6,7 +6,6 @@ import { loadGuitars, setTotalCounts } from './reducers/guitars';
 import { setIsLoading, setSuccessfully } from './reducers/comments';
 import { APIRoute } from '../const';
 
-
 export const fetchGuitarsAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch,
   state: State,

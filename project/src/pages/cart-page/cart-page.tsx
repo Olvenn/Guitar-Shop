@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Layout } from '../../components/layout/layout';
 import { CartList } from '../../components/cart-list/cart-list';
 import { PromoCode } from '../../components/promo-сode/promo-code';
@@ -17,7 +18,7 @@ export function CartPage(): JSX.Element {
               <a className="link" href="./main.html">Каталог</a>
             </li>
             <li className="breadcrumbs__item">
-              <a className="link">Корзина</a>
+              <Link className="link" to='#'>Корзина</Link>
             </li>
           </ul>
           <CartList />

@@ -4,7 +4,6 @@ import { createMemoryHistory } from 'history';
 import HistoryRouter from '../history-router/history-router';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
-import * as Redux from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import { CatalogItem } from './catalog-item';
 import { AppRoute, NameSpace } from '../../const';

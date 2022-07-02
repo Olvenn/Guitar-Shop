@@ -55,7 +55,7 @@ export function ItemPage(): JSX.Element {
                   <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
                 </li>
                 <li className="breadcrumbs__item">
-                  <a className="link">{guitar?.name}</a>
+                  <Link className="link" to='#'>{guitar?.name}</Link>
                 </li>
               </ul>
               <div className="product-container">
@@ -100,7 +100,8 @@ export function ItemPage(): JSX.Element {
                 <div className="product-container__price-wrapper">
                   <p className="product-container__price-info product-container__price-info--title">Цена:</p>
                   <p className="product-container__price-info product-container__price-info--value">{guitar.price} ₽</p>
-                  <a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
+                  <Link className="button button--red button--big product-container__button" to="#">Добавить в корзину
+                  </Link>
                 </div>
               </div>
               <ReviewList guitar={guitar} />
