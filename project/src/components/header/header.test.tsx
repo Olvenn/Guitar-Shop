@@ -60,7 +60,6 @@ describe('Component: header', () => {
 
     expect(screen.queryByText(/This is cart page/i)).not.toBeInTheDocument();
     expect(screen.getByText(/Начать поиск/i)).toBeInTheDocument();
-    // userEvent.click(screen.getByRole('link'));
     userEvent.click(screen.getByText(/Перейти в корзину/i));
     expect(screen.getByText(/This is cart page/i)).toBeInTheDocument();
   });

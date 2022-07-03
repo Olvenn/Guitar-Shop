@@ -38,6 +38,5 @@ describe('Component: footer', () => {
     expect(screen.getByText(/Контакты/i)).toBeInTheDocument();
     expect(screen.getByText(/Режим работы/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Логотип/i })).toBeInTheDocument();
-    // userEvent.click(screen.getByRole('link'));
   });
 });

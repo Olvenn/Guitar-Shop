@@ -4,7 +4,7 @@ import { Guitar } from '../../types/types';
 import { ReviewItem } from '../reviews-item/reviews-item';
 import { ReviewModal } from '../../components/review-modal/review-modal';
 import { SuccessReviewModal } from '../../components/success-review-modal/success-review-modal';
-import { sortByDateAsc } from '../../utils';
+import { sortByDateAsc, stopBodyScroll, startBodyScroll } from '../../utils';
 
 type Props = {
   guitar: Guitar,
@@ -47,19 +47,23 @@ export function ReviewList({ guitar }: Props): JSX.Element {
 
   const handleReviewModalOpen = () => {
     setShowAddReviewModal(true);
+    stopBodyScroll();
   };
 
   const handleReviewModalClose = () => {
     setShowAddReviewModal(false);
+    startBodyScroll();
   };
 
   const handleReviewAdd = () => {
     setShowAddReviewModal(false);
     setShowSuccessModal(true);
+    stopBodyScroll();
   };
 
   const handleSuccessModalClose = () => {
     setShowSuccessModal(false);
+    startBodyScroll();
   };
 
   return (

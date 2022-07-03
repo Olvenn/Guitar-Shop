@@ -4,7 +4,6 @@ import { createAPI } from '../../services/api';
 import MockAdapter from 'axios-mock-adapter';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-
 import { APIRoute } from '../../const';
 import { guitar, fetchGuitarAction } from '../reducers/guitar';
 import { makeFakeGuitar } from '../../mock';
@@ -79,18 +78,17 @@ describe('Reducer: guitar', () => {
       });
   });
 
-  // it('should be update parameters when fetch type rejected', () => {
-  //   const message = { 'error': 'Error' };
-  //   const action = {
-  //     type: fetchGuitarAction.rejected.type,
-  //     payload: message.error,
-  //   };
-  //   const state = guitar.reducer(initialState, action);
-  //   expect(state)
-  //     .toEqual({
-  //       guitar: undefined,
-  //       loading: false,
-  //       error: 'Error',
-  //     });
-  // });
+  it('should be update parameters when fetch type rejected', () => {
+    const action = {
+      type: fetchGuitarAction.rejected.type,
+      error: { message: 'Error' },
+    };
+    const state = guitar.reducer(initialState, action);
+    expect(state)
+      .toEqual({
+        guitar: undefined,
+        loading: false,
+        error: 'Error',
+      });
+  });
 });

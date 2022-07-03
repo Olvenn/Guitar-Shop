@@ -5,10 +5,8 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
 import { AppRoute, NameSpace } from '../../const';
-import { makeFakeGuitars, makeFakeGuitar, GUITARS } from '../../mock';
+import { makeFakeGuitar } from '../../mock';
 import { App } from './app';
-
-// const fakeGuitars = makeFakeGuitars(GUITARS);
 
 const mockStore = configureMockStore();
 
@@ -46,10 +44,8 @@ describe('Application Routing', () => {
   it('should render "Catalog" when user navigate to "/catalog"', () => {
     history.push(AppRoute.Catalog);
     render(fakeApp);
-    // const fakeGuitars = makeFakeGuitars(GUITARS);
 
     expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();
-    // expect(screen.getAllByText(fakeGuitars[0].name)).toBeInTheDocument();
   });
 
   it('should render "Catalog" when user navigate to "/cart"', () => {
@@ -69,7 +65,6 @@ describe('Application Routing', () => {
 
     render(fakeApp);
     expect(screen.getByText(/Каталог/i)).toBeInTheDocument();
-    // expect(screen.getByText(guitar.name)).toBeInTheDocument();
   });
 
 

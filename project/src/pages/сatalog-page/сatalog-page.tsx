@@ -16,7 +16,7 @@ export function CatalogPage(): JSX.Element {
               <Link className="link" to={AppRoute.Root}>Главная</Link>
             </li>
             <li className="breadcrumbs__item">
-              <a className="link">Каталог</a>
+              <Link className="link" to="#">Каталог</Link>
             </li>
           </ul>
           <div className="catalog">
@@ -26,7 +26,7 @@ export function CatalogPage(): JSX.Element {
           </div>
         </div>
       </main>
-    </Layout>
+    </Layout >
   );
 }
 

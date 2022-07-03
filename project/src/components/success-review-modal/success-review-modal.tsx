@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../../components/modal/modal';
+import { startBodyScroll } from '../../utils';
 
 type SuccessReviewModalProps = {
   onClose: () => void;
@@ -10,6 +11,7 @@ export function SuccessReviewModal({ onClose }: SuccessReviewModalProps): JSX.El
 
   const handleCloseClick = () => {
     navigate('/', { replace: true });
+    startBodyScroll();
   };
 
   return (

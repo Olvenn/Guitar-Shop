@@ -4,7 +4,6 @@ import { createMemoryHistory } from 'history';
 import HistoryRouter from '../../components/history-router/history-router';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { ItemPage } from './item-page';
-import userEvent from '@testing-library/user-event';
 import { AppRoute, NameSpace } from '../../const';
 import { makeFakeGuitar } from '../../mock';
 import { Provider } from 'react-redux';
@@ -48,7 +47,6 @@ describe('Component: ItemPage', () => {
     );
 
     expect(screen.getByText('Цена:')).toBeInTheDocument();
-    // expect(screen.getByText(fakeGuitar.name)).toBeInTheDocument();
     expect(screen.getByText(/Характеристики/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Добавить в корзину/i })).toBeInTheDocument();
   });
