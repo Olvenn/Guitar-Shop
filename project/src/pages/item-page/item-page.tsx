@@ -11,11 +11,11 @@ import { rating } from '../../utils';
 
 export function ItemPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const location = useLocation();
-  const { id } = useParams<{ id: string }>();
   const guitar = useAppSelector(getGuitar);
   const error = useAppSelector(getGuitarError);
   const loading = useAppSelector(getGuitarLoading);
+  const location = useLocation();
+  const { id } = useParams<{ id: string }>();
   const showCharacteristics = location.hash === '#characteristics';
   const showDescription = location.hash === '#description';
 
