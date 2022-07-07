@@ -26,8 +26,6 @@ const store = mockStore({
 });
 
 describe('Component: ItemPage', () => {
-
-  // const guitar = makeFakeGuitar();
   const dispatch = jest.fn();
   const useDispatch = jest.spyOn(Redux, 'useDispatch');
   useDispatch.mockReturnValue(dispatch);

@@ -20,7 +20,7 @@ describe('Component: PaginationList', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <PaginationList onPageClick={jest.fn()} currentPage={currentPage} setCurrentPage={jest.fn()} />
+          <PaginationList onPageClick={jest.fn()} currentPage={currentPage} onPrevClick={jest.fn()} onNextClick={jest.fn()} />
         </HistoryRouter>
       </Provider>);
 

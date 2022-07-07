@@ -7,12 +7,7 @@ export const pictureNumber = ((previewImg: string) => {
   return previewImg.substring(from, to);
 });
 
-export const capitalize = (str: string) => {
-  if (!str) {
-    return str;
-  }
-  return str[0].toUpperCase() + str.slice(1);
-};
+export const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
 
 export const sortByDateAsc = (a: Review, b: Review) => (((new Date(b.createAt)).getTime()) - ((new Date(a.createAt)).getTime()));
 

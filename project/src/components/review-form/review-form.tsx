@@ -1,9 +1,16 @@
-import { MouseEventHandler, useState, useEffect } from 'react';
+import React, { MouseEventHandler, useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/';
 import { commentAction } from '../../store/api-actions';
 import { setSuccessfully } from '../../store/reducers/comments';
 import { getGuitar, setCommentSuccessfully } from '../../store/reducers/selectors';
 import { RatingText } from '../../const';
+
+const EMPTY_FIELD = 'Заполните поле';
+const MIN_LENGTH_TEXT = 3;
+const MAX_LENGTH_TEXT = 60;
+const MIN_LENGTH_NAME = 20;
+const MIN_LENGTH_COMMENT = 20;
+const MAX_LENGTH_COMMENT = 120;
 
 type Props = {
   onReviewAdd: () => void;
@@ -19,19 +26,25 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
   const [advantages, setAdvantages] = useState('');
   const [disadvantages, setDisadvantages] = useState('');
   const [comment, setComment] = useState('');
-  const [userNameBlured, setUserNameBlured] = useState(false);
-  const [advantagesBlured, setAdvantagesBlured] = useState(false);
-  const [disadvantagesBlured, setDisadvantagesBlured] = useState(false);
-  const [commentBlured, setCommentBlured] = useState(false);
+  const [userNameBlurred, setUserNameBlurred] = useState(false);
+  const [advantagesBlurred, setAdvantagesBlurred] = useState(false);
+  const [disadvantagesBlurred, setDisadvantagesBlurred] = useState(false);
+  const [commentBlurred, setCommentBlurred] = useState(false);
 
-  const raitingLength = Object.entries(RatingText).length + 1;
+  const ratingLength = Object.entries(RatingText).length + 1;
 
-  const EMPTY_FIELD = 'Заполните поле';
-  const userNameLengthValid = userName.length < 3 || userName.length > 20;
-  const advantagesLengthValid = advantages.length < 3 || advantages.length > 60;
-  const disadvantagesLengthValid = disadvantages.length < 3 || disadvantages.length > 60;
-  const commentValid = comment.length < 20 || comment.length > 120;
+  const userNameLengthValid = userName.length < MIN_LENGTH_TEXT || userName.length > MIN_LENGTH_NAME;
+  const advantagesLengthValid = advantages.length < MIN_LENGTH_TEXT || advantages.length > MAX_LENGTH_TEXT;
+  const disadvantagesLengthValid = disadvantages.length < MIN_LENGTH_TEXT || disadvantages.length > MAX_LENGTH_TEXT;
+  const commentValid = comment.length < MIN_LENGTH_COMMENT || comment.length > MAX_LENGTH_COMMENT;
   const rateValid = rate < 0;
+
+  useEffect(() => {
+    if (isSuccessfully) {
+      onReviewAdd();
+      dispatch(setSuccessfully(false));
+    }
+  }, [isSuccessfully, dispatch, onReviewAdd]);
 
   const handleReviewAdd: MouseEventHandler = (evt) => {
     evt.preventDefault();
@@ -47,48 +60,41 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    if (isSuccessfully) {
-      onReviewAdd();
-      dispatch(setSuccessfully(false));
-    }
-  }, [isSuccessfully, dispatch, onReviewAdd]);
-
   const handleBlurChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     switch (evt.target.name) {
       case 'user-name':
-        setUserNameBlured(true);
+        setUserNameBlurred(true);
         break;
       case 'adv':
-        setAdvantagesBlured(true);
+        setAdvantagesBlurred(true);
         break;
       case 'disadv':
-        setDisadvantagesBlured(true);
+        setDisadvantagesBlurred(true);
         break;
     }
   };
 
   const handleBlurTextareaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCommentBlured(true);
+    setCommentBlurred(true);
   };
 
   const handleRateChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setRate(+evt.target.value);
   };
 
-  const handlerUserName = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserName = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(evt.target.value);
   };
 
-  const handlerAdvantages = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAdvantages = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setAdvantages(evt.target.value);
   };
 
-  const handlerDisadvantages = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDisadvantages = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setDisadvantages(evt.target.value);
   };
 
-  const handlerComment = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleComment = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.target.value);
   };
 
@@ -99,19 +105,19 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
           <label className="form-review__label form-review__label--required" htmlFor="user-name">
             Ваше Имя
           </label>
-          <input onChange={(evt) => handlerUserName(evt)} onBlur={(evt) => handleBlurChange(evt)} value={userName} className="form-review__input form-review__input--name" id="user-name" name="user-name" type="text" autoComplete="off" data-testid="userName" />
-          {(userNameBlured && userName === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-          {(userNameBlured && userNameLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 20 символов.</p>}
+          <input onChange={handleUserName} onBlur={(evt) => handleBlurChange(evt)} value={userName} className="form-review__input form-review__input--name" id="user-name" name="user-name" type="text" autoComplete="off" data-testid="userName" />
+          {(userNameBlurred && userName === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
+          {(userNameBlurred && userNameLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 20 символов.</p>}
         </div>
         <div>
           <span className="form-review__label form-review__label--required">Ваша Оценка</span>
           <div className="rate rate--reverse">
             {
               (Object.entries(RatingText)).map(([value, label]) => (
-                <>
-                  <input onChange={handleRateChange} className="visually-hidden" id={`star-${raitingLength - (+value)}`} name="rate" type="radio" value={raitingLength - (+value)} />
-                  <label className="rate__label" htmlFor={`star-${raitingLength - (+value)}`} title={label} />
-                </>
+                <React.Fragment key={label} >
+                  <input onChange={handleRateChange} className="visually-hidden" id={`star-${ratingLength - (+value)}`} name="rate" type="radio" value={ratingLength - (+value)} />
+                  <label className="rate__label" htmlFor={`star-${ratingLength - (+value)}`} title={label} />
+                </React.Fragment>
               ))
             }
             {(rateValid || rate) === 0 && <p className="rate__message">Поставьте оценку</p>}
@@ -121,21 +127,21 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
       <label className="form-review__label form-review__label--required" htmlFor="adv">
         Достоинства
       </label>
-      <input onChange={(evt) => handlerAdvantages(evt)} onBlur={(evt) => handleBlurChange(evt)} value={advantages} className="form-review__input" id="adv" name="adv" type="text" autoComplete="off" data-testid="adv" />
-      {(advantagesBlured && advantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-      {(advantagesBlured && advantagesLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 60 символов.</p>}
+      <input onChange={handleAdvantages} onBlur={(evt) => handleBlurChange(evt)} value={advantages} className="form-review__input" id="adv" name="adv" type="text" autoComplete="off" data-testid="adv" />
+      {(advantagesBlurred && advantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
+      {(advantagesBlurred && advantagesLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 60 символов.</p>}
       <label className="form-review__label form-review__label--required" htmlFor="disadv">
         Недостатки
       </label>
-      <input onChange={(evt) => handlerDisadvantages(evt)} onBlur={(evt) => handleBlurChange(evt)} value={disadvantages} className="form-review__input" id="disadv" name="disadv" type="text" autoComplete="off" data-testid="disadv" />
-      {(disadvantagesBlured && disadvantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-      {(disadvantagesBlured && disadvantagesLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 60 символов.</p>}
+      <input onChange={handleDisadvantages} onBlur={(evt) => handleBlurChange(evt)} value={disadvantages} className="form-review__input" id="disadv" name="disadv" type="text" autoComplete="off" data-testid="disadv" />
+      {(disadvantagesBlurred && disadvantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
+      {(disadvantagesBlurred && disadvantagesLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 60 символов.</p>}
       <label className="form-review__label form-review__label--required" htmlFor="comment">
         Комментарий
       </label>
-      <textarea onChange={handlerComment} onBlur={(evt) => handleBlurTextareaChange(evt)} className="form-review__input form-review__input--textarea" id="comment" name="comment" rows={10} autoComplete="off" data-testid="comment" ></textarea>
-      {(commentBlured && comment === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-      {(commentBlured && commentValid) && <p className="form-review__warning">Имя должно быть от 20 до 120 символов.</p>}
+      <textarea onChange={handleComment} onBlur={(evt) => handleBlurTextareaChange(evt)} className="form-review__input form-review__input--textarea" id="comment" name="comment" rows={10} autoComplete="off" data-testid="comment" ></textarea>
+      {(commentBlurred && comment === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
+      {(commentBlurred && commentValid) && <p className="form-review__warning">Комментарий должен быть от 20 до 120 символов.</p>}
       <button onClick={handleReviewAdd} className="button button--medium-20 form-review__button" type="submit" >Отправить отзыв</button>
     </form>
   );

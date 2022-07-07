@@ -13,18 +13,12 @@ type Props = {
 const REVIEW_PRE_PAGE = 3;
 
 export function ReviewList({ guitar }: Props): JSX.Element {
-  const [isUp, setisUp] = useState(false);
-  const [startReview, setstartReview] = useState(REVIEW_PRE_PAGE);
+  const [isUp, setIsUp] = useState(false);
+  const [startReview, setStartReview] = useState(REVIEW_PRE_PAGE);
   const [reviewsCount, setReviewsCount] = useState(0);
   const [showAddReviewModal, setShowAddReviewModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const reviews = (guitar.comments?.map((item) => item))?.sort(sortByDateAsc);
-
-  const handleUpClick = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    evt.preventDefault();
-    setstartReview(REVIEW_PRE_PAGE);
-    setisUp(true);
-  };
 
   useEffect(() => {
     window.scrollTo({
@@ -32,7 +26,7 @@ export function ReviewList({ guitar }: Props): JSX.Element {
       left: 0,
       behavior: 'smooth',
     });
-    setisUp(false);
+    setIsUp(false);
   }, [isUp]);
 
   useEffect(() => {
@@ -41,8 +35,14 @@ export function ReviewList({ guitar }: Props): JSX.Element {
     }
   }, [reviews]);
 
+  const handleUpClick = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    evt.preventDefault();
+    setStartReview(REVIEW_PRE_PAGE);
+    setIsUp(true);
+  };
+
   const handleMoreClick = () => {
-    setstartReview(startReview + REVIEW_PRE_PAGE);
+    setStartReview(startReview + REVIEW_PRE_PAGE);
   };
 
   const handleReviewModalOpen = () => {
@@ -82,7 +82,7 @@ export function ReviewList({ guitar }: Props): JSX.Element {
           review={review}
         />
       ))}
-      {(reviewsCount !== startReview) && <button onClick={handleMoreClick} className="button button--medium reviews__more-button">Показать еще отзывы</button>}
+      {((reviewsCount - startReview) > 0) && <button onClick={handleMoreClick} className="button button--medium reviews__more-button">Показать еще отзывы</button>}
       <Link style={{ zIndex: '100' }} onClick={handleUpClick} className="button button--up button--red-border button--big reviews__up-button" to="#">Наверх</Link>
     </section>
   );

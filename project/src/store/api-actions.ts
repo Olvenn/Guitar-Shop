@@ -29,7 +29,7 @@ export const commentAction = createAsyncThunk<void, Comment, {
   state: State,
   extra: AxiosInstance,
 }>(
-  'user/comment',
+  'user/Addcomment',
   async ({ guitarId, userName, advantage, disadvantage, comment, rating }, { dispatch, extra: api }) => {
     try {
       dispatch(setIsLoading(true));

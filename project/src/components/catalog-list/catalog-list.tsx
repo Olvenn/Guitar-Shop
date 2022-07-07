@@ -11,14 +11,20 @@ export function CatalogList(): JSX.Element {
   const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState(1);
 
+  const guitars = useAppSelector(getGuitars);
+
   useEffect(() => {
     store.dispatch(fetchGuitarsAction(`?_start=${currentPage}&_limit=${ITEMS_PER_PAGE}`));
   }, [currentPage, dispatch]);
 
-  const guitars = useAppSelector(getGuitars);
-
   const handlePageClick = (page: number) => {
     setCurrentPage(page);
+  };
+  const handleNextClick = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
+  const handlePrevClick = () => {
+    setCurrentPage((prev) => prev - 1);
   };
 
   return (
@@ -34,8 +40,9 @@ export function CatalogList(): JSX.Element {
       <div className="pagination page-content__pagination">
         <PaginationList
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
           onPageClick={handlePageClick}
+          onPrevClick={handlePrevClick}
+          onNextClick={handleNextClick}
         />
       </div>
     </>
