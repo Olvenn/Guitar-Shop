@@ -1,7 +1,7 @@
 import { Review } from './types/types';
 import { RATING_ITEMS } from './const';
 
-export const pictureNumber = ((previewImg: string) => {
+export const getPictureNumber = ((previewImg: string) => {
   const from = previewImg.search('.jpg');
   const to = previewImg.search('-') + 1;
   return previewImg.substring(from, to);

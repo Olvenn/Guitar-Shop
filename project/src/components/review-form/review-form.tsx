@@ -107,7 +107,7 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
           </label>
           <input onChange={handleUserName} onBlur={(evt) => handleBlurChange(evt)} value={userName} className="form-review__input form-review__input--name" id="user-name" name="user-name" type="text" autoComplete="off" data-testid="userName" />
           {(userNameBlurred && userName === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-          {(userNameBlurred && userNameLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 20 символов.</p>}
+          {(userNameBlurred && userNameLengthValid) && <p className="form-review__warning">Имя должно быть от {MIN_LENGTH_TEXT} до {MIN_LENGTH_NAME} символов.</p>}
         </div>
         <div>
           <span className="form-review__label form-review__label--required">Ваша Оценка</span>
@@ -129,19 +129,19 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
       </label>
       <input onChange={handleAdvantages} onBlur={(evt) => handleBlurChange(evt)} value={advantages} className="form-review__input" id="adv" name="adv" type="text" autoComplete="off" data-testid="adv" />
       {(advantagesBlurred && advantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-      {(advantagesBlurred && advantagesLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 60 символов.</p>}
+      {(advantagesBlurred && advantagesLengthValid) && <p className="form-review__warning">Имя должно быть от {MIN_LENGTH_TEXT} до {MAX_LENGTH_TEXT} символов.</p>}
       <label className="form-review__label form-review__label--required" htmlFor="disadv">
         Недостатки
       </label>
       <input onChange={handleDisadvantages} onBlur={(evt) => handleBlurChange(evt)} value={disadvantages} className="form-review__input" id="disadv" name="disadv" type="text" autoComplete="off" data-testid="disadv" />
       {(disadvantagesBlurred && disadvantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-      {(disadvantagesBlurred && disadvantagesLengthValid) && <p className="form-review__warning">Имя должно быть от 3 до 60 символов.</p>}
+      {(disadvantagesBlurred && disadvantagesLengthValid) && <p className="form-review__warning">Имя должно быть от {MIN_LENGTH_TEXT} до {MAX_LENGTH_TEXT} символов.</p>}
       <label className="form-review__label form-review__label--required" htmlFor="comment">
         Комментарий
       </label>
       <textarea onChange={handleComment} onBlur={(evt) => handleBlurTextareaChange(evt)} className="form-review__input form-review__input--textarea" id="comment" name="comment" rows={10} autoComplete="off" data-testid="comment" ></textarea>
       {(commentBlurred && comment === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-      {(commentBlurred && commentValid) && <p className="form-review__warning">Комментарий должен быть от 20 до 120 символов.</p>}
+      {(commentBlurred && commentValid) && <p className="form-review__warning">Комментарий должен быть от {MIN_LENGTH_COMMENT} до {MAX_LENGTH_COMMENT} символов.</p>}
       <button onClick={handleReviewAdd} className="button button--medium-20 form-review__button" type="submit" >Отправить отзыв</button>
     </form>
   );

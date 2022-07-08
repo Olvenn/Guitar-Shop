@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { fetchGuitarAction } from '../../store/reducers/guitar';
 import { getGuitar, getGuitarError, getGuitarLoading } from '../../store/reducers/selectors';
 import { AppRoute } from '../../const';
-import { capitalize, pictureNumber } from '../../utils';
+import { capitalize, getPictureNumber } from '../../utils';
 import { Layout } from '../../components/layout/layout';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
 import { rating } from '../../utils';
@@ -59,7 +59,7 @@ export function ItemPage(): JSX.Element {
                 </li>
               </ul>
               <div className="product-container">
-                <img className="product-container__img" src={`../img/content/catalog-product-${pictureNumber(guitar.previewImg)}.jpg`} srcSet={`../img/content/catalog-product-${pictureNumber(guitar.previewImg)}@2x.jpg 2x`} width="90" height="235" alt="" />
+                <img className="product-container__img" src={`../img/content/catalog-product-${getPictureNumber(guitar.previewImg)}.jpg`} srcSet={`../img/content/catalog-product-${getPictureNumber(guitar.previewImg)}@2x.jpg 2x`} width="90" height="235" alt="" />
                 <div className="product-container__info-wrapper">
                   <h2 className="product-container__title title title--big title--uppercase">{guitar?.name}</h2>
                   <div className="rate product-container__rating">

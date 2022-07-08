@@ -1,5 +1,5 @@
 import { Guitar } from '../../types/types';
-import { capitalize, pictureNumber } from '../../utils';
+import { capitalize, getPictureNumber } from '../../utils';
 
 type CartItemProps = {
   guitar: Guitar;
@@ -13,7 +13,7 @@ export function CartItem({ guitar }: CartItemProps): JSX.Element {
         <span className="cart-item__close-button-interactive-area" />
       </button>
       <div className="cart-item__image">
-        <img src={`img/content/catalog-product-${pictureNumber(guitar.previewImg)}.jpg`} srcSet={`img/content/catalog-product-${pictureNumber(guitar.previewImg)}@2x.jpg 2x`} width="55" height="130" alt="ЭлектроГитара Честер bass" />
+        <img src={`img/content/catalog-product-${getPictureNumber(guitar.previewImg)}.jpg`} srcSet={`img/content/catalog-product-${getPictureNumber(guitar.previewImg)}@2x.jpg 2x`} width="55" height="130" alt="ЭлектроГитара Честер bass" />
       </div>
       <div className="product-info cart-item__info">
         <p className="product-info__title">{guitar.name}</p>
