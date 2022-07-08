@@ -1,7 +1,7 @@
 import { generatePath } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Guitar } from '../../types/types';
-import { capitalize, getPictureNumber, rating } from '../../utils';
+import { capitalize, getPictureNumber, ratingValues } from '../../utils';
 import { AppRoute } from '../../const';
 
 type CatalogItemProps = {
@@ -17,7 +17,7 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
       <div className="product-card__info">
         <div className="rate product-card__rate">
           {
-            rating.map((item) => (
+            ratingValues.map((item) => (
               <svg key={item} width="12" height="11" aria-hidden="true">
                 {Math.floor(guitar.rating) > item ? <use xlinkHref="#icon-full-star" /> : <use xlinkHref="#icon-star" />}
               </svg>

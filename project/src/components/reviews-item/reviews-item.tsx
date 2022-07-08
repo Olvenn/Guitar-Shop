@@ -1,6 +1,6 @@
 import { Review } from '../../types/types';
 import { months } from '../../const';
-import { rating } from '../../utils';
+import { ratingValues } from '../../utils';
 
 type ReviewsItemProps = {
   review: Review;
@@ -17,7 +17,7 @@ export function ReviewItem({ review }: ReviewsItemProps): JSX.Element {
       </div>
       <div className="rate review__rating-panel">
         {
-          rating.map((item) => (
+          ratingValues.map((item) => (
             <svg key={item} width="16" height="16" aria-hidden="true">
               {Math.floor(review.rating) > item ? <use xlinkHref="#icon-full-star" /> : <use xlinkHref="#icon-star" />}
             </svg>

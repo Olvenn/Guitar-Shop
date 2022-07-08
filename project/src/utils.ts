@@ -11,7 +11,7 @@ export const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
 
 export const sortByDateAsc = (a: Review, b: Review) => (((new Date(b.createAt)).getTime()) - ((new Date(a.createAt)).getTime()));
 
-export const rating = Array.from(Array(RATING_ITEMS).keys());
+export const ratingValues = Array.from(Array(RATING_ITEMS).keys());
 
 export const stopBodyScroll = () => {
   const getBodyScrollTop = () =>

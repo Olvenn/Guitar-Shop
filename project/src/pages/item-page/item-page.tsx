@@ -7,7 +7,7 @@ import { AppRoute } from '../../const';
 import { capitalize, getPictureNumber } from '../../utils';
 import { Layout } from '../../components/layout/layout';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
-import { rating } from '../../utils';
+import { ratingValues } from '../../utils';
 
 export function ItemPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -63,7 +63,7 @@ export function ItemPage(): JSX.Element {
                 <div className="product-container__info-wrapper">
                   <h2 className="product-container__title title title--big title--uppercase">{guitar?.name}</h2>
                   <div className="rate product-container__rating">
-                    {rating.map((item) => (
+                    {ratingValues.map((item) => (
                       <svg key={item} width="14" height="14" aria-hidden="true">
                         {Math.floor(guitar.rating) > item ? <use xlinkHref="#icon-full-star" /> : <use xlinkHref="#icon-star" />}
                       </svg>

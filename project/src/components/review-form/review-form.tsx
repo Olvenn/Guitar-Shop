@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/';
 import { commentAction } from '../../store/api-actions';
 import { setSuccessfully } from '../../store/reducers/comments';
 import { getGuitar, setCommentSuccessfully } from '../../store/reducers/selectors';
-import { RatingText } from '../../const';
+import { RatingText, commentFieldsName } from '../../const';
 
 const EMPTY_FIELD = 'Заполните поле';
 const MIN_LENGTH_TEXT = 3;
@@ -62,13 +62,13 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
 
   const handleBlurChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     switch (evt.target.name) {
-      case 'user-name':
+      case commentFieldsName.UserName:
         setUserNameBlurred(true);
         break;
-      case 'adv':
+      case commentFieldsName.Adv:
         setAdvantagesBlurred(true);
         break;
-      case 'disadv':
+      case commentFieldsName.Disadv:
         setDisadvantagesBlurred(true);
         break;
     }
