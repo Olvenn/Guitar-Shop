@@ -72,7 +72,7 @@ export function ReviewList({ guitar }: Props): JSX.Element {
         <ReviewModal onClose={handleReviewModalClose} onReviewAdd={handleReviewAdd} />
       )}
       {showSuccessModal && (
-        <SuccessReviewModal onClose={handleSuccessModalClose} />
+        <SuccessReviewModal onClose={handleSuccessModalClose} id={guitar.id} />
       )}
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
       <Link onClick={handleReviewModalOpen} className="button button--red-border button--big reviews__sumbit-button" to="#">Оставить отзыв</Link>

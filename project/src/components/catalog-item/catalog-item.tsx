@@ -1,7 +1,7 @@
 import { generatePath } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Guitar } from '../../types/types';
-import { capitalize, getPictureNumber, ratingValues } from '../../utils';
+import { getPictureNumber, ratingValues } from '../../utils';
 import { AppRoute } from '../../const';
 
 type CatalogItemProps = {
@@ -29,7 +29,7 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
             {guitar.comments?.length ? guitar.comments?.length : 0}
           </p>
         </div>
-        <p className="product-card__title">{guitar.name} {capitalize(guitar.type)}</p>
+        <p className="product-card__title">{guitar.name}</p>
         <p className="product-card__price">
           <span className="visually-hidden">Цена:</span>
           {guitar.price} ₽

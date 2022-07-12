@@ -46,8 +46,6 @@ export const RatingText = {
 
 export enum commentFieldsName {
   UserName = 'user-name',
-  Rate = 'rate',
   Adv = 'adv',
   Disadv = 'disadv',
-  Comment = 'comment',
 }

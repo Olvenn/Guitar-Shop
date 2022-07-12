@@ -1,17 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../../components/modal/modal';
 import { startBodyScroll } from '../../utils';
+import { useAppDispatch } from '../../hooks/';
+import { fetchGuitarAction } from '../../store/reducers/guitar';
 
 type SuccessReviewModalProps = {
   onClose: () => void;
+  id: number;
 }
 
-export function SuccessReviewModal({ onClose }: SuccessReviewModalProps): JSX.Element {
+export function SuccessReviewModal({ onClose, id }: SuccessReviewModalProps): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const handleCloseClick = () => {
-    navigate('/', { replace: true });
+  const handleCloseClick = async () => {
+    await dispatch(fetchGuitarAction(+id));
+    navigate(`/item/${id}`, { replace: true });
     startBodyScroll();
+    onClose();
   };
 
   return (

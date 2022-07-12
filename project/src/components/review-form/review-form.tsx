@@ -6,11 +6,6 @@ import { getGuitar, setCommentSuccessfully } from '../../store/reducers/selector
 import { RatingText, commentFieldsName } from '../../const';
 
 const EMPTY_FIELD = 'Заполните поле';
-const MIN_LENGTH_TEXT = 3;
-const MAX_LENGTH_TEXT = 60;
-const MIN_LENGTH_NAME = 20;
-const MIN_LENGTH_COMMENT = 20;
-const MAX_LENGTH_COMMENT = 120;
 
 type Props = {
   onReviewAdd: () => void;
@@ -33,22 +28,27 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
 
   const ratingLength = Object.entries(RatingText).length + 1;
 
-  const userNameLengthValid = userName.length < MIN_LENGTH_TEXT || userName.length > MIN_LENGTH_NAME;
-  const advantagesLengthValid = advantages.length < MIN_LENGTH_TEXT || advantages.length > MAX_LENGTH_TEXT;
-  const disadvantagesLengthValid = disadvantages.length < MIN_LENGTH_TEXT || disadvantages.length > MAX_LENGTH_TEXT;
-  const commentValid = comment.length < MIN_LENGTH_COMMENT || comment.length > MAX_LENGTH_COMMENT;
-  const rateValid = rate < 0;
+  // const rateValid = rate < 0;
+
+  let isFormNotValid = false;
 
   useEffect(() => {
     if (isSuccessfully) {
       onReviewAdd();
       dispatch(setSuccessfully(false));
     }
-  }, [isSuccessfully, dispatch, onReviewAdd]);
+  }, [isSuccessfully, dispatch, onReviewAdd, guitarId]);
 
   const handleReviewAdd: MouseEventHandler = (evt) => {
     evt.preventDefault();
-    if (guitarId && !userNameLengthValid && !advantagesLengthValid && !disadvantagesLengthValid && !commentValid && !rateValid) {
+
+    isFormNotValid = true;
+    setUserNameBlurred(true);
+    setAdvantagesBlurred(true);
+    setDisadvantagesBlurred(true);
+    setCommentBlurred(true);
+
+    if (guitarId && userName && advantages && disadvantages && comment && rate) {
       dispatch(commentAction({
         guitarId,
         userName,
@@ -105,9 +105,8 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
           <label className="form-review__label form-review__label--required" htmlFor="user-name">
             Ваше Имя
           </label>
-          <input onChange={handleUserName} onBlur={(evt) => handleBlurChange(evt)} value={userName} className="form-review__input form-review__input--name" id="user-name" name="user-name" type="text" autoComplete="off" data-testid="userName" />
-          {(userNameBlurred && userName === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-          {(userNameBlurred && userNameLengthValid) && <p className="form-review__warning">Имя должно быть от {MIN_LENGTH_TEXT} до {MIN_LENGTH_NAME} символов.</p>}
+          <input onChange={handleUserName} onBlur={(evt) => handleBlurChange(evt)} value={userName} className="form-review__input form-review__input--name" id={commentFieldsName.UserName} name="user-name" type="text" autoComplete="off" data-testid="userName" />
+          {(((userNameBlurred && userName === '') || isFormNotValid)) && <p className="form-review__warning">{EMPTY_FIELD}</p>}
         </div>
         <div>
           <span className="form-review__label form-review__label--required">Ваша Оценка</span>
@@ -120,28 +119,25 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
                 </React.Fragment>
               ))
             }
-            {(rateValid || rate) === 0 && <p className="rate__message">Поставьте оценку</p>}
+            {(isFormNotValid) && <p className="rate__message">Поставьте оценку</p>}
           </div>
         </div>
       </div>
       <label className="form-review__label form-review__label--required" htmlFor="adv">
         Достоинства
       </label>
-      <input onChange={handleAdvantages} onBlur={(evt) => handleBlurChange(evt)} value={advantages} className="form-review__input" id="adv" name="adv" type="text" autoComplete="off" data-testid="adv" />
+      <input onChange={handleAdvantages} onBlur={(evt) => handleBlurChange(evt)} value={advantages} className="form-review__input" id={commentFieldsName.Adv} name="adv" type="text" autoComplete="off" data-testid="adv" />
       {(advantagesBlurred && advantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-      {(advantagesBlurred && advantagesLengthValid) && <p className="form-review__warning">Имя должно быть от {MIN_LENGTH_TEXT} до {MAX_LENGTH_TEXT} символов.</p>}
       <label className="form-review__label form-review__label--required" htmlFor="disadv">
         Недостатки
       </label>
-      <input onChange={handleDisadvantages} onBlur={(evt) => handleBlurChange(evt)} value={disadvantages} className="form-review__input" id="disadv" name="disadv" type="text" autoComplete="off" data-testid="disadv" />
+      <input onChange={handleDisadvantages} onBlur={(evt) => handleBlurChange(evt)} value={disadvantages} className="form-review__input" id={commentFieldsName.Disadv} name="disadv" type="text" autoComplete="off" data-testid="disadv" />
       {(disadvantagesBlurred && disadvantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-      {(disadvantagesBlurred && disadvantagesLengthValid) && <p className="form-review__warning">Имя должно быть от {MIN_LENGTH_TEXT} до {MAX_LENGTH_TEXT} символов.</p>}
       <label className="form-review__label form-review__label--required" htmlFor="comment">
         Комментарий
       </label>
       <textarea onChange={handleComment} onBlur={(evt) => handleBlurTextareaChange(evt)} className="form-review__input form-review__input--textarea" id="comment" name="comment" rows={10} autoComplete="off" data-testid="comment" ></textarea>
       {(commentBlurred && comment === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
-      {(commentBlurred && commentValid) && <p className="form-review__warning">Комментарий должен быть от {MIN_LENGTH_COMMENT} до {MAX_LENGTH_COMMENT} символов.</p>}
       <button onClick={handleReviewAdd} className="button button--medium-20 form-review__button" type="submit" >Отправить отзыв</button>
     </form>
   );

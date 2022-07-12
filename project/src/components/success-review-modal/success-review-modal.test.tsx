@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { SuccessReviewModal } from './success-review-modal';
 import { AppRoute } from '../../const';
 
-
+const id = 1;
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 describe('Component: SuccessReviewModal', () => {
@@ -17,7 +17,7 @@ describe('Component: SuccessReviewModal', () => {
     render(
       <Provider store={mockStore({})}>
         <HistoryRouter history={history}>
-          <SuccessReviewModal onClose={jest.fn()} />
+          <SuccessReviewModal onClose={jest.fn()} id={id} />
         </HistoryRouter>;
       </Provider>,
     );
@@ -38,7 +38,7 @@ describe('Component: SuccessReviewModal', () => {
           />
           <Route
             path='*'
-            element={<SuccessReviewModal onClose={jest.fn()} />}
+            element={<SuccessReviewModal onClose={jest.fn()} id={id} />}
           />
         </Routes>
       </HistoryRouter>);
