@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { store } from '../../store';
 import { ITEMS_PER_PAGE } from '../../const';
@@ -9,23 +10,13 @@ import { PaginationList } from '../pagination-list/pagination-list';
 
 export function CatalogList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
+  const { page = 1 } = useParams<{ page: string }>();
 
   const guitars = useAppSelector(getGuitars);
 
   useEffect(() => {
-    store.dispatch(fetchGuitarsAction(`?_start=${currentPage}&_limit=${ITEMS_PER_PAGE}`));
-  }, [currentPage, dispatch]);
-
-  const handlePageClick = (page: number) => {
-    setCurrentPage(page);
-  };
-  const handleNextClick = () => {
-    setCurrentPage((prev) => prev + 1);
-  };
-  const handlePrevClick = () => {
-    setCurrentPage((prev) => prev - 1);
-  };
+    store.dispatch(fetchGuitarsAction(`?_start=${page}&_limit=${ITEMS_PER_PAGE}`));
+  }, [page, dispatch]);
 
   return (
     <>
@@ -39,10 +30,7 @@ export function CatalogList(): JSX.Element {
       </div>
       <div className="pagination page-content__pagination">
         <PaginationList
-          currentPage={currentPage}
-          onPageClick={handlePageClick}
-          onPrevClick={handlePrevClick}
-          onNextClick={handleNextClick}
+          currentPage={Number(page)}
         />
       </div>
     </>

@@ -1,5 +1,5 @@
-import { Modal } from '../../components/modal/modal';
-import { ReviewForm } from '../../components/review-form/review-form';
+import { Modal } from '../modal/modal';
+import { ReviewForm } from '../review-form/review-form';
 
 type Props = {
   onClose: () => void;
@@ -8,7 +8,7 @@ type Props = {
 
 export function ReviewModal({ onClose, onReviewAdd }: Props): JSX.Element {
   return (
-    <div style={{ position: 'relative', width: '550px', height: '610px', marginBottom: '50px' }}>
+    <div style={{ position: 'absolute', width: '550px', height: '610px', marginBottom: '50px' }}>
       <div className="modal is-active modal--review modal-for-ui-kit">
         <Modal onClose={onClose} >
           <h2 className="modal__header modal__header--review title title--medium">Оставить отзыв</h2>

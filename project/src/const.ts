@@ -4,14 +4,13 @@ export const RATING_ITEMS = 5;
 export enum AppRoute {
   Root = '/',
   Catalog = '/catalog',
+  CatalogPage = '/catalog/:page',
   Item = '/item/:id',
   Cart = '/cart',
 }
 
 export enum APIRoute {
   Guitars = '/guitars/',
-  Coupons = '/coupons',
-  Orders = '/orders',
   Comments = '/comments',
 }
 
@@ -37,11 +36,11 @@ export const months = [
 ];
 
 export const RatingText = {
-  1: 'Ужасно',
-  2: 'Плохо',
+  1: 'Отлично',
+  2: 'Хорошо',
   3: 'Нормально',
-  4: 'Хорошо',
-  5: 'Отлично',
+  4: 'Плохо',
+  5: 'Ужасно',
 } as const;
 
 export enum commentFieldsName {

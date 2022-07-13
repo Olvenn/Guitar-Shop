@@ -13,7 +13,7 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
 
   return (
     <div className="product-card">
-      <img src={`img/content/catalog-product-${getPictureNumber(guitar.previewImg)}.jpg`} srcSet={`img/content/catalog-product-${getPictureNumber(guitar.previewImg)}@2x.jpg 2x`} width="75" height="190" alt={`${guitar.name}`} />
+      <img src={`/img/content/catalog-product-${getPictureNumber(guitar.previewImg)}.jpg`} srcSet={`/img/content/catalog-product-${getPictureNumber(guitar.previewImg)}@2x.jpg 2x`} width="75" height="190" alt={`${guitar.name}`} />
       <div className="product-card__info">
         <div className="rate product-card__rate">
           {

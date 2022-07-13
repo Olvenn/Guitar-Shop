@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Guitar } from '../../types/types';
 import { ReviewItem } from '../reviews-item/reviews-item';
-import { ReviewModal } from '../../components/review-modal/review-modal';
-import { SuccessReviewModal } from '../../components/success-review-modal/success-review-modal';
+import { ReviewModal } from '../review-modal/review-modal';
+import { SuccessReviewModal } from '../success-review-modal/success-review-modal';
 import { sortByDateAsc, stopBodyScroll, startBodyScroll } from '../../utils';
 
 type Props = {

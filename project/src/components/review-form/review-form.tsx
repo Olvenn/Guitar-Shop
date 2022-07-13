@@ -2,7 +2,7 @@ import React, { MouseEventHandler, useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/';
 import { commentAction } from '../../store/api-actions';
 import { setSuccessfully } from '../../store/reducers/comments';
-import { getGuitar, setCommentSuccessfully } from '../../store/reducers/selectors';
+import { getGuitar, getIsSuccessfullyComment } from '../../store/reducers/selectors';
 import { RatingText, commentFieldsName } from '../../const';
 
 const EMPTY_FIELD = 'Заполните поле';
@@ -14,7 +14,7 @@ type Props = {
 export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const guitarId = useAppSelector(getGuitar)?.id;
-  const isSuccessfully = useAppSelector(setCommentSuccessfully);
+  const isSuccessfully = useAppSelector(getIsSuccessfullyComment);
 
   const [userName, setUserName] = useState('');
   const [rate, setRate] = useState(0);
@@ -26,11 +26,10 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
   const [disadvantagesBlurred, setDisadvantagesBlurred] = useState(false);
   const [commentBlurred, setCommentBlurred] = useState(false);
 
+  const [isFormNotValid, setIsFormNotValid] = useState(false);
   const ratingLength = Object.entries(RatingText).length + 1;
 
-  // const rateValid = rate < 0;
-
-  let isFormNotValid = false;
+  const rateValid = rate > 0;
 
   useEffect(() => {
     if (isSuccessfully) {
@@ -42,13 +41,13 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
   const handleReviewAdd: MouseEventHandler = (evt) => {
     evt.preventDefault();
 
-    isFormNotValid = true;
+    setIsFormNotValid(true);
     setUserNameBlurred(true);
     setAdvantagesBlurred(true);
     setDisadvantagesBlurred(true);
     setCommentBlurred(true);
 
-    if (guitarId && userName && advantages && disadvantages && comment && rate) {
+    if (guitarId && userName && advantages && disadvantages && comment && rateValid) {
       dispatch(commentAction({
         guitarId,
         userName,
@@ -105,8 +104,18 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
           <label className="form-review__label form-review__label--required" htmlFor="user-name">
             Ваше Имя
           </label>
-          <input onChange={handleUserName} onBlur={(evt) => handleBlurChange(evt)} value={userName} className="form-review__input form-review__input--name" id={commentFieldsName.UserName} name="user-name" type="text" autoComplete="off" data-testid="userName" />
-          {(((userNameBlurred && userName === '') || isFormNotValid)) && <p className="form-review__warning">{EMPTY_FIELD}</p>}
+          <input
+            onChange={handleUserName}
+            onBlur={handleBlurChange}
+            value={userName}
+            className="form-review__input form-review__input--name"
+            id={commentFieldsName.UserName}
+            name="user-name"
+            type="text"
+            autoComplete="off"
+            data-testid="userName"
+          />
+          {(userNameBlurred && userName === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
         </div>
         <div>
           <span className="form-review__label form-review__label--required">Ваша Оценка</span>
@@ -114,29 +123,63 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
             {
               (Object.entries(RatingText)).map(([value, label]) => (
                 <React.Fragment key={label} >
-                  <input onChange={handleRateChange} className="visually-hidden" id={`star-${ratingLength - (+value)}`} name="rate" type="radio" value={ratingLength - (+value)} />
+                  <input onChange={handleRateChange}
+                    className="visually-hidden"
+                    id={`star-${ratingLength - (+value)}`}
+                    name="rate" type="radio"
+                    value={ratingLength - (+value)}
+                  />
                   <label className="rate__label" htmlFor={`star-${ratingLength - (+value)}`} title={label} />
                 </React.Fragment>
               ))
             }
-            {(isFormNotValid) && <p className="rate__message">Поставьте оценку</p>}
+            {(isFormNotValid && rate === 0) && <p className="rate__message">Поставьте оценку</p>}
           </div>
         </div>
       </div>
       <label className="form-review__label form-review__label--required" htmlFor="adv">
         Достоинства
       </label>
-      <input onChange={handleAdvantages} onBlur={(evt) => handleBlurChange(evt)} value={advantages} className="form-review__input" id={commentFieldsName.Adv} name="adv" type="text" autoComplete="off" data-testid="adv" />
+      <input
+        onChange={handleAdvantages}
+        onBlur={handleBlurChange}
+        value={advantages}
+        className="form-review__input"
+        id={commentFieldsName.Adv}
+        name="adv"
+        type="text"
+        autoComplete="off"
+        data-testid="adv"
+      />
       {(advantagesBlurred && advantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
       <label className="form-review__label form-review__label--required" htmlFor="disadv">
         Недостатки
       </label>
-      <input onChange={handleDisadvantages} onBlur={(evt) => handleBlurChange(evt)} value={disadvantages} className="form-review__input" id={commentFieldsName.Disadv} name="disadv" type="text" autoComplete="off" data-testid="disadv" />
+      <input
+        onChange={handleDisadvantages}
+        onBlur={handleBlurChange}
+        value={disadvantages}
+        className="form-review__input"
+        id={commentFieldsName.Disadv}
+        name="disadv"
+        type="text"
+        autoComplete="off"
+        data-testid="disadv"
+      />
       {(disadvantagesBlurred && disadvantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
       <label className="form-review__label form-review__label--required" htmlFor="comment">
         Комментарий
       </label>
-      <textarea onChange={handleComment} onBlur={(evt) => handleBlurTextareaChange(evt)} className="form-review__input form-review__input--textarea" id="comment" name="comment" rows={10} autoComplete="off" data-testid="comment" ></textarea>
+      <textarea
+        onChange={handleComment}
+        onBlur={handleBlurTextareaChange}
+        className="form-review__input form-review__input--textarea"
+        id="comment"
+        name="comment"
+        rows={10}
+        autoComplete="off"
+        data-testid="comment"
+      />
       {(commentBlurred && comment === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
       <button onClick={handleReviewAdd} className="button button--medium-20 form-review__button" type="submit" >Отправить отзыв</button>
     </form>

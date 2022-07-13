@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Modal } from '../../components/modal/modal';
+import { Modal } from '../modal/modal';
 import { startBodyScroll } from '../../utils';
 import { useAppDispatch } from '../../hooks/';
 import { fetchGuitarAction } from '../../store/reducers/guitar';

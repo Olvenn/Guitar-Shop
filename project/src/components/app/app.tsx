@@ -17,6 +17,10 @@ export function App(): JSX.Element {
         element={<CatalogPage />}
       />
       <Route
+        path={AppRoute.CatalogPage}
+        element={<CatalogPage />}
+      />
+      <Route
         path={AppRoute.Item}
         element={<ItemPage />}
       />

@@ -7,5 +7,5 @@ export const getGuitar = (state: State): Guitar | undefined => state[NameSpace.G
 export const getGuitarError = (state: State): string | undefined => state[NameSpace.Guitar].error;
 export const getGuitarLoading = (state: State): boolean => state[NameSpace.Guitar].loading;
 export const getTotalCounts = (state: State): number => state[NameSpace.Guitars].totalCounts;
-export const setCommentSuccessfully = (state: State): boolean => state[NameSpace.Reviews].isSuccessfully;
+export const getIsSuccessfullyComment = (state: State): boolean => state[NameSpace.Reviews].isSuccessfully;
 
