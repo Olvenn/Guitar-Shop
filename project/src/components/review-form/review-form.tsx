@@ -115,7 +115,7 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
             autoComplete="off"
             data-testid="userName"
           />
-          {(userNameBlurred && userName === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
+          {(userNameBlurred && userName === '') ? <p className="form-review__warning">{EMPTY_FIELD}</p> : <p className="form-review__warning">&nbsp;</p>}
         </div>
         <div>
           <span className="form-review__label form-review__label--required">Ваша Оценка</span>
@@ -151,7 +151,8 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
         autoComplete="off"
         data-testid="adv"
       />
-      {(advantagesBlurred && advantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
+      {(advantagesBlurred && advantages === '') ? <p className="form-review__warning">{EMPTY_FIELD}</p> : <p className="form-review__warning">&nbsp;</p>}
+
       <label className="form-review__label form-review__label--required" htmlFor="disadv">
         Недостатки
       </label>
@@ -166,7 +167,7 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
         autoComplete="off"
         data-testid="disadv"
       />
-      {(disadvantagesBlurred && disadvantages === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
+      {(disadvantagesBlurred && disadvantages === '') ? <p className="form-review__warning">{EMPTY_FIELD}</p> : <p className="form-review__warning">&nbsp;</p>}
       <label className="form-review__label form-review__label--required" htmlFor="comment">
         Комментарий
       </label>
@@ -180,7 +181,7 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
         autoComplete="off"
         data-testid="comment"
       />
-      {(commentBlurred && comment === '') && <p className="form-review__warning">{EMPTY_FIELD}</p>}
+      {(commentBlurred && comment === '') ? <p className="form-review__warning">{EMPTY_FIELD}</p> : <p className="form-review__warning">&nbsp;</p>}
       <button onClick={handleReviewAdd} className="button button--medium-20 form-review__button" type="submit" >Отправить отзыв</button>
     </form>
   );
