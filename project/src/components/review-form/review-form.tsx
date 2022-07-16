@@ -152,7 +152,6 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
         data-testid="adv"
       />
       {(advantagesBlurred && advantages === '') ? <p className="form-review__warning">{EMPTY_FIELD}</p> : <p className="form-review__warning">&nbsp;</p>}
-
       <label className="form-review__label form-review__label--required" htmlFor="disadv">
         Недостатки
       </label>
