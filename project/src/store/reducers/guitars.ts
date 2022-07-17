@@ -5,11 +5,13 @@ import { Guitar } from '../../types/types';
 type StateProps = {
   guitars: Guitar[];
   totalCounts: number;
+  searchGuitars?: Guitar[];
 };
 
 const initialState: StateProps = {
   guitars: [],
   totalCounts: 0,
+  searchGuitars: [],
 };
 
 export const guitars = createSlice({
@@ -22,7 +24,10 @@ export const guitars = createSlice({
     setTotalCounts: (state, action) => {
       state.totalCounts = action.payload;
     },
+    loadSearchData: (state, action) => {
+      state.searchGuitars = action.payload;
+    },
   },
 });
 
-export const { loadGuitars, setTotalCounts } = guitars.actions;
+export const { loadGuitars, setTotalCounts, loadSearchData } = guitars.actions;

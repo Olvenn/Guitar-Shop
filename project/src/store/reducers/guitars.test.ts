@@ -13,6 +13,7 @@ describe('Reducer: guitars', () => {
       .toEqual({
         guitars: [],
         totalCounts: 0,
+        loadSearchData: [],
       });
   });
 
@@ -20,6 +21,7 @@ describe('Reducer: guitars', () => {
     const state = {
       guitars: [],
       totalCounts: 0,
+      loadSearchData: [],
     };
     expect(guitars.reducer(state, loadGuitars(fakeGuitars)))
       .toEqual({

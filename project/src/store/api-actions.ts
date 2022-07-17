@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state.js';
 import { Guitar, Comment } from '../types/types';
-import { loadGuitars, setTotalCounts } from './reducers/guitars';
+import { loadGuitars, setTotalCounts, loadSearchData } from './reducers/guitars';
 import { setIsLoading, setSuccessfully } from './reducers/comments';
 import { APIRoute } from '../const';
 
@@ -20,6 +20,22 @@ export const fetchGuitarsAction = createAsyncThunk<void, string, {
       dispatch(setTotalCounts(totalCount));
     } catch (error) {
       dispatch(loadGuitars([]));
+    }
+  },
+);
+
+export const searchAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance,
+}>(
+  'data/fetchSearch',
+  async (query, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<Guitar[]>(`${APIRoute.Guitars}?name_like=${query}`);
+      dispatch(loadSearchData(data));
+    } catch (error) {
+      dispatch(loadSearchData([]));
     }
   },
 );
