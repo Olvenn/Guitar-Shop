@@ -33,3 +33,5 @@ export const startBodyScroll = () => {
     window.scrollTo(0, scroll);
   }
 };
+
+// export const sortByPrice = (a: Guitar, b: Guitar) => a.price - b.price;

@@ -1,5 +1,7 @@
 export const ITEMS_PER_PAGE = 9;
 export const RATING_ITEMS = 5;
+export const MIN_PRICE = 1000;
+export const MAX_PRICE = 40000;
 
 export enum AppRoute {
   Root = '/',
@@ -48,3 +50,9 @@ export enum commentFieldsName {
   Adv = 'adv',
   Disadv = 'disadv',
 }
+
+export const StringCounts = {
+  acoustic: ['6', '7', '12'],
+  electric: ['4', '6', '7'],
+  ukulele: ['4'],
+} as const;

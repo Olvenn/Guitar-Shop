@@ -31,3 +31,16 @@ export type Comment = {
   rating: number;
 }
 
+export type Filter = {
+  minPrice?: number;
+  maxPrice?: number;
+  type?: string;
+  strings?: string;
+}
+
+// export type Sort = {
+//   price?: string;
+//   asc?: string;
+//   rating?: string;
+//   desc?: string;
+// }

@@ -3,20 +3,31 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { store } from '../../store';
 import { ITEMS_PER_PAGE } from '../../const';
-import { getGuitars } from '../../store/reducers/selectors';
+import { getGuitars, getFilters, selectSort } from '../../store/reducers/selectors';
 import { CatalogItem } from '../catalog-item/catalog-item';
 import { fetchGuitarsAction } from '../../store/api-actions';
 import { PaginationList } from '../pagination-list/pagination-list';
+import { getIsLoadingGuitars } from '../../store/reducers/selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 export function CatalogList(): JSX.Element {
   const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(getIsLoadingGuitars);
   const { page = 1 } = useParams<{ page: string }>();
 
   const guitars = useAppSelector(getGuitars);
+  const filters = useAppSelector(getFilters);
+  const sort = useAppSelector(selectSort);
 
   useEffect(() => {
-    store.dispatch(fetchGuitarsAction(`?_start=${page}&_limit=${ITEMS_PER_PAGE}`));
-  }, [page, dispatch]);
+    store.dispatch(fetchGuitarsAction(`${sort}price_gte=${filters?.minPrice}&price_lte=${filters?.maxPrice}${filters?.strings}${filters?.type}&_start=${(+page - 1) * ITEMS_PER_PAGE}&_limit=${ITEMS_PER_PAGE}${filters?.strings}`));
+  }, [page, dispatch, filters, sort]);
+
+  if (!isLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <>
