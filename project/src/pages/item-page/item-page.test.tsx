@@ -19,6 +19,10 @@ const store = mockStore({
   [NameSpace.Guitar]: {
     guitar: fakeGuitar,
   },
+  [NameSpace.Guitars]: {
+    guitar: fakeGuitar,
+    searchGuitars: [],
+  },
   [NameSpace.Reviews]: {
     isLoading: true,
     isSuccessfully: true,

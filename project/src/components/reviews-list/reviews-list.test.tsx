@@ -29,7 +29,6 @@ describe('Component: ReviewList', () => {
       </Provider>,
     );
 
-    expect(screen.getByRole('button', { name: /Показать еще отзывы/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Оставить отзыв/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Наверх/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Оставить отзыв/i })).toBeInTheDocument();

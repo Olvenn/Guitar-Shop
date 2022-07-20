@@ -29,7 +29,10 @@ export function SuccessReviewModal({ onClose, id }: SuccessReviewModalProps): JS
           </svg>
           <p className="modal__message">Спасибо за ваш отзыв!</p>
           <div className="modal__button-container modal__button-container--review">
-            <button onClick={handleCloseClick} className="button button--small modal__button modal__button--review">
+            <button
+              onClick={handleCloseClick}
+              className="button button--small modal__button modal__button--review"
+            >
               К покупкам!
             </button>
           </div>

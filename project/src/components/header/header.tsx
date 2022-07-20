@@ -12,7 +12,11 @@ export function Header(): JSX.Element {
         </Link>
         {<MainNavList />}
         {<Search />}
-        <Link id="cart" className="header__cart-link" to={AppRoute.Cart} aria-label="Корзина">
+        <Link id="cart"
+          className="header__cart-link"
+          to={AppRoute.Cart}
+          aria-label="Корзина"
+        >
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket" />
           </svg>

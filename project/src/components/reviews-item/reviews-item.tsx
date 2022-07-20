@@ -12,8 +12,12 @@ export function ReviewItem({ review }: ReviewsItemProps): JSX.Element {
   return (
     <div className="review">
       <div className="review__wrapper">
-        <h4 className="review__title review__title--author title title--lesser">{review.userName}</h4>
-        <span className="review__date">{reviewDate.getDate()} {months[reviewDate.getMonth()]}</span>
+        <h4 className="review__title review__title--author title title--lesser">
+          {review.userName}
+        </h4>
+        <span className="review__date">
+          {reviewDate.getDate()} {months[reviewDate.getMonth()]}
+        </span>
       </div>
       <div className="rate review__rating-panel">
         {

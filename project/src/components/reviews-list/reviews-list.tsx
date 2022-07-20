@@ -75,15 +75,33 @@ export function ReviewList({ guitar }: Props): JSX.Element {
         <SuccessReviewModal onClose={handleSuccessModalClose} id={guitar.id} />
       )}
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
-      <Link onClick={handleReviewModalOpen} className="button button--red-border button--big reviews__sumbit-button" to="#">Оставить отзыв</Link>
+      <Link
+        onClick={handleReviewModalOpen}
+        className="button button--red-border button--big reviews__sumbit-button"
+        to="#"
+      >
+        Оставить отзыв
+      </Link>
       {reviews?.slice(0, startReview).map((review) => (
         <ReviewItem
           key={review.id}
           review={review}
         />
       ))}
-      {((reviewsCount - startReview) > 0) && <button onClick={handleMoreClick} className="button button--medium reviews__more-button">Показать еще отзывы</button>}
-      <Link style={{ zIndex: '100' }} onClick={handleUpClick} className="button button--up button--red-border button--big reviews__up-button" to="#">Наверх</Link>
+      {((reviewsCount - startReview) > 0) &&
+        <button
+          onClick={handleMoreClick}
+          className="button button--medium reviews__more-button"
+        >
+          Показать еще отзывы
+        </button>}
+      <Link style={{ zIndex: '100' }}
+        onClick={handleUpClick}
+        className="button button--up button--red-border button--big reviews__up-button"
+        to="#"
+      >
+        Наверх
+      </Link>
     </section>
   );
 }

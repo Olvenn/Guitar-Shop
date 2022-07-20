@@ -5,7 +5,6 @@ import { Sorting } from '../../components/sorting/sorting';
 import { Filters } from '../../components/filters/filters';
 import { CatalogList } from '../../components/catalog-list/catalog-list';
 
-
 export function CatalogPage(): JSX.Element {
   return (
     <Layout>

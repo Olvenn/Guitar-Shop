@@ -35,13 +35,19 @@ export function ItemPage(): JSX.Element {
           )}
           {!guitar && error && (
             <>
-              <h2 style={{ color: '#8b0000' }} className="page-content__title title title--bigger">{error}</h2>
+              <h2 style={{ color: '#8b0000' }}
+                className="page-content__title title title--bigger"
+              >
+                {error}
+              </h2>
               <br />
               <h3 className="page-content__title title title--bigger">
                 Что-то пошло не так. <br /> Попробуйте еще раз, или выберите другую гитару из каталога.
               </h3>
               <br />
-              <a style={{ width: '400px' }} className="form__submit button" href="/">Вернуться в каталог</a>
+              <a style={{ width: '400px' }} className="form__submit button" href="/">
+                Вернуться в каталог
+              </a>
             </>
           )}
           {guitar && (
@@ -59,21 +65,34 @@ export function ItemPage(): JSX.Element {
                 </li>
               </ul>
               <div className="product-container">
-                <img className="product-container__img" src={`../img/content/catalog-product-${getPictureNumber(guitar.previewImg)}.jpg`} srcSet={`../img/content/catalog-product-${getPictureNumber(guitar.previewImg)}@2x.jpg 2x`} width="90" height="235" alt="" />
+                <img
+                  className="product-container__img"
+                  src={`../img/content/catalog-product-${getPictureNumber(guitar.previewImg)}.jpg`}
+                  srcSet={`../img/content/catalog-product-${getPictureNumber(guitar.previewImg)}@2x.jpg 2x`}
+                  width="90" height="235" alt=""
+                />
                 <div className="product-container__info-wrapper">
                   <h2 className="product-container__title title title--big title--uppercase">{guitar?.name}</h2>
                   <div className="rate product-container__rating">
                     {ratingValues.map((item) => (
                       <svg key={item} width="14" height="14" aria-hidden="true">
-                        {Math.floor(guitar.rating) > item ? <use xlinkHref="#icon-full-star" /> : <use xlinkHref="#icon-star" />}
+                        {Math.floor(guitar.rating) > item
+                          ? <use xlinkHref="#icon-full-star" />
+                          : <use xlinkHref="#icon-star" />}
                       </svg>
                     ))}
                     <p className="visually-hidden">Оценка: Хорошо</p>
-                    <p style={{ fontSize: '12px', lineHeight: '25px', color: '#585757' }} >{guitar?.comments?.length}</p>
+                    <p style={{ fontSize: '12px', lineHeight: '25px', color: '#585757' }} >
+                      {guitar?.comments?.length}
+                    </p>
                   </div>
                   <div className="tabs">
-                    <a className={`button  ${(showDescription) ? 'button--black-border' : ''} button--medium tabs__button`} href="#characteristics">Характеристики</a>
-                    <a className={`button  ${(!showDescription) ? 'button--black-border' : ''} button--medium tabs__button`} href="#description">Описание</a>
+                    <a className={`button  ${(showDescription) ? 'button--black-border' : ''} button--medium tabs__button`} href="#characteristics">
+                      Характеристики
+                    </a>
+                    <a className={`button  ${(!showDescription) ? 'button--black-border' : ''} button--medium tabs__button`} href="#description">
+                      Описание
+                    </a>
                     <div className="tabs__content">
                       {(showCharacteristics || (!showCharacteristics && !showDescription)) &&
                         <table className="tabs__table">
@@ -98,9 +117,14 @@ export function ItemPage(): JSX.Element {
                   </div>
                 </div>
                 <div className="product-container__price-wrapper">
-                  <p className="product-container__price-info product-container__price-info--title">Цена:</p>
-                  <p className="product-container__price-info product-container__price-info--value">{guitar.price} ₽</p>
-                  <Link className="button button--red button--big product-container__button" to="#">Добавить в корзину
+                  <p className="product-container__price-info product-container__price-info--title">
+                    Цена:
+                  </p>
+                  <p className="product-container__price-info product-container__price-info--value">
+                    {guitar.price} ₽
+                  </p>
+                  <Link className="button button--red button--big product-container__button" to="#">
+                    Добавить в корзину
                   </Link>
                 </div>
               </div>

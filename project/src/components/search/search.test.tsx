@@ -15,7 +15,7 @@ const history = createMemoryHistory();
 history.push(AppRoute.Root);
 
 const store = mockStore({
-  [NameSpace.Guitar]: {
+  [NameSpace.Guitars]: {
     guitar: fakeGuitars,
   },
 });
@@ -36,6 +36,6 @@ describe('Component: header', () => {
     );
 
     expect(screen.getByText(/Начать поиск/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/Логотип/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/что вы ищите?/i)).toBeInTheDocument();
   });
 });

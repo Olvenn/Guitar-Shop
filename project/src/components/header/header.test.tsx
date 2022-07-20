@@ -16,8 +16,9 @@ const history = createMemoryHistory();
 history.push(AppRoute.Root);
 
 const store = mockStore({
-  [NameSpace.Guitar]: {
+  [NameSpace.Guitars]: {
     guitar: fakeGuitars,
+    searchGuitars: [],
   },
 });
 
@@ -62,3 +63,5 @@ describe('Component: header', () => {
     expect(screen.getByText(/This is cart page/i)).toBeInTheDocument();
   });
 });
+
+

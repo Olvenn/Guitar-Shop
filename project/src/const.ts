@@ -56,3 +56,10 @@ export const StringCounts = {
   electric: ['4', '6', '7'],
   ukulele: ['4'],
 } as const;
+
+export enum SortTypes {
+  sortByPriceAsc = '?_sort=price&_order=asc&',
+  sortByPriceDesc = '?_sort=price&_order=desc&',
+  sortByRatingAsc = '?_sort=rating&_order=asc&',
+  sortByRatingDesc = '?_sort=rating&_order=desc&',
+}

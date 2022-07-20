@@ -16,7 +16,7 @@ export function Search(): JSX.Element {
     setQuery(evt.target.value);
   };
 
-  const handleSeleckClick = (id: string) => {
+  const handleSelecktClick = (id: string) => {
     navigate(id);
     setQuery('');
   };
@@ -49,15 +49,17 @@ export function Search(): JSX.Element {
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
-      <ul className={`${query.length > 0 ? 'form-search__select-list list-opened' : 'form-search__select-list hidden'}`}>
+      <ul className={`${query.length > 0
+        ? 'form-search__select-list list-opened'
+        : 'form-search__select-list hidden'}`}
+      >
         {searchGuitars?.length !== 0 ?
-
           searchGuitars?.map(({ id, name }) => {
             const linkSrc = generatePath(AppRoute.Item, { id: `${id}` });
             return (
               <li key={id}
                 onClick={() => {
-                  handleSeleckClick(linkSrc);
+                  handleSelecktClick(linkSrc);
                 }}
                 className="form-search__select-item"
                 tabIndex={0}
@@ -67,7 +69,12 @@ export function Search(): JSX.Element {
           })
           : 'Нет совпадений.'}
       </ul>
-      <button onClick={handleIconCloseClick} className="form-search__reset" type="reset" form="form-search">
+      <button
+        onClick={handleIconCloseClick}
+        className="form-search__reset"
+        type="reset"
+        form="form-search"
+      >
         <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
           <use xlinkHref="#icon-close" />
         </svg>

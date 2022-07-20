@@ -38,7 +38,11 @@ export function CartPage(): JSX.Element {
                   <span className="cart__total-value-name">К оплате:</span>
                   <span className="cart__total-value cart__total-value--payment">49 000 ₽</span>
                 </p>
-                <button className="button button--red button--big cart__order-button">Оформить заказ</button>
+                <button
+                  className="button button--red button--big cart__order-button"
+                >
+                  Оформить заказ
+                </button>
               </div>
             </div>
           </div>
