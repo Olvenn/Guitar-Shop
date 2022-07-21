@@ -1,6 +1,7 @@
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
 import { Guitar, Filter } from '../../types/types';
+import { Sort } from '../reducers/guitars';
 
 export const getGuitars = (state: State): Guitar[] => state[NameSpace.Guitars].guitars;
 export const getGuitar = (state: State): Guitar | undefined => state[NameSpace.Guitar].guitar;
@@ -11,4 +12,4 @@ export const getTotalCounts = (state: State): number => state[NameSpace.Guitars]
 export const getIsSuccessfullyComment = (state: State): boolean => state[NameSpace.Reviews].isSuccessfully;
 export const getSearchGuitars = (state: State): Guitar[] | undefined => state[NameSpace.Guitars].searchGuitars;
 export const getFilters = (state: State): Filter | undefined => state[NameSpace.Guitars].filters;
-export const selectSort = (state: State): string | undefined => state[NameSpace.Guitars].sort;
+export const selectSort = (state: State): Sort | undefined => state[NameSpace.Guitars].sort;

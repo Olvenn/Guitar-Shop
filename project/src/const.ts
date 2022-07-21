@@ -57,9 +57,13 @@ export const StringCounts = {
   ukulele: ['4'],
 } as const;
 
-export enum SortTypes {
-  sortByPriceAsc = '?_sort=price&_order=asc&',
-  sortByPriceDesc = '?_sort=price&_order=desc&',
-  sortByRatingAsc = '?_sort=rating&_order=asc&',
-  sortByRatingDesc = '?_sort=rating&_order=desc&',
+export enum SortType {
+  Default = 'default',
+  Price = 'price',
+  Rate = 'rating',
+}
+
+export enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc',
 }

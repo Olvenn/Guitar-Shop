@@ -35,7 +35,11 @@ export function Footer(): JSX.Element {
         </div>
         <section className="footer__nav-section footer__nav-section--info">
           <h2 className="footer__nav-title">О нас</h2>
-          <p className="footer__nav-content footer__nav-content--font-secondary">Магазин гитар, музыкальных инструментов и гитарная мастерская <br /> в Санкт-Петербурге.<br /><br />Все инструменты проверены, отстроены <br /> и доведены до идеала!</p>
+          <p className="footer__nav-content footer__nav-content--font-secondary">
+            Магазин гитар, музыкальных инструментов и гитарная мастерская
+            <br /> в Санкт-Петербурге.<br /><br />Все инструменты проверены, отстроены
+            <br /> и доведены до идеала!
+          </p>
         </section>
         <section className="footer__nav-section footer__nav-section--links">
           <h2 className="footer__nav-title">Информация</h2>
@@ -59,7 +63,9 @@ export function Footer(): JSX.Element {
         </section>
         <section className="footer__nav-section footer__nav-section--contacts">
           <h2 className="footer__nav-title">Контакты</h2>
-          <p className="footer__nav-content">г. Санкт-Петербург,<br /> м. Невский проспект, <br />ул. Казанская 6.</p>
+          <p className="footer__nav-content">г. Санкт-Петербург,
+            <br /> м. Невский проспект, <br />ул. Казанская 6.
+          </p>
           <div className="footer__nav-content">
             <svg className="footer__icon" width="8" height="8" aria-hidden="true">
               <use xlinkHref="#icon-phone" />

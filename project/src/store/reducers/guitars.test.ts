@@ -21,9 +21,12 @@ describe('Reducer: guitars', () => {
           minPrice: MIN_PRICE,
           maxPrice: MAX_PRICE,
           type: '',
-          strings: '',
+          stringsCount: '',
         },
-        sort: '?',
+        sort: {
+          type: 'Default',
+          order: '',
+        },
       });
   });
 
@@ -37,9 +40,12 @@ describe('Reducer: guitars', () => {
         minPrice: MIN_PRICE,
         maxPrice: MAX_PRICE,
         type: '',
-        strings: '',
+        stringsCount: '',
       },
-      sort: '?',
+      sort: {
+        type: 'Default',
+        order: '',
+      },
     };
     expect(guitars.reducer(state, loadGuitars(fakeGuitars)))
       .toEqual({
@@ -51,9 +57,12 @@ describe('Reducer: guitars', () => {
           minPrice: MIN_PRICE,
           maxPrice: MAX_PRICE,
           type: '',
-          strings: '',
+          stringsCount: '',
         },
-        sort: '?',
+        sort: {
+          type: 'Default',
+          order: '',
+        },
       });
   });
 

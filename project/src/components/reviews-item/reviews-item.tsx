@@ -23,7 +23,9 @@ export function ReviewItem({ review }: ReviewsItemProps): JSX.Element {
         {
           ratingValues.map((item) => (
             <svg key={item} width="16" height="16" aria-hidden="true">
-              {Math.floor(review.rating) > item ? <use xlinkHref="#icon-full-star" /> : <use xlinkHref="#icon-star" />}
+              {Math.floor(review.rating) > item
+                ? <use xlinkHref="#icon-full-star" />
+                : <use xlinkHref="#icon-star" />}
             </svg>
           ))
         }

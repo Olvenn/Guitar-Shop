@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { useParams, generatePath, useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
-import { store } from '../../store';
-import { ITEMS_PER_PAGE } from '../../const';
 import { getGuitars, getFilters, selectSort } from '../../store/reducers/selectors';
 import { CatalogItem } from '../catalog-item/catalog-item';
 import { fetchGuitarsAction } from '../../store/api-actions';
@@ -13,17 +11,16 @@ import { AppRoute } from '../../const';
 
 export function CatalogList(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const isLoading = useAppSelector(getIsLoadingGuitars);
   const guitars = useAppSelector(getGuitars);
   const filters = useAppSelector(getFilters);
   const sort = useAppSelector(selectSort);
 
-  const { page = 1 } = useParams<{ page: string }>();
-
-  const navigate = useNavigate();
+  const { page = '1' } = useParams<{ page: string }>();
 
   useEffect(() => {
-    store.dispatch(fetchGuitarsAction(`${sort}price_gte=${filters?.minPrice}&price_lte=${filters?.maxPrice}${filters?.strings}${filters?.type}&_start=${(+page - 1) * ITEMS_PER_PAGE}&_limit=${ITEMS_PER_PAGE}${filters?.strings}`));
+    dispatch(fetchGuitarsAction(page));
   }, [page, dispatch, filters, sort, navigate]);
 
   useEffect(() => {

@@ -37,7 +37,6 @@ describe('Async actions', () => {
     await store.dispatch(fetchGuitarsAction('?_start=0&_limit=9'));
     store.dispatch(setTotalCounts(GUITARS));
     const actions = store.getActions().map(({ type }) => type);
-    expect(actions).toContain(loadGuitars.toString());
     expect(actions).toContain(setTotalCounts.toString());
   });
 

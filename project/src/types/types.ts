@@ -35,12 +35,5 @@ export type Filter = {
   minPrice?: number;
   maxPrice?: number;
   type?: string;
-  strings?: string;
+  stringsCount?: string;
 }
-
-// export type Sort = {
-//   price?: string;
-//   asc?: string;
-//   rating?: string;
-//   desc?: string;
-// }

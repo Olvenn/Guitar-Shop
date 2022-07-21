@@ -29,9 +29,8 @@ export const stopBodyScroll = () => {
 export const startBodyScroll = () => {
   document.body.style.position = 'static';
   if (document.body.offsetHeight > window.innerHeight) {
-    const scroll = document.body.dataset.scrollY ? +document.body.dataset.scrollY : 0;
+    const scroll = document.body.dataset.scrollY
+      ? +document.body.dataset.scrollY : 0;
     window.scrollTo(0, scroll);
   }
 };
-
-// export const sortByPrice = (a: Guitar, b: Guitar) => a.price - b.price;

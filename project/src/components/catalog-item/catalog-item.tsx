@@ -23,7 +23,9 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
           {
             ratingValues.map((item) => (
               <svg key={item} width="12" height="11" aria-hidden="true">
-                {Math.floor(guitar.rating) > item ? <use xlinkHref="#icon-full-star" /> : <use xlinkHref="#icon-star" />}
+                {Math.floor(guitar.rating) > item
+                  ? <use xlinkHref="#icon-full-star" />
+                  : <use xlinkHref="#icon-star" />}
               </svg>
             ))
           }

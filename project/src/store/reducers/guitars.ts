@@ -2,13 +2,28 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, MIN_PRICE, MAX_PRICE } from '../../const';
 import { Guitar, Filter } from '../../types/types';
 
+export const defaultFilters = {
+  minPrice: MIN_PRICE,
+  maxPrice: MAX_PRICE,
+  type: '',
+  stringsCount: '',
+};
+
+export type Sort = {
+  type: string;
+  order: string;
+}
+
 type StateProps = {
   guitars: Guitar[];
   isLoading: boolean,
   totalCounts: number;
   searchGuitars?: Guitar[];
   filters?: Filter;
-  sort?: string;
+  sort?: {
+    type: string;
+    order: string;
+  };
 };
 
 const initialState: StateProps = {
@@ -16,13 +31,11 @@ const initialState: StateProps = {
   isLoading: false,
   totalCounts: 0,
   searchGuitars: [],
-  filters: {
-    minPrice: MIN_PRICE,
-    maxPrice: MAX_PRICE,
-    type: '',
-    strings: '',
+  filters: defaultFilters,
+  sort: {
+    type: 'Default',
+    order: '',
   },
-  sort: '?',
 };
 
 export const guitars = createSlice({
@@ -42,10 +55,10 @@ export const guitars = createSlice({
     loadFilters: (state, action) => {
       state.filters = action.payload;
     },
-    loadSort: (state, action) => {
+    setSort: (state, action) => {
       state.sort = action.payload;
     },
   },
 });
 
-export const { loadGuitars, setTotalCounts, loadSearchData, loadFilters, loadSort } = guitars.actions;
+export const { loadGuitars, setTotalCounts, loadSearchData, loadFilters, setSort } = guitars.actions;

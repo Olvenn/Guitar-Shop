@@ -1,69 +1,37 @@
-import React, { MouseEventHandler, useState, useEffect } from 'react';
+import { MouseEventHandler, useState, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/';
-import { store } from '../../store';
-import { loadSort } from '../../store/reducers/guitars';
-import { SortTypes } from '../../const';
+import { setSort } from '../../store/reducers/guitars';
+import { SortType, SortOrder } from '../../const';
 
 export function Sorting(): JSX.Element {
   const dispatch = useAppDispatch();
-
-  const [price, setPrice] = useState(false);
-  const [rate, setRate] = useState(false);
-  const [asc, setAsc] = useState(false);
-  const [desc, setDesc] = useState(false);
+  const [sortType, setSortType] = useState(SortType.Default);
+  const [sortOrder, setSortOrder] = useState(SortOrder.Asc);
 
   const handlePriceBtnClick: MouseEventHandler = () => {
-    if (!price && !rate) {
-      setPrice(!price);
-      setAsc(!asc);
-    } else {
-      setPrice(!price);
-      setRate(!rate);
-    }
+    setSortType(SortType.Price);
   };
+
   const handleRateBtnClick: MouseEventHandler = () => {
-    if (!price && !rate) {
-      setRate(!rate);
-      setAsc(!asc);
-    } else {
-      setPrice(!price);
-      setRate(!rate);
-    }
+    setSortType(SortType.Rate);
   };
 
   const handleAscBtnClick: MouseEventHandler = () => {
-    if (!price && !asc && !rate && !desc) {
-      setAsc(!asc);
-      setPrice(!price);
+    if (sortType === 'default') {
+      setSortType(SortType.Price);
+      setSortOrder(SortOrder.Asc);
     } else {
-      setAsc(!asc);
-      setDesc(!desc);
-    }
-  };
-  const handleDescBtnClick: MouseEventHandler = () => {
-    if (!price && !asc && !rate && !desc) {
-      setDesc(!desc);
-      setPrice(!price);
-    } else {
-      setDesc(!desc);
-      setAsc(!asc);
+      setSortOrder(SortOrder.Asc);
     }
   };
 
+  const handleDescBtnClick: MouseEventHandler = () => {
+    setSortOrder(SortOrder.Desc);
+  };
+
   useEffect(() => {
-    if (asc && !rate) {
-      store.dispatch(loadSort(SortTypes.sortByPriceAsc));
-    }
-    if (desc && !rate) {
-      store.dispatch(loadSort(SortTypes.sortByPriceDesc));
-    }
-    if (asc && !price) {
-      store.dispatch(loadSort(SortTypes.sortByRatingAsc));
-    }
-    if (desc && !price) {
-      store.dispatch(loadSort(SortTypes.sortByRatingDesc));
-    }
-  }, [price, rate, asc, desc, dispatch]);
+    dispatch(setSort({ type: sortType, order: sortOrder }));
+  }, [sortType, sortOrder, dispatch]);
 
   return (
     <div className="catalog-sort">
@@ -71,7 +39,7 @@ export function Sorting(): JSX.Element {
       <div className="catalog-sort__type">
         <button
           onClick={handlePriceBtnClick}
-          className={`${price
+          className={`${sortType === SortType.Price
             ? 'catalog-sort__type-button catalog-sort__type-button--active'
             : 'catalog-sort__type-button'}`}
           aria-label="по цене"
@@ -80,7 +48,7 @@ export function Sorting(): JSX.Element {
         </button>
         <button
           onClick={handleRateBtnClick}
-          className={`${rate
+          className={`${sortType === SortType.Rate
             ? 'catalog-sort__type-button catalog-sort__type-button--active'
             : 'catalog-sort__type-button'}`} aria-label="по популярности"
         >
@@ -90,14 +58,14 @@ export function Sorting(): JSX.Element {
       <div className="catalog-sort__order">
         <button
           onClick={handleAscBtnClick}
-          className={`${asc
+          className={`${sortOrder === SortOrder.Asc && sortType !== SortType.Default
             ? 'catalog-sort__order-button--active catalog-sort__order-button catalog-sort__order-button--up'
             : 'catalog-sort__order-button catalog-sort__order-button--up'}`}
           aria-label="По возрастанию"
         />
         <button
           onClick={handleDescBtnClick}
-          className={`${desc
+          className={`${sortOrder === SortOrder.Desc
             ? 'catalog-sort__order-button--active catalog-sort__order-button catalog-sort__order-button--down'
             : 'catalog-sort__order-button catalog-sort__order-button--down'}`}
           aria-label="По убыванию"

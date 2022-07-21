@@ -10,8 +10,8 @@ export function Header(): JSX.Element {
         <Link className="header__logo logo" to={AppRoute.Catalog}>
           <img className="logo__img" width="70" height="70" src="/img/svg/logo.svg" alt="Логотип" />
         </Link>
-        {<MainNavList />}
-        {<Search />}
+        <MainNavList />
+        <Search />
         <Link id="cart"
           className="header__cart-link"
           to={AppRoute.Cart}

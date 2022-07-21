@@ -1,20 +1,22 @@
-import React, { useState, useEffect, MouseEventHandler } from 'react';
-import { store } from '../../store';
-import { useAppDispatch, useAppSelector } from '../../hooks/';
-import { loadFilters } from '../../store/reducers/guitars';
+import { useState, useEffect, MouseEventHandler, ChangeEvent } from 'react';
+import { useAppDispatch } from '../../hooks/';
+import { loadFilters, defaultFilters } from '../../store/reducers/guitars';
 import { MIN_PRICE, MAX_PRICE } from '../../const';
-import { getFilters } from '../../store/reducers/selectors';
 
 export function Filters(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [filters, setFilters] = useState(useAppSelector(getFilters));
+  const [filters, setFilters] = useState(defaultFilters);
+  const [clearCheckbox, setClearCheckbox] = useState(false);
 
-  const disabledTwelve = !(filters?.type?.includes('acoustic'));
-  const disabledNotFore = ((filters?.type?.includes('ukulele')
+  const disabledUkulele = ((filters?.type?.includes('ukulele')
     && !filters?.type?.includes('acoustic')
     && !filters?.type?.includes('electric')));
+  const disabledElectric = ((filters?.type?.includes('electric')
+    && !filters?.type?.includes('acoustic')));
+  const disabledAcoustic = ((filters?.type?.includes('acoustic')
+    && !filters?.type?.includes('electric')));
 
-  const handleMinPriceClick = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMinPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
     const maxPrice = filters?.maxPrice;
 
     if (maxPrice) {
@@ -23,7 +25,7 @@ export function Filters(): JSX.Element {
     }
   };
 
-  const handleMaxPriceClick = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMaxPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
     const minPrice = filters?.minPrice;
 
     if (minPrice) {
@@ -32,8 +34,9 @@ export function Filters(): JSX.Element {
     }
   };
 
-  const handleTypeCheckboxChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTypeChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const name = evt.target.name;
+
     if (evt.target.checked) {
       if (!filters?.type?.includes(name)) {
         const types = `${filters?.type}&type=${name}`;
@@ -45,35 +48,28 @@ export function Filters(): JSX.Element {
     }
   };
 
-  const handleStringsCheckboxChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleStringsCheckboxChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const index = evt.target.id.indexOf('-');
     const count = evt.target.id.slice(0, index);
 
     if (evt.target.checked) {
-      if (!filters?.strings?.includes(count)) {
-        const counts = `${filters?.strings}&stringCount=${count}`;
-        setFilters({ ...filters, strings: counts });
+      if (!filters?.stringsCount?.includes(count)) {
+        const counts = `${filters?.stringsCount}&stringCount=${count}`;
+        setFilters({ ...filters, stringsCount: counts });
       }
     } else {
       const counts = `&stringCount=${count}`;
-      setFilters({ ...filters, strings: filters?.strings?.replace(counts, '') });
+      setFilters({ ...filters, stringsCount: filters?.stringsCount?.replace(counts, '') });
     }
   };
 
-  const [clearCheckbox, setClearCheckbox] = useState(false);
-
   const handleClearBtnClick: MouseEventHandler = () => {
     setClearCheckbox(false);
-    setFilters({
-      minPrice: MIN_PRICE,
-      maxPrice: MAX_PRICE,
-      type: '',
-      strings: '',
-    });
+    setFilters(defaultFilters);
   };
 
   useEffect(() => {
-    store.dispatch(loadFilters(filters));
+    dispatch(loadFilters(filters));
   }, [filters, dispatch]);
 
   return (
@@ -116,7 +112,7 @@ export function Filters(): JSX.Element {
             type="checkbox"
             id="acoustic"
             name="acoustic"
-            onChange={handleTypeCheckboxChange}
+            onChange={handleTypeChange}
           />
           <label htmlFor="acoustic">Акустические гитары</label>
         </div>
@@ -127,7 +123,7 @@ export function Filters(): JSX.Element {
             type="checkbox"
             id="electric"
             name="electric"
-            onChange={handleTypeCheckboxChange}
+            onChange={handleTypeChange}
           />
           <label htmlFor="electric">Электрогитары</label>
         </div>
@@ -138,7 +134,7 @@ export function Filters(): JSX.Element {
             type="checkbox"
             id="ukulele"
             name="ukulele"
-            onChange={handleTypeCheckboxChange}
+            onChange={handleTypeChange}
           />
           <label htmlFor="ukulele">Укулеле</label>
         </div>
@@ -163,7 +159,7 @@ export function Filters(): JSX.Element {
             id="6-strings"
             name="6-strings"
             onChange={handleStringsCheckboxChange}
-            disabled={disabledNotFore}
+            disabled={disabledUkulele}
             defaultChecked={clearCheckbox}
           />
           <label htmlFor="6-strings">6</label>
@@ -175,7 +171,7 @@ export function Filters(): JSX.Element {
             id="7-strings"
             name="7-strings"
             onChange={handleStringsCheckboxChange}
-            disabled={disabledNotFore}
+            disabled={disabledUkulele || disabledAcoustic}
             defaultChecked={clearCheckbox}
           />
           <label htmlFor="7-strings">7</label>
@@ -186,7 +182,7 @@ export function Filters(): JSX.Element {
             type="checkbox"
             id="12-strings"
             name="12-strings"
-            disabled={!disabledTwelve || disabledNotFore}
+            disabled={disabledUkulele || disabledElectric}
             onChange={handleStringsCheckboxChange}
             defaultChecked={clearCheckbox}
           />

@@ -35,18 +35,31 @@ const fakeApp = (
 describe('Application Routing', () => {
 
   it('should render "Root" when user navigate to "/"', () => {
-    history.push(AppRoute.Root);
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+    history.push(AppRoute.CatalogPage.replace('page', '1'));
     render(fakeApp);
 
     expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();
   });
 
   it('should render "Catalog" when user navigate to "/catalog"', () => {
-    history.push(AppRoute.Catalog);
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+    history.push(AppRoute.CatalogPage.replace('page', '1'));
     render(fakeApp);
 
     expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();
   });
+
+
+  // const guitar = makeFakeGuitar();
+  // const dispatch = jest.fn();
+  // const useDispatch = jest.spyOn(Redux, 'useDispatch');
+  // useDispatch.mockReturnValue(dispatch);
+  // history.push(AppRoute.Item.replace('page', 1));
 
   it('should render "Catalog" when user navigate to "/cart"', () => {
     history.push(AppRoute.Cart);

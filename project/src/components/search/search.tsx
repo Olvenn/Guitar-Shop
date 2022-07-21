@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { searchAction } from '../../store/api-actions';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
@@ -12,12 +12,12 @@ export function Search(): JSX.Element {
   const [query, setQuery] = useState('');
   const searchGuitars = useAppSelector(getSearchGuitars);
 
-  const handleQueryChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQueryChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setQuery(evt.target.value);
   };
 
-  const handleSelecktClick = (id: string) => {
-    navigate(id);
+  const handleSelecktClick = (link: string) => {
+    navigate(link);
     setQuery('');
   };
 
@@ -26,7 +26,11 @@ export function Search(): JSX.Element {
   };
 
   useEffect(() => {
-    store.dispatch(searchAction(`${query}`));
+    if (!query) {
+      store.dispatch(searchAction(''));
+    } else {
+      store.dispatch(searchAction(query));
+    }
   }, [query, dispatch]);
 
   return (
@@ -54,19 +58,16 @@ export function Search(): JSX.Element {
         : 'form-search__select-list hidden'}`}
       >
         {searchGuitars?.length !== 0 ?
-          searchGuitars?.map(({ id, name }) => {
-            const linkSrc = generatePath(AppRoute.Item, { id: `${id}` });
-            return (
-              <li key={id}
-                onClick={() => {
-                  handleSelecktClick(linkSrc);
-                }}
-                className="form-search__select-item"
-                tabIndex={0}
-              >{name}
-              </li>
-            );
-          })
+          searchGuitars?.map(({ id, name }) => (
+            <li key={id}
+              onClick={() => {
+                handleSelecktClick(generatePath(AppRoute.Item, { id: `${id}` }));
+              }}
+              className="form-search__select-item"
+              tabIndex={0}
+            >{name}
+            </li>
+          ))
           : 'Нет совпадений.'}
       </ul>
       <button
