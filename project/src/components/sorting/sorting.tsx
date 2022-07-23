@@ -8,15 +8,15 @@ export function Sorting(): JSX.Element {
   const [sortType, setSortType] = useState(SortType.Default);
   const [sortOrder, setSortOrder] = useState(SortOrder.Asc);
 
-  const handlePriceBtnClick: MouseEventHandler = () => {
+  const handlePriceButtonClick: MouseEventHandler = () => {
     setSortType(SortType.Price);
   };
 
-  const handleRateBtnClick: MouseEventHandler = () => {
+  const handleRateButtonClick: MouseEventHandler = () => {
     setSortType(SortType.Rate);
   };
 
-  const handleAscBtnClick: MouseEventHandler = () => {
+  const handleAscButtonClick: MouseEventHandler = () => {
     if (sortType === 'default') {
       setSortType(SortType.Price);
       setSortOrder(SortOrder.Asc);
@@ -25,7 +25,7 @@ export function Sorting(): JSX.Element {
     }
   };
 
-  const handleDescBtnClick: MouseEventHandler = () => {
+  const handleDescButtonClick: MouseEventHandler = () => {
     setSortOrder(SortOrder.Desc);
   };
 
@@ -38,7 +38,7 @@ export function Sorting(): JSX.Element {
       <h2 className="catalog-sort__title">Сортировать:</h2>
       <div className="catalog-sort__type">
         <button
-          onClick={handlePriceBtnClick}
+          onClick={handlePriceButtonClick}
           className={`${sortType === SortType.Price
             ? 'catalog-sort__type-button catalog-sort__type-button--active'
             : 'catalog-sort__type-button'}`}
@@ -47,7 +47,7 @@ export function Sorting(): JSX.Element {
           по цене
         </button>
         <button
-          onClick={handleRateBtnClick}
+          onClick={handleRateButtonClick}
           className={`${sortType === SortType.Rate
             ? 'catalog-sort__type-button catalog-sort__type-button--active'
             : 'catalog-sort__type-button'}`} aria-label="по популярности"
@@ -57,14 +57,14 @@ export function Sorting(): JSX.Element {
       </div>
       <div className="catalog-sort__order">
         <button
-          onClick={handleAscBtnClick}
+          onClick={handleAscButtonClick}
           className={`${sortOrder === SortOrder.Asc && sortType !== SortType.Default
             ? 'catalog-sort__order-button--active catalog-sort__order-button catalog-sort__order-button--up'
             : 'catalog-sort__order-button catalog-sort__order-button--up'}`}
           aria-label="По возрастанию"
         />
         <button
-          onClick={handleDescBtnClick}
+          onClick={handleDescButtonClick}
           className={`${sortOrder === SortOrder.Desc
             ? 'catalog-sort__order-button--active catalog-sort__order-button catalog-sort__order-button--down'
             : 'catalog-sort__order-button catalog-sort__order-button--down'}`}

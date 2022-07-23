@@ -63,7 +63,7 @@ export function Filters(): JSX.Element {
     }
   };
 
-  const handleClearBtnClick: MouseEventHandler = () => {
+  const handleClearButtonClick: MouseEventHandler = () => {
     setClearCheckbox(false);
     setFilters(defaultFilters);
   };
@@ -190,7 +190,7 @@ export function Filters(): JSX.Element {
         </div>
       </fieldset>
       <button
-        onClick={handleClearBtnClick}
+        onClick={handleClearButtonClick}
         className="catalog-filter__reset-btn button button--black-border button--medium"
         type="reset"
       >

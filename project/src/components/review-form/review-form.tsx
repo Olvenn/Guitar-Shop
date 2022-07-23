@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/';
 import { commentAction } from '../../store/api-actions';
 import { setSuccessfully } from '../../store/reducers/comments';
 import { getGuitar, getIsSuccessfullyComment } from '../../store/reducers/selectors';
-import { RatingText, commentFieldsName } from '../../const';
+import { RatingText, CommentFieldsName } from '../../const';
 
 const EMPTY_FIELD = 'Заполните поле';
 
@@ -61,13 +61,13 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
 
   const handleBlurChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     switch (evt.target.name) {
-      case commentFieldsName.UserName:
+      case CommentFieldsName.UserName:
         setUserNameBlurred(true);
         break;
-      case commentFieldsName.Adv:
+      case CommentFieldsName.Adv:
         setAdvantagesBlurred(true);
         break;
-      case commentFieldsName.Disadv:
+      case CommentFieldsName.Disadv:
         setDisadvantagesBlurred(true);
         break;
     }
@@ -109,7 +109,7 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
             onBlur={handleBlurChange}
             value={userName}
             className="form-review__input form-review__input--name"
-            id={commentFieldsName.UserName}
+            id={CommentFieldsName.UserName}
             name="user-name"
             type="text"
             autoComplete="off"
@@ -150,7 +150,7 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
         onBlur={handleBlurChange}
         value={advantages}
         className="form-review__input"
-        id={commentFieldsName.Adv}
+        id={CommentFieldsName.Adv}
         name="adv"
         type="text"
         autoComplete="off"
@@ -167,7 +167,7 @@ export function ReviewForm({ onReviewAdd }: Props): JSX.Element {
         onBlur={handleBlurChange}
         value={disadvantages}
         className="form-review__input"
-        id={commentFieldsName.Disadv}
+        id={CommentFieldsName.Disadv}
         name="disadv"
         type="text"
         autoComplete="off"

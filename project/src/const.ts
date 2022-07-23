@@ -45,7 +45,7 @@ export const RatingText = {
   5: 'Ужасно',
 } as const;
 
-export enum commentFieldsName {
+export enum CommentFieldsName {
   UserName = 'user-name',
   Adv = 'adv',
   Disadv = 'disadv',
