@@ -6,7 +6,7 @@ import { createAPI } from '../services/api';
 import { fetchGuitarsAction, commentAction } from './api-actions';
 import { APIRoute } from '../const';
 import { State } from '../types/state';
-import { loadGuitars, setTotalCounts } from './reducers/guitars';
+import { setTotalCounts } from './reducers/guitars';
 import { setIsLoading, setSuccessfully } from './reducers/comments';
 import { makeFakeGuitars, makeFakeComments } from '../mock';
 import { Comment } from '../types/types';

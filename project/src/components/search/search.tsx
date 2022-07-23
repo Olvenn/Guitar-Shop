@@ -2,7 +2,6 @@ import { useState, useEffect, ChangeEvent } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { searchAction } from '../../store/api-actions';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
-import { store } from '../../store';
 import { getSearchGuitars } from '../../store/reducers/selectors';
 import { AppRoute } from '../../const';
 
@@ -27,9 +26,9 @@ export function Search(): JSX.Element {
 
   useEffect(() => {
     if (!query) {
-      store.dispatch(searchAction(''));
+      dispatch(searchAction(''));
     } else {
-      store.dispatch(searchAction(query));
+      dispatch(searchAction(query));
     }
   }, [query, dispatch]);
 
