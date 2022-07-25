@@ -16,23 +16,60 @@ export function Filters(): JSX.Element {
   const disabledAcoustic = ((filters?.type?.includes('acoustic')
     && !filters?.type?.includes('electric')));
 
-  const handleMinPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
-    const maxPrice = filters?.maxPrice;
+  const [minPrice, setMinPrice] = useState(filters?.minPrice);
+  const [maxPrice, setMaxPrice] = useState(filters?.maxPrice);
 
-    if (maxPrice) {
-      const minPrice = Number(evt.target.value) > maxPrice ? maxPrice : Number(evt.target.value);
-      setFilters({ ...filters, minPrice: minPrice });
-    }
+  const handleMinPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
+    setMinPrice(Number(evt.target.value));
   };
 
   const handleMaxPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
-    const minPrice = filters?.minPrice;
-
-    if (minPrice) {
-      const maxPrice = Number(evt.target.value) < minPrice ? minPrice : Number(evt.target.value);
-      setFilters({ ...filters, maxPrice: maxPrice });
-    }
+    setMaxPrice(Number(evt.target.value));
   };
+
+  const handleMinPriceOnBlur = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (minPrice > maxPrice) {
+      setMinPrice(maxPrice);
+    }
+    setFilters({ ...filters, minPrice: Number(minPrice) });
+  };
+
+  const handleMaxPriceOnBlur = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (minPrice > maxPrice) {
+      setMaxPrice(minPrice);
+    }
+    setFilters({ ...filters, maxPrice: Number(maxPrice) });
+  };
+
+  // useEffect(() => {
+  //   if (minPrice < maxPrice) {
+  //     setFilters({ ...filters, minPrice: Number(minPrice) });
+  //   }
+  // }, [minPrice]);
+
+  // useEffect(() => {
+  //   if (minPrice < maxPrice) {
+  //     setFilters({ ...filters, maxPrice: Number(maxPrice) });
+  //   }
+  // }, [maxPrice]);
+
+  // const handleMinPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
+  //   const maxPrice = filters?.maxPrice;
+
+  //   if (maxPrice) {
+  //     const minPrice = Number(evt.target.value) > maxPrice ? maxPrice : Number(evt.target.value);
+  //     setFilters({ ...filters, minPrice: Number(minPrice) });
+  //   }
+  // };
+
+  // const handleMaxPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
+  //   const minPrice = filters?.minPrice;
+
+  //   if (minPrice) {
+  //     const maxPrice = Number(evt.target.value) < minPrice ? minPrice : Number(evt.target.value);
+  //     setFilters({ ...filters, maxPrice: Number(maxPrice) });
+  //   }
+  // };
 
   const handleTypeChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const name = evt.target.name;
@@ -82,7 +119,8 @@ export function Filters(): JSX.Element {
             <label className="visually-hidden">Минимальная цена</label>
             <input
               onChange={handleMinPriceClick}
-              value={filters?.minPrice}
+              onBlur={handleMinPriceOnBlur}
+              value={minPrice}
               type="number"
               placeholder={MIN_PRICE.toString()}
               id="priceMin"
@@ -93,8 +131,10 @@ export function Filters(): JSX.Element {
           <div className="form-input">
             <label className="visually-hidden">Максимальная цена</label>
             <input
-              value={filters?.maxPrice}
-              type="number" placeholder={MAX_PRICE.toString()}
+              value={maxPrice}
+              type="number"
+              onBlur={handleMaxPriceOnBlur}
+              placeholder={MAX_PRICE.toString()}
               id="priceMax"
               name="до"
               onChange={handleMaxPriceClick}
@@ -149,6 +189,7 @@ export function Filters(): JSX.Element {
             name="4-strings"
             onChange={handleStringsCheckboxChange}
             defaultChecked={clearCheckbox}
+            disabled={disabledAcoustic}
           />
           <label htmlFor="4-strings">4</label>
         </div>
@@ -171,7 +212,7 @@ export function Filters(): JSX.Element {
             id="7-strings"
             name="7-strings"
             onChange={handleStringsCheckboxChange}
-            disabled={disabledUkulele || disabledAcoustic}
+            disabled={disabledUkulele}
             defaultChecked={clearCheckbox}
           />
           <label htmlFor="7-strings">7</label>
