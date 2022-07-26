@@ -1,12 +1,27 @@
 import { useState, useEffect, MouseEventHandler, ChangeEvent } from 'react';
-import { useAppDispatch } from '../../hooks/';
+import { useAppDispatch, useAppSelector } from '../../hooks/';
 import { loadFilters, defaultFilters } from '../../store/reducers/guitars';
 import { MIN_PRICE, MAX_PRICE } from '../../const';
+import { selectMinPrice, selectMaxPrice } from '../../store/reducers/selectors';
+
 
 export function Filters(): JSX.Element {
   const dispatch = useAppDispatch();
+
+  const startMinPrice = useAppSelector(selectMinPrice);
+  const startMaxPrice = useAppSelector(selectMaxPrice);
+
   const [filters, setFilters] = useState(defaultFilters);
   const [clearCheckbox, setClearCheckbox] = useState(false);
+
+  const [minPrice, setMinPrice] = useState(startMinPrice);
+  const [maxPrice, setMaxPrice] = useState(startMaxPrice);
+
+  useEffect(() => {
+    setMinPrice(startMinPrice);
+    setMaxPrice(startMaxPrice);
+  }, [startMinPrice, startMaxPrice]);
+
 
   const disabledUkulele = ((filters?.type?.includes('ukulele')
     && !filters?.type?.includes('acoustic')
@@ -15,9 +30,6 @@ export function Filters(): JSX.Element {
     && !filters?.type?.includes('acoustic')));
   const disabledAcoustic = ((filters?.type?.includes('acoustic')
     && !filters?.type?.includes('electric')));
-
-  const [minPrice, setMinPrice] = useState(filters?.minPrice);
-  const [maxPrice, setMaxPrice] = useState(filters?.maxPrice);
 
   const handleMinPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
     setMinPrice(Number(evt.target.value));
@@ -36,7 +48,7 @@ export function Filters(): JSX.Element {
 
   const handleMaxPriceOnBlur = (evt: ChangeEvent<HTMLInputElement>) => {
     if (minPrice > maxPrice) {
-      setMaxPrice(minPrice);
+      setMinPrice(maxPrice);
     }
     setFilters({ ...filters, maxPrice: Number(maxPrice) });
   };
@@ -102,7 +114,12 @@ export function Filters(): JSX.Element {
 
   const handleClearButtonClick: MouseEventHandler = () => {
     setClearCheckbox(false);
-    setFilters(defaultFilters);
+    setFilters({
+      minPrice: startMinPrice,
+      maxPrice: startMaxPrice,
+      type: '',
+      stringsCount: '',
+    });
   };
 
   useEffect(() => {

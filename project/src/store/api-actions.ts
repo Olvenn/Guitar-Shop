@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state.js';
 import { Guitar, Comment } from '../types/types';
-import { loadGuitars, setTotalCounts, loadSearchData } from './reducers/guitars';
+import { loadGuitars, setTotalCounts, loadSearchData, getMaxPrice, getMinPrice } from './reducers/guitars';
 import { setIsLoading, setSuccessfully } from './reducers/comments';
 import { APIRoute, ITEMS_PER_PAGE } from '../const';
 import { getFilters, selectSort } from './reducers/selectors';
@@ -19,9 +19,9 @@ export const fetchGuitarsAction = createAsyncThunk<void, string, {
     const sort = selectSort(state);
 
     let querySort = '?';
-    querySort = sort?.type === 'default' ? querySort : `?_sort=${sort?.type}&_order=${sort?.order}&`;
+    querySort = sort?.sortType === 'default' ? querySort : `?_sort=${sort?.sortType}&_order=${sort?.sortOrder}&`;
 
-    const query = `${querySort}price_gte=${filters?.minPrice}&price_lte=${filters?.maxPrice}${filters?.stringsCount}${filters?.type}&_start=${(+page - 1) * ITEMS_PER_PAGE}&_limit=${ITEMS_PER_PAGE}`;
+    const query = `${querySort}price_gte=${filters?.minPrice}&price_lte=${filters?.maxPrice}${filters?.stringsCount ? filters?.stringsCount : ''}${filters?.type ? `&type=${filters?.type}` : ''}&_start=${(+page - 1) * ITEMS_PER_PAGE}&_limit=${ITEMS_PER_PAGE}`;
 
     try {
       const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}${query}&_embed=comments`);
@@ -66,6 +66,24 @@ export const commentAction = createAsyncThunk<void, Comment, {
       dispatch(setSuccessfully(true));
     } catch (error) {
       dispatch(setIsLoading(true));
+    }
+  },
+);
+
+export const fetchAllGuitarsAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance,
+}>(
+  'data/fetchAllGuitars',
+  async (_arg, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<Guitar[]>(APIRoute.Guitars);
+      dispatch(getMaxPrice(data));
+      dispatch(getMinPrice(data));
+    } catch (error) {
+      dispatch(getMinPrice(0));
+      dispatch(getMaxPrice(0));
     }
   },
 );

@@ -30,7 +30,7 @@ export function Sorting(): JSX.Element {
   };
 
   useEffect(() => {
-    dispatch(setSort({ type: sortType, order: sortOrder }));
+    dispatch(setSort({ sortType, sortOrder }));
   }, [sortType, sortOrder, dispatch]);
 
   return (

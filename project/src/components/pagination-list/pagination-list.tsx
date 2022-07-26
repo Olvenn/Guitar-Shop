@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
+import queryString from 'querystring';
 import { useAppSelector } from '../../hooks/';
-import { getTotalCounts } from '../../store/reducers/selectors';
+import { getTotalCounts, getFilters, selectSort } from '../../store/reducers/selectors';
 import { ITEMS_PER_PAGE, AppRoute } from '../../const';
 
 type Props = {
@@ -9,6 +10,10 @@ type Props = {
 
 export function PaginationList({ currentPage }: Props): JSX.Element {
   const guitarsCount = useAppSelector(getTotalCounts);
+  const filters = useAppSelector(getFilters);
+  const sort = useAppSelector(selectSort);
+  const query = queryString.stringify({ ...filters, ...sort });
+
   const totalPagesCount = Math.ceil(guitarsCount / ITEMS_PER_PAGE);
   const pages = Array.from({ length: totalPagesCount }, (_, i) => i + 1);
 
@@ -17,7 +22,7 @@ export function PaginationList({ currentPage }: Props): JSX.Element {
       <li className={currentPage === 1 ? 'pagination__page pagination__page--prev visually-hidden' : 'pagination__page pagination__page--prev'} id="prev">
         <Link
           className="link pagination__page-link"
-          to={`${AppRoute.Catalog}/${currentPage - 1}`}
+          to={`${AppRoute.Catalog}/${currentPage - 1}#${query}`}
         >
           Назад
         </Link>
@@ -28,7 +33,7 @@ export function PaginationList({ currentPage }: Props): JSX.Element {
         >
           <Link
             className="link pagination__page-link"
-            to={`${AppRoute.Catalog}/${page}`}
+            to={`${AppRoute.Catalog}/${page}#${query}`}
           >
             {page}
           </Link>
@@ -39,7 +44,7 @@ export function PaginationList({ currentPage }: Props): JSX.Element {
       >
         <Link
           className="link pagination__page-link"
-          to={`${AppRoute.Catalog}/${currentPage + 1}`}
+          to={`${AppRoute.Catalog}/${currentPage + 1}#${query}`}
         >
           Далее
         </Link>

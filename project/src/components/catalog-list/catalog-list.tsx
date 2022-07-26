@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useParams, generatePath, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import queryString from 'querystring';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { getGuitars, getFilters, selectSort } from '../../store/reducers/selectors';
 import { CatalogItem } from '../catalog-item/catalog-item';
@@ -11,6 +12,7 @@ import { AppRoute } from '../../const';
 
 export function CatalogList(): JSX.Element {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
   const isLoading = useAppSelector(getIsLoadingGuitars);
   const guitars = useAppSelector(getGuitars);
@@ -20,14 +22,16 @@ export function CatalogList(): JSX.Element {
   const { page = '1' } = useParams<{ page: string }>();
 
   useEffect(() => {
+    const params = queryString.parse(location.hash.slice(1));
+    // eslint-disable-next-line no-console
+    console.log(params);
     dispatch(fetchGuitarsAction(page));
-  }, [page, dispatch, filters, sort, navigate]);
+  }, [page, dispatch, filters, sort, navigate, location.hash]);
 
   useEffect(() => {
-    const linkSrc = generatePath(AppRoute.Catalog, { id: '1' });
-    navigate(linkSrc);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, sort]);
+    const query = queryString.stringify({ ...filters, ...sort });
+    navigate(`${AppRoute.Catalog}#${query}`);
+  }, [filters, sort, navigate]);
 
   if (!isLoading) {
     return (

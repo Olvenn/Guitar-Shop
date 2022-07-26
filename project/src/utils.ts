@@ -1,4 +1,4 @@
-import { Review } from './types/types';
+import { Review, Guitar } from './types/types';
 import { RATING_ITEMS } from './const';
 
 export const getPictureNumber = ((previewImg: string) => {
@@ -10,6 +10,8 @@ export const getPictureNumber = ((previewImg: string) => {
 export const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
 
 export const sortByDateAsc = (a: Review, b: Review) => (((new Date(b.createAt)).getTime()) - ((new Date(a.createAt)).getTime()));
+
+export const sortByPriceAsc = (a: Guitar, b: Guitar) => (a.price - b.price);
 
 export const ratingValues = Array.from(Array(RATING_ITEMS).keys());
 
