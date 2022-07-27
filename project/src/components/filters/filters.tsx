@@ -1,87 +1,60 @@
 import { useState, useEffect, MouseEventHandler, ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/';
 import { loadFilters, defaultFilters } from '../../store/reducers/guitars';
-import { MIN_PRICE, MAX_PRICE } from '../../const';
 import { selectMinPrice, selectMaxPrice } from '../../store/reducers/selectors';
-
 
 export function Filters(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const startMinPrice = useAppSelector(selectMinPrice);
   const startMaxPrice = useAppSelector(selectMaxPrice);
-
   const [filters, setFilters] = useState(defaultFilters);
   const [clearCheckbox, setClearCheckbox] = useState(false);
-
-  const [minPrice, setMinPrice] = useState(startMinPrice);
-  const [maxPrice, setMaxPrice] = useState(startMaxPrice);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
   useEffect(() => {
-    setMinPrice(startMinPrice);
-    setMaxPrice(startMaxPrice);
-  }, [startMinPrice, startMaxPrice]);
-
+    setMinPrice(String(filters.minPrice));
+    setMaxPrice(String(filters.maxPrice));
+  }, [filters]);
 
   const disabledUkulele = ((filters?.type?.includes('ukulele')
     && !filters?.type?.includes('acoustic')
     && !filters?.type?.includes('electric')));
+
   const disabledElectric = ((filters?.type?.includes('electric')
     && !filters?.type?.includes('acoustic')));
+
   const disabledAcoustic = ((filters?.type?.includes('acoustic')
     && !filters?.type?.includes('electric')));
 
-  const handleMinPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
-    setMinPrice(Number(evt.target.value));
+  const handleMinPriceChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setMinPrice(evt.target.value);
   };
 
-  const handleMaxPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
-    setMaxPrice(Number(evt.target.value));
+  const handleMaxPriceChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setMaxPrice(evt.target.value);
   };
 
   const handleMinPriceOnBlur = (evt: ChangeEvent<HTMLInputElement>) => {
-    if (minPrice > maxPrice) {
-      setMinPrice(maxPrice);
+    if (Number(minPrice) > Number(maxPrice) || (Number(minPrice) < Number(startMinPrice))) {
+      setMinPrice(String(startMinPrice));
+      setFilters({ ...filters, minPrice: Number(startMinPrice) });
+    } else {
+      setMinPrice(evt.target.value);
+      setFilters({ ...filters, minPrice: Number(minPrice) });
     }
-    setFilters({ ...filters, minPrice: Number(minPrice) });
   };
 
   const handleMaxPriceOnBlur = (evt: ChangeEvent<HTMLInputElement>) => {
-    if (minPrice > maxPrice) {
-      setMinPrice(maxPrice);
+    if (Number(minPrice) > Number(maxPrice) || (Number(maxPrice) > Number(startMaxPrice))) {
+      setMinPrice(String(startMaxPrice));
+      setFilters({ ...filters, maxPrice: Number(startMaxPrice) });
+    } else {
+      setMaxPrice(evt.target.value);
+      setFilters({ ...filters, maxPrice: Number(maxPrice) });
     }
-    setFilters({ ...filters, maxPrice: Number(maxPrice) });
   };
-
-  // useEffect(() => {
-  //   if (minPrice < maxPrice) {
-  //     setFilters({ ...filters, minPrice: Number(minPrice) });
-  //   }
-  // }, [minPrice]);
-
-  // useEffect(() => {
-  //   if (minPrice < maxPrice) {
-  //     setFilters({ ...filters, maxPrice: Number(maxPrice) });
-  //   }
-  // }, [maxPrice]);
-
-  // const handleMinPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
-  //   const maxPrice = filters?.maxPrice;
-
-  //   if (maxPrice) {
-  //     const minPrice = Number(evt.target.value) > maxPrice ? maxPrice : Number(evt.target.value);
-  //     setFilters({ ...filters, minPrice: Number(minPrice) });
-  //   }
-  // };
-
-  // const handleMaxPriceClick = (evt: ChangeEvent<HTMLInputElement>) => {
-  //   const minPrice = filters?.minPrice;
-
-  //   if (minPrice) {
-  //     const maxPrice = Number(evt.target.value) < minPrice ? minPrice : Number(evt.target.value);
-  //     setFilters({ ...filters, maxPrice: Number(maxPrice) });
-  //   }
-  // };
 
   const handleTypeChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const name = evt.target.name;
@@ -135,27 +108,27 @@ export function Filters(): JSX.Element {
           <div className="form-input">
             <label className="visually-hidden">Минимальная цена</label>
             <input
-              onChange={handleMinPriceClick}
+              onChange={handleMinPriceChange}
               onBlur={handleMinPriceOnBlur}
-              value={minPrice}
+              value={minPrice.toString()}
               type="number"
-              placeholder={MIN_PRICE.toString()}
+              placeholder={String(startMinPrice)}
               id="priceMin"
               name="от"
-              min={MIN_PRICE}
+              min={String(startMinPrice)}
             />
           </div>
           <div className="form-input">
             <label className="visually-hidden">Максимальная цена</label>
             <input
+              onChange={handleMaxPriceChange}
+              onBlur={handleMaxPriceOnBlur}
               value={maxPrice}
               type="number"
-              onBlur={handleMaxPriceOnBlur}
-              placeholder={MAX_PRICE.toString()}
+              placeholder={String(startMaxPrice)}
               id="priceMax"
               name="до"
-              onChange={handleMaxPriceClick}
-              max={MAX_PRICE}
+              max={String(startMaxPrice)}
             />
           </div>
         </div>
@@ -165,7 +138,7 @@ export function Filters(): JSX.Element {
         <div className="form-checkbox catalog-filter__block-item">
           <input
             className="visually-hidden"
-            defaultChecked={clearCheckbox}
+            defaultChecked={clearCheckbox || filters?.type?.includes('acoustic')}
             type="checkbox"
             id="acoustic"
             name="acoustic"
@@ -176,7 +149,7 @@ export function Filters(): JSX.Element {
         <div className="form-checkbox catalog-filter__block-item">
           <input
             className="visually-hidden"
-            defaultChecked={clearCheckbox}
+            defaultChecked={clearCheckbox || filters?.type?.includes('electric')}
             type="checkbox"
             id="electric"
             name="electric"
@@ -187,7 +160,7 @@ export function Filters(): JSX.Element {
         <div className="form-checkbox catalog-filter__block-item">
           <input
             className="visually-hidden"
-            defaultChecked={clearCheckbox}
+            defaultChecked={clearCheckbox || filters?.type?.includes('ukulele')}
             type="checkbox"
             id="ukulele"
             name="ukulele"
@@ -205,7 +178,7 @@ export function Filters(): JSX.Element {
             id="4-strings"
             name="4-strings"
             onChange={handleStringsCheckboxChange}
-            defaultChecked={clearCheckbox}
+            defaultChecked={clearCheckbox || filters?.stringsCount?.includes('4')}
             disabled={disabledAcoustic}
           />
           <label htmlFor="4-strings">4</label>
@@ -218,7 +191,7 @@ export function Filters(): JSX.Element {
             name="6-strings"
             onChange={handleStringsCheckboxChange}
             disabled={disabledUkulele}
-            defaultChecked={clearCheckbox}
+            defaultChecked={clearCheckbox || filters?.stringsCount?.includes('6')}
           />
           <label htmlFor="6-strings">6</label>
         </div>
@@ -230,7 +203,7 @@ export function Filters(): JSX.Element {
             name="7-strings"
             onChange={handleStringsCheckboxChange}
             disabled={disabledUkulele}
-            defaultChecked={clearCheckbox}
+            defaultChecked={clearCheckbox || filters?.stringsCount?.includes('7')}
           />
           <label htmlFor="7-strings">7</label>
         </div>
@@ -242,7 +215,7 @@ export function Filters(): JSX.Element {
             name="12-strings"
             disabled={disabledUkulele || disabledElectric}
             onChange={handleStringsCheckboxChange}
-            defaultChecked={clearCheckbox}
+            defaultChecked={clearCheckbox || filters?.stringsCount?.includes('12')}
           />
           <label htmlFor="12-strings">12</label>
         </div>

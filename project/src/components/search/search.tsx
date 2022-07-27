@@ -62,6 +62,11 @@ export function Search(): JSX.Element {
               onClick={() => {
                 handleSelecktClick(generatePath(AppRoute.Item, { id: `${id}` }));
               }}
+              onKeyDown={(evt) => {
+                if (evt.key === 'Enter') {
+                  handleSelecktClick(generatePath(AppRoute.Item, { id: `${id}` }));
+                }
+              }}
               className="form-search__select-item"
               tabIndex={0}
             >{name}

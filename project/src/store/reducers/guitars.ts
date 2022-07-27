@@ -6,20 +6,22 @@ import { sortByPriceAsc } from '../../utils';
 
 const params = queryString.parse(window.location.hash.slice(1));
 
-// eslint-disable-next-line no-console
-console.log(params);
-
-export const defaultFilters = {
-  minPrice: Number(params.maxPrice) || MIN_PRICE,
-  maxPrice: Number(params.minPrice) || MAX_PRICE,
-  type: params.type ? String(params.type) : '',
-  stringsCount: params.stringsCount ? String(params.stringsCount) : '',
-};
-
 export type Sort = {
   sortType: string;
   sortOrder: string;
 }
+
+export const defaultFilters = {
+  minPrice: Number(params.minPrice) || MIN_PRICE,
+  maxPrice: Number(params.maxPrice) || MAX_PRICE,
+  type: params.type ? String(params.type) : '',
+  stringsCount: params.stringsCount ? String(params.stringsCount) : '',
+};
+
+export const defaultSort = {
+  sortType: params.sortType ? String(params.sortType) : SortType.Default,
+  sortOrder: params.sortOrder ? String(params.sortOrder) : SortOrder.Asc,
+};
 
 type StateProps = {
   guitars: Guitar[];
@@ -38,17 +40,14 @@ type StateProps = {
 
 const initialState: StateProps = {
   guitars: [],
-  minPriceDefault: 0,
-  maxPriceDefault: 0,
+  minPriceDefault: MIN_PRICE,
+  maxPriceDefault: MAX_PRICE,
   all: [],
   isLoading: false,
   totalCounts: 0,
   searchGuitars: [],
   filters: defaultFilters,
-  sort: {
-    sortType: params.sortType ? String(params.sortType) : SortType.Default,
-    sortOrder: params.sortOrder ? String(params.sortOrder) : SortOrder.Asc,
-  },
+  sort: defaultSort,
 };
 
 export const guitars = createSlice({

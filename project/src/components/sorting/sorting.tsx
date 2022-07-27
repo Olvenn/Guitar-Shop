@@ -1,12 +1,12 @@
 import { MouseEventHandler, useState, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/';
-import { setSort } from '../../store/reducers/guitars';
+import { setSort, defaultSort } from '../../store/reducers/guitars';
 import { SortType, SortOrder } from '../../const';
 
 export function Sorting(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [sortType, setSortType] = useState(SortType.Default);
-  const [sortOrder, setSortOrder] = useState(SortOrder.Asc);
+  const [sortType, setSortType] = useState(defaultSort.sortType);
+  const [sortOrder, setSortOrder] = useState(defaultSort.sortOrder);
 
   const handlePriceButtonClick: MouseEventHandler = () => {
     setSortType(SortType.Price);
