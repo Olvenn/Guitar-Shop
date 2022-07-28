@@ -19,15 +19,26 @@ export function Filters(): JSX.Element {
     setMaxPrice(String(filters.maxPrice));
   }, [filters]);
 
-  const disabledUkulele = ((filters?.type?.includes('ukulele')
+  const disabledExceptionFour = ((filters?.type?.includes('ukulele')
     && !filters?.type?.includes('acoustic')
     && !filters?.type?.includes('electric')));
 
-  const disabledElectric = ((filters?.type?.includes('electric')
+  const disabledTwelve = ((filters?.type?.includes('electric')
     && !filters?.type?.includes('acoustic')));
 
-  const disabledAcoustic = ((filters?.type?.includes('acoustic')
+  const disabledFour = ((filters?.type?.includes('acoustic')
     && !filters?.type?.includes('electric')));
+
+  const enabledAll = ((!filters?.stringsCount?.includes('7')
+    && !filters?.stringsCount?.includes('6')) && !filters?.stringsCount?.includes('12') && !filters?.stringsCount?.includes('4'));
+
+  const disabledUkulele = ((!filters?.stringsCount?.includes('4')));
+
+  const disabledAcoustic = ((filters?.stringsCount?.includes('7')
+    || filters?.stringsCount?.includes('6')) || filters?.stringsCount?.includes('12'));
+
+  const disabledElectric = ((filters?.stringsCount?.includes('4')
+    || filters?.stringsCount?.includes('6')) || filters?.stringsCount?.includes('7'));
 
   const handleMinPriceChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setMinPrice(evt.target.value);
@@ -144,6 +155,7 @@ export function Filters(): JSX.Element {
             id="acoustic"
             name="acoustic"
             onChange={handleTypeChange}
+            disabled={!disabledAcoustic && !enabledAll}
           />
           <label htmlFor="acoustic">Акустические гитары</label>
         </div>
@@ -154,6 +166,7 @@ export function Filters(): JSX.Element {
             type="checkbox"
             id="electric"
             name="electric"
+            disabled={!disabledElectric && !enabledAll}
             onChange={handleTypeChange}
           />
           <label htmlFor="electric">Электрогитары</label>
@@ -166,6 +179,7 @@ export function Filters(): JSX.Element {
             id="ukulele"
             name="ukulele"
             onChange={handleTypeChange}
+            disabled={disabledUkulele && !enabledAll}
           />
           <label htmlFor="ukulele">Укулеле</label>
         </div>
@@ -180,7 +194,7 @@ export function Filters(): JSX.Element {
             name="4-strings"
             onChange={handleStringsCheckboxChange}
             defaultChecked={clearCheckbox || filters?.stringsCount?.includes('4')}
-            disabled={disabledAcoustic}
+            disabled={disabledFour}
           />
           <label htmlFor="4-strings">4</label>
         </div>
@@ -191,7 +205,7 @@ export function Filters(): JSX.Element {
             id="6-strings"
             name="6-strings"
             onChange={handleStringsCheckboxChange}
-            disabled={disabledUkulele}
+            disabled={disabledExceptionFour}
             defaultChecked={clearCheckbox || filters?.stringsCount?.includes('6')}
           />
           <label htmlFor="6-strings">6</label>
@@ -203,7 +217,7 @@ export function Filters(): JSX.Element {
             id="7-strings"
             name="7-strings"
             onChange={handleStringsCheckboxChange}
-            disabled={disabledUkulele}
+            disabled={disabledExceptionFour}
             defaultChecked={clearCheckbox || filters?.stringsCount?.includes('7')}
           />
           <label htmlFor="7-strings">7</label>
@@ -214,7 +228,7 @@ export function Filters(): JSX.Element {
             type="checkbox"
             id="12-strings"
             name="12-strings"
-            disabled={disabledUkulele || disabledElectric}
+            disabled={disabledExceptionFour || disabledTwelve}
             onChange={handleStringsCheckboxChange}
             defaultChecked={clearCheckbox || filters?.stringsCount?.includes('12')}
           />
