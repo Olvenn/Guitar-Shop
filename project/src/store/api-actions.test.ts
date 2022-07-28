@@ -28,17 +28,17 @@ describe('Async actions', () => {
     ThunkDispatch<State, typeof api, Action>
   >(middlewares);
 
-  it('should dispatch loadGuitars when GET /Guitars', async () => {
-    mockAPI
-      .onGet(APIRoute.Guitars)
-      .reply(200, fakeGuitars);
+  // it('should dispatch loadGuitars when GET /Guitars', async () => {
+  //   mockAPI
+  //     .onGet(APIRoute.Guitars)
+  //     .reply(200, fakeGuitars);
 
-    const store = mockStore();
-    await store.dispatch(fetchGuitarsAction('?_start=0&_limit=9'));
-    store.dispatch(setTotalCounts(GUITARS));
-    const actions = store.getActions().map(({ type }) => type);
-    expect(actions).toContain(setTotalCounts.toString());
-  });
+  //   const store = mockStore();
+  //   await store.dispatch(fetchGuitarsAction('?_start=0&_limit=9'));
+  //   store.dispatch(setTotalCounts(GUITARS));
+  //   const actions = store.getActions().map(({ type }) => type);
+  //   expect(actions).toContain(setTotalCounts.toString());
+  // });
 
 
   it('should dispatch setComments when add Comment when POST', async () => {

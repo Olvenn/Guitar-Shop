@@ -4,6 +4,8 @@ import { NameSpace, MIN_PRICE, MAX_PRICE, SortType, SortOrder } from '../../cons
 import { Guitar, Filter } from '../../types/types';
 import { sortByPriceAsc } from '../../utils';
 
+const DEFAULT_PAGE = 1;
+
 const params = queryString.parse(window.location.hash.slice(1));
 
 export type Sort = {
@@ -32,6 +34,7 @@ type StateProps = {
   totalCounts: number;
   searchGuitars?: Guitar[];
   filters?: Filter;
+  page: number;
   sort?: {
     sortType: string;
     sortOrder: string;
@@ -46,6 +49,7 @@ const initialState: StateProps = {
   isLoading: false,
   totalCounts: 0,
   searchGuitars: [],
+  page: params.page ? Number(params.page) : DEFAULT_PAGE,
   filters: defaultFilters,
   sort: defaultSort,
 };
@@ -73,12 +77,16 @@ export const guitars = createSlice({
       state.searchGuitars = action.payload;
     },
     loadFilters: (state, action) => {
+      state.page = DEFAULT_PAGE;
       state.filters = action.payload;
     },
     setSort: (state, action) => {
       state.sort = action.payload;
     },
+    setPage: (state, action) => {
+      state.page = action.payload;
+    },
   },
 });
 
-export const { loadGuitars, setTotalCounts, loadSearchData, loadFilters, setSort, getMaxPrice, getMinPrice } = guitars.actions;
+export const { loadGuitars, setTotalCounts, loadSearchData, loadFilters, setSort, getMaxPrice, getMinPrice, setPage } = guitars.actions;

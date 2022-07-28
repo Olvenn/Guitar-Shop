@@ -5,18 +5,19 @@ import { Guitar, Comment } from '../types/types';
 import { loadGuitars, setTotalCounts, loadSearchData, getMaxPrice, getMinPrice } from './reducers/guitars';
 import { setIsLoading, setSuccessfully } from './reducers/comments';
 import { APIRoute, ITEMS_PER_PAGE } from '../const';
-import { getFilters, selectSort } from './reducers/selectors';
+import { getFilters, selectSort, selectPage } from './reducers/selectors';
 
-export const fetchGuitarsAction = createAsyncThunk<void, string, {
+export const fetchGuitarsAction = createAsyncThunk<void, void, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance,
 }>(
   'data/fetchGuitars',
-  async (page, { dispatch, getState, extra: api }) => {
+  async (_, { dispatch, getState, extra: api }) => {
     const state = getState();
     const filters = getFilters(state);
     const sort = selectSort(state);
+    const page = selectPage(state);
 
     let querySort = '?';
     querySort = sort?.sortType === 'default' ? querySort : `?_sort=${sort?.sortType}&_order=${sort?.sortOrder}&`;

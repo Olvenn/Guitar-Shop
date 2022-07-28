@@ -6,7 +6,6 @@ export const MAX_PRICE = 35000;
 export enum AppRoute {
   Root = '/',
   Catalog = '/catalog',
-  CatalogPage = '/catalog/:page',
   Item = '/item/:id',
   Cart = '/cart',
 }

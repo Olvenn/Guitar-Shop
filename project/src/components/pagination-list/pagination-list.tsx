@@ -1,28 +1,28 @@
+import { useAppDispatch, useAppSelector } from '../../hooks/';
+import { getTotalCounts, selectPage } from '../../store/reducers/selectors';
+import { ITEMS_PER_PAGE } from '../../const';
+import { setPage } from '../../store/reducers/guitars';
 import { Link } from 'react-router-dom';
-import queryString from 'querystring';
-import { useAppSelector } from '../../hooks/';
-import { getTotalCounts, getFilters, selectSort } from '../../store/reducers/selectors';
-import { ITEMS_PER_PAGE, AppRoute } from '../../const';
 
-type Props = {
-  currentPage: number,
-}
-
-export function PaginationList({ currentPage }: Props): JSX.Element {
+export function PaginationList(): JSX.Element {
+  const dispatch = useAppDispatch();
   const guitarsCount = useAppSelector(getTotalCounts);
-  const filters = useAppSelector(getFilters);
-  const sort = useAppSelector(selectSort);
-  const query = queryString.stringify({ ...filters, ...sort });
+  const currentPage = useAppSelector(selectPage);
 
   const totalPagesCount = Math.ceil(guitarsCount / ITEMS_PER_PAGE);
   const pages = Array.from({ length: totalPagesCount }, (_, i) => i + 1);
+
+  const handlePageClick = (page: number) => {
+    dispatch(setPage(page));
+  };
 
   return (
     <ul className="pagination__list">
       <li className={currentPage === 1 ? 'pagination__page pagination__page--prev visually-hidden' : 'pagination__page pagination__page--prev'} id="prev">
         <Link
           className="link pagination__page-link"
-          to={`${AppRoute.Catalog}/${currentPage - 1}#${query}`}
+          onClick={() => handlePageClick(currentPage - 1)}
+          to='#'
         >
           Назад
         </Link>
@@ -33,7 +33,8 @@ export function PaginationList({ currentPage }: Props): JSX.Element {
         >
           <Link
             className="link pagination__page-link"
-            to={`${AppRoute.Catalog}/${page}#${query}`}
+            onClick={() => handlePageClick(page)}
+            to='#'
           >
             {page}
           </Link>
@@ -44,7 +45,8 @@ export function PaginationList({ currentPage }: Props): JSX.Element {
       >
         <Link
           className="link pagination__page-link"
-          to={`${AppRoute.Catalog}/${currentPage + 1}#${query}`}
+          onClick={() => handlePageClick(currentPage + 1)}
+          to='#'
         >
           Далее
         </Link>

@@ -11,7 +11,6 @@ const mockStore = configureMockStore();
 
 describe('Component: PaginationList', () => {
   it('should render correctly', () => {
-    const currentPage = 1;
     const store = mockStore({
       [NameSpace.Guitars]: {
         totalCounts: 10,
@@ -20,7 +19,7 @@ describe('Component: PaginationList', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <PaginationList currentPage={currentPage} />
+          <PaginationList />
         </HistoryRouter>
       </Provider>);
 

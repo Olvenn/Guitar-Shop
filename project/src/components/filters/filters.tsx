@@ -1,5 +1,6 @@
 import { useState, useEffect, MouseEventHandler, ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/';
+import { useComponentDidUpdate } from '../../hooks/use-component-did-update';
 import { loadFilters, defaultFilters } from '../../store/reducers/guitars';
 import { selectMinPrice, selectMaxPrice } from '../../store/reducers/selectors';
 
@@ -95,7 +96,7 @@ export function Filters(): JSX.Element {
     });
   };
 
-  useEffect(() => {
+  useComponentDidUpdate(() => {
     dispatch(loadFilters(filters));
   }, [filters, dispatch]);
 
