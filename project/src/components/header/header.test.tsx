@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import * as Redux from 'react-redux';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
@@ -24,6 +25,10 @@ const store = mockStore({
 
 describe('Component: header', () => {
   it('should render correctly', () => {
+    const dispatch = jest.fn();
+
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -42,6 +47,10 @@ describe('Component: header', () => {
 
   it('should redirect to cart url when user clicked to "Перейти в корзину"', () => {
     history.push('/');
+    const dispatch = jest.fn();
+
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>

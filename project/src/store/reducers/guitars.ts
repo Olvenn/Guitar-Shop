@@ -27,7 +27,6 @@ export const defaultSort = {
 
 type StateProps = {
   guitars: Guitar[];
-  all: Guitar[];
   minPriceDefault: number | undefined;
   maxPriceDefault: number | undefined;
   isLoading: boolean,
@@ -45,7 +44,6 @@ const initialState: StateProps = {
   guitars: [],
   minPriceDefault: undefined,
   maxPriceDefault: undefined,
-  all: [],
   isLoading: false,
   totalCounts: 0,
   searchGuitars: [],

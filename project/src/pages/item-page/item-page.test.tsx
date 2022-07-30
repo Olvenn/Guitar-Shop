@@ -30,10 +30,10 @@ const store = mockStore({
 });
 
 describe('Component: ItemPage', () => {
-  const dispatch = jest.fn();
-  const useDispatch = jest.spyOn(Redux, 'useDispatch');
-  useDispatch.mockReturnValue(dispatch);
   it('should render correctly when there is a guitar', () => {
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
 
     render(
       <Provider store={store}>

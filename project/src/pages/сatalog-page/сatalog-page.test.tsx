@@ -12,15 +12,14 @@ import { Provider } from 'react-redux';
 const mockStore = configureMockStore();
 const fakeGuitars = makeFakeGuitars(25).slice(6, 9);
 const history = createMemoryHistory();
-const linkSrc = generatePath(AppRoute.CatalogPage, { page: '1' });
+const linkSrc = generatePath(AppRoute.Catalog);
 history.push(linkSrc);
 
 describe('Component: CatalogPage', () => {
-  const dispatch = jest.fn();
-  const useDispatch = jest.spyOn(Redux, 'useDispatch');
-  useDispatch.mockReturnValue(dispatch);
-
   it('should render correctly when there is at least one guitar', () => {
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
     const store = mockStore({
       [NameSpace.Guitars]: {
         guitars: fakeGuitars,

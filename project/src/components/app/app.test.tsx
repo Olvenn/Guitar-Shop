@@ -38,7 +38,7 @@ describe('Application Routing', () => {
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     useDispatch.mockReturnValue(dispatch);
-    history.push(AppRoute.CatalogPage.replace('page', '1'));
+    history.push(AppRoute.Catalog);
     render(fakeApp);
 
     expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();
@@ -48,20 +48,17 @@ describe('Application Routing', () => {
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     useDispatch.mockReturnValue(dispatch);
-    history.push(AppRoute.CatalogPage.replace('page', '1'));
+    history.push(AppRoute.Catalog);
     render(fakeApp);
 
     expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();
   });
 
-
-  // const guitar = makeFakeGuitar();
-  // const dispatch = jest.fn();
-  // const useDispatch = jest.spyOn(Redux, 'useDispatch');
-  // useDispatch.mockReturnValue(dispatch);
-  // history.push(AppRoute.Item.replace('page', 1));
-
   it('should render "Catalog" when user navigate to "/cart"', () => {
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+    history.push(AppRoute.Item.replace('page', '1'));
     history.push(AppRoute.Cart);
 
     render(fakeApp);
@@ -79,7 +76,6 @@ describe('Application Routing', () => {
     render(fakeApp);
     expect(screen.getByText(/Каталог/i)).toBeInTheDocument();
   });
-
 
   it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
     history.push('/non-existent-route');

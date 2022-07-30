@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
+import * as Redux from 'react-redux';
 import HistoryRouter from '../history-router/history-router';
 import { AppRoute } from '../../const';
 import { Search } from './search';
@@ -17,11 +18,17 @@ history.push(AppRoute.Root);
 const store = mockStore({
   [NameSpace.Guitars]: {
     guitar: fakeGuitars,
+    searchGuitars: [],
   },
 });
 
 describe('Component: header', () => {
   it('should render correctly', () => {
+    const dispatch = jest.fn();
+
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>

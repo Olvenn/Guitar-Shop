@@ -14,20 +14,21 @@ describe('Reducer: guitars', () => {
     expect(guitars.reducer(void 0, { type: 'UNKNOWN_ACTION' }))
       .toEqual({
         guitars: [],
-        minPriceAll: 0,
-        maxPriceAll: 0,
+        minPriceDefault: undefined,
+        maxPriceDefault: undefined,
         totalCounts: 0,
         isLoading: false,
         searchGuitars: [],
+        page: 1,
         filters: {
-          minPrice: MIN_PRICE,
-          maxPrice: MAX_PRICE,
+          minPrice: undefined,
+          maxPrice: undefined,
           type: '',
           stringsCount: '',
         },
         sort: {
-          type: 'Default',
-          order: '',
+          sortType: 'default',
+          sortOrder: 'asc',
         },
       });
   });
@@ -35,39 +36,41 @@ describe('Reducer: guitars', () => {
   it('should update guitars by load guitars', () => {
     const state = {
       guitars: [],
-      minPriceAll: MIN_PRICE,
-      maxPriceAll: MIN_PRICE,
+      minPriceDefault: undefined,
+      maxPriceDefault: undefined,
       totalCounts: 0,
       isLoading: false,
       searchGuitars: [],
+      page: 1,
       filters: {
-        minPrice: MIN_PRICE,
-        maxPrice: MAX_PRICE,
+        minPrice: undefined,
+        maxPrice: undefined,
         type: '',
         stringsCount: '',
       },
       sort: {
-        type: 'Default',
-        order: '',
+        sortType: 'default',
+        sortOrder: 'asc',
       },
     };
     expect(guitars.reducer(state, loadGuitars(fakeGuitars)))
       .toEqual({
         guitars: fakeGuitars,
-        minPriceAll: MIN_PRICE,
-        maxPriceAll: MIN_PRICE,
+        minPriceDefault: undefined,
+        maxPriceDefault: undefined,
         totalCounts: 0,
         isLoading: true,
         searchGuitars: [],
+        page: 1,
         filters: {
-          minPrice: MIN_PRICE,
-          maxPrice: MAX_PRICE,
+          minPrice: undefined,
+          maxPrice: undefined,
           type: '',
           stringsCount: '',
         },
         sort: {
-          type: 'Default',
-          order: '',
+          sortType: 'default',
+          sortOrder: 'asc',
         },
       });
   });
@@ -76,18 +79,42 @@ describe('Reducer: guitars', () => {
     const guitarsFake = makeFakeGuitars(GUITARS);
     const state = {
       guitars: guitarsFake,
-      minPriceAll: 0,
-      maxPriceAll: 0,
+      minPriceDefault: 0,
+      maxPriceDefault: 0,
       totalCounts: 0,
-      isLoading: false,
+      isLoading: true,
+      searchGuitars: [],
+      page: 1,
+      filters: {
+        minPrice: undefined,
+        maxPrice: undefined,
+        type: '',
+        stringsCount: '',
+      },
+      sort: {
+        sortType: 'default',
+        sortOrder: 'asc',
+      },
     };
     expect(guitars.reducer(state, setTotalCounts(guitarsFake.length)))
       .toEqual({
         guitars: guitarsFake,
-        minPriceAll: 0,
-        maxPriceAll: 0,
+        isLoading: true,
+        minPriceDefault: 0,
+        maxPriceDefault: 0,
         totalCounts: guitarsFake.length,
-        isLoading: false,
+        searchGuitars: [],
+        page: 1,
+        filters: {
+          minPrice: undefined,
+          maxPrice: undefined,
+          type: '',
+          stringsCount: '',
+        },
+        sort: {
+          sortType: 'default',
+          sortOrder: 'asc',
+        },
       });
   });
 });

@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import * as Redux from 'react-redux';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../../components/history-router/history-router';
 import { configureMockStore } from '@jedmao/redux-mock-store';
@@ -12,9 +13,13 @@ const fakeGuitars = makeFakeGuitars(25).slice(6, 9);
 const history = createMemoryHistory();
 history.push(AppRoute.Cart);
 
-
 describe('Component: CartPage', () => {
   it('should render correctly when there is at least one guitar', () => {
+    const dispatch = jest.fn();
+
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+
     const store = mockStore({
       [NameSpace.Guitars]: {
         guitars: fakeGuitars,
