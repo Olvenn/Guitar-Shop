@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import queryString from 'querystring';
-import { NameSpace, MIN_PRICE, MAX_PRICE, SortType, SortOrder } from '../../const';
+import { NameSpace, SortType, SortOrder } from '../../const';
 import { Guitar, Filter } from '../../types/types';
 import { sortByPriceAsc } from '../../utils';
 
@@ -14,8 +14,8 @@ export type Sort = {
 }
 
 export const defaultFilters = {
-  minPrice: Number(params.minPrice) || MIN_PRICE,
-  maxPrice: Number(params.maxPrice) || MAX_PRICE,
+  minPrice: params.minPrice ? Number(params.minPrice) : undefined,
+  maxPrice: params.maxPrice ? Number(params.maxPrice) : undefined,
   type: params.type ? String(params.type) : '',
   stringsCount: params.stringsCount ? String(params.stringsCount) : '',
 };
@@ -28,8 +28,8 @@ export const defaultSort = {
 type StateProps = {
   guitars: Guitar[];
   all: Guitar[];
-  minPriceDefault: number;
-  maxPriceDefault: number;
+  minPriceDefault: number | undefined;
+  maxPriceDefault: number | undefined;
   isLoading: boolean,
   totalCounts: number;
   searchGuitars?: Guitar[];
@@ -43,8 +43,8 @@ type StateProps = {
 
 const initialState: StateProps = {
   guitars: [],
-  minPriceDefault: MIN_PRICE,
-  maxPriceDefault: MAX_PRICE,
+  minPriceDefault: undefined,
+  maxPriceDefault: undefined,
   all: [],
   isLoading: false,
   totalCounts: 0,

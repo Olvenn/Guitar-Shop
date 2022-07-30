@@ -14,5 +14,5 @@ export const getIsSuccessfullyComment = (state: State): boolean => state[NameSpa
 export const getSearchGuitars = (state: State): Guitar[] | undefined => state[NameSpace.Guitars].searchGuitars;
 export const getFilters = (state: State): Filter | undefined => state[NameSpace.Guitars].filters;
 export const selectSort = (state: State): Sort | undefined => state[NameSpace.Guitars].sort;
-export const selectMinPrice = (state: State): number => state[NameSpace.Guitars].minPriceDefault;
-export const selectMaxPrice = (state: State): number => state[NameSpace.Guitars].maxPriceDefault;
+export const selectMinPrice = (state: State): number | undefined => state[NameSpace.Guitars].minPriceDefault;
+export const selectMaxPrice = (state: State): number | undefined => state[NameSpace.Guitars].maxPriceDefault;

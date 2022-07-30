@@ -22,10 +22,14 @@ export const fetchGuitarsAction = createAsyncThunk<void, void, {
     let querySort = '?';
     querySort = sort?.sortType === 'default' ? querySort : `?_sort=${sort?.sortType}&_order=${sort?.sortOrder}&`;
 
-    const query = `${querySort}price_gte=${filters?.minPrice}&price_lte=${filters?.maxPrice}${filters?.stringsCount ? filters?.stringsCount : ''}${filters?.type ? `&type=${filters?.type}` : ''}&_start=${(+page - 1) * ITEMS_PER_PAGE}&_limit=${ITEMS_PER_PAGE}`;
-
+    const query = `${querySort}` +
+      `${filters?.minPrice ? `&price_gte=${filters?.minPrice}` : ''}` +
+      `${filters?.maxPrice ? `&price_gte=${filters?.maxPrice}` : ''}` +
+      `${filters?.stringsCount ? filters?.stringsCount : ''}` +
+      `${filters?.type ? `&type=${filters?.type}` : ''}` +
+      `& _start=${(+page - 1) * ITEMS_PER_PAGE}& _limit=${ITEMS_PER_PAGE}`;
     try {
-      const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}${query}&_embed=comments`);
+      const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}${query}& _embed=comments`);
       const totalCount = headers['x-total-count'];
       dispatch(loadGuitars(data));
       dispatch(setTotalCounts(totalCount));
@@ -43,7 +47,7 @@ export const searchAction = createAsyncThunk<void, string, {
   'data/fetchSearch',
   async (query, { dispatch, extra: api }) => {
     try {
-      const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}?name_like=${query}`);
+      const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}?name_like = ${query} `);
       const totalCount = headers['x-total-count'];
       dispatch(loadSearchData(data));
       dispatch(setTotalCounts(totalCount));
