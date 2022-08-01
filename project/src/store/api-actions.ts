@@ -27,7 +27,7 @@ export const fetchGuitarsAction = createAsyncThunk<void, void, {
       `${filters?.maxPrice ? `&price_gte=${filters?.maxPrice}` : ''}` +
       `${filters?.stringsCount ? filters?.stringsCount : ''}` +
       `${filters?.type ? `&type=${filters?.type}` : ''}` +
-      `& _start=${(+page - 1) * ITEMS_PER_PAGE}& _limit=${ITEMS_PER_PAGE}`;
+      `&_start=${(+page - 1) * ITEMS_PER_PAGE}&_limit=${ITEMS_PER_PAGE}`;
     try {
       const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}${query}& _embed=comments`);
       const totalCount = headers['x-total-count'];
