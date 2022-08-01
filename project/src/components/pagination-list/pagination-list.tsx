@@ -22,7 +22,7 @@ export function PaginationList(): JSX.Element {
         <Link
           className="link pagination__page-link"
           onClick={() => handlePageClick(currentPage - 1)}
-          to='#'
+          to=''
         >
           Назад
         </Link>
@@ -34,7 +34,7 @@ export function PaginationList(): JSX.Element {
           <Link
             className="link pagination__page-link"
             onClick={() => handlePageClick(page)}
-            to='#'
+            to=''
           >
             {page}
           </Link>
@@ -46,7 +46,7 @@ export function PaginationList(): JSX.Element {
         <Link
           className="link pagination__page-link"
           onClick={() => handlePageClick(currentPage + 1)}
-          to='#'
+          to=''
         >
           Далее
         </Link>

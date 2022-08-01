@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import queryString from 'querystring';
 import { NameSpace, SortType, SortOrder } from '../../const';
 import { Guitar, Filter } from '../../types/types';
-import { sortByPriceAsc } from '../../utils';
 
 const DEFAULT_PAGE = 1;
 
@@ -60,13 +59,9 @@ export const guitars = createSlice({
       state.guitars = action.payload;
       state.isLoading = true;
     },
-    getMaxPrice: (state, action) => {
-      const sortGuitars = action.payload.sort(sortByPriceAsc);
-      state.minPriceDefault = sortGuitars[0].price;
-    },
-    getMinPrice: (state, action) => {
-      const sortGuitars = action.payload.sort(sortByPriceAsc);
-      state.maxPriceDefault = sortGuitars[sortGuitars.length - 1].price;
+    setPriceRange: (state, action) => {
+      state.minPriceDefault = action.payload.minPrice;
+      state.maxPriceDefault = action.payload.maxPrice;
     },
     setTotalCounts: (state, action) => {
       state.totalCounts = action.payload;
@@ -87,4 +82,4 @@ export const guitars = createSlice({
   },
 });
 
-export const { loadGuitars, setTotalCounts, loadSearchData, loadFilters, setSort, getMaxPrice, getMinPrice, setPage } = guitars.actions;
+export const { loadGuitars, setTotalCounts, loadSearchData, loadFilters, setSort, setPriceRange, setPage } = guitars.actions;

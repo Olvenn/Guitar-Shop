@@ -4,10 +4,6 @@ import { Layout } from '../../components/layout/layout';
 import { Sorting } from '../../components/sorting/sorting';
 import { Filters } from '../../components/filters/filters';
 import { CatalogList } from '../../components/catalog-list/catalog-list';
-import { fetchAllGuitarsAction } from '../../store/api-actions';
-import { store } from '../../store';
-
-store.dispatch(fetchAllGuitarsAction());
 
 export function CatalogPage(): JSX.Element {
 

@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state.js';
 import { Guitar, Comment } from '../types/types';
-import { loadGuitars, setTotalCounts, loadSearchData, getMaxPrice, getMinPrice } from './reducers/guitars';
+import { loadGuitars, setTotalCounts, loadSearchData, setPriceRange } from './reducers/guitars';
 import { setIsLoading, setSuccessfully } from './reducers/comments';
-import { APIRoute, ITEMS_PER_PAGE } from '../const';
+import { APIRoute, ITEMS_PER_PAGE, SortOrder, SortType } from '../const';
 import { getFilters, selectSort, selectPage } from './reducers/selectors';
 
 export const fetchGuitarsAction = createAsyncThunk<void, void, {
@@ -24,7 +24,7 @@ export const fetchGuitarsAction = createAsyncThunk<void, void, {
 
     const query = `${querySort}` +
       `${filters?.minPrice ? `&price_gte=${filters?.minPrice}` : ''}` +
-      `${filters?.maxPrice ? `&price_gte=${filters?.maxPrice}` : ''}` +
+      `${filters?.maxPrice ? `&price_lte=${filters?.maxPrice}` : ''}` +
       `${filters?.stringsCount ? filters?.stringsCount : ''}` +
       `${filters?.type ? `&type=${filters?.type}` : ''}` +
       `&_start=${(+page - 1) * ITEMS_PER_PAGE}&_limit=${ITEMS_PER_PAGE}`;
@@ -75,20 +75,28 @@ export const commentAction = createAsyncThunk<void, Comment, {
   },
 );
 
-export const fetchAllGuitarsAction = createAsyncThunk<void, undefined, {
+export const fetchAllGuitarsAction = createAsyncThunk<void, void, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance,
 }>(
-  'data/fetchAllGuitars',
-  async (_arg, { dispatch, extra: api }) => {
+  'data/fetchGuitars',
+  async (_arg, { dispatch, getState, extra: api }) => {
+    const state = getState();
+    const filters = getFilters(state);
+
+    const query = `?_sort=${SortType.Price}&_order=${SortOrder.Asc}}` +
+      `${filters?.stringsCount ? filters?.stringsCount : ''}` +
+      `${filters?.type ? `&type=${filters?.type}` : ''}`;
     try {
-      const { data } = await api.get<Guitar[]>(APIRoute.Guitars);
-      dispatch(getMaxPrice(data));
-      dispatch(getMinPrice(data));
+      const { data } = await api.get<Guitar[]>(`${APIRoute.Guitars}${query}`);
+      dispatch(setPriceRange({
+        minPrice: data[0].price,
+        maxPrice: data[data.length - 1].price,
+      }));
     } catch (error) {
-      dispatch(getMinPrice(0));
-      dispatch(getMaxPrice(0));
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   },
 );

@@ -3,18 +3,22 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createAPI } from '../services/api';
-import { fetchGuitarsAction, commentAction } from './api-actions';
+import { commentAction } from './api-actions';
 import { APIRoute } from '../const';
 import { State } from '../types/state';
-import { setTotalCounts } from './reducers/guitars';
+import { makeFakeComments } from '../mock';
 import { setIsLoading, setSuccessfully } from './reducers/comments';
-import { makeFakeGuitars, makeFakeComments } from '../mock';
+
 import { Comment } from '../types/types';
 
-const GUITARS = 25;
+// import { fetchGuitarsAction, commentAction } from './api-actions';
+// import { setTotalCounts } from './reducers/guitars';
+// import { makeFakeGuitars, makeFakeComments } from '../mock';
+
+// const GUITARS = 25;
 const COMMENTS_COUNT = 7;
 
-const fakeGuitars = makeFakeGuitars(GUITARS);
+// const fakeGuitars = makeFakeGuitars(GUITARS);
 const fakeComments = makeFakeComments(COMMENTS_COUNT);
 
 describe('Async actions', () => {

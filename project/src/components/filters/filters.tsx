@@ -100,8 +100,8 @@ export function Filters(): JSX.Element {
   const handleClearButtonClick: MouseEventHandler = () => {
     setClearCheckbox(false);
     setFilters({
-      minPrice: startMinPrice,
-      maxPrice: startMaxPrice,
+      minPrice: undefined,
+      maxPrice: undefined,
       type: '',
       stringsCount: '',
     });
@@ -124,10 +124,10 @@ export function Filters(): JSX.Element {
               onBlur={handleMinPriceOnBlur}
               value={minPrice.toString()}
               type="number"
-              placeholder={String(startMinPrice)}
+              placeholder={startMinPrice ? String(startMinPrice) : ''}
               id="priceMin"
               name="от"
-              min={String(startMinPrice)}
+              min={startMinPrice ? String(startMinPrice) : ''}
             />
           </div>
           <div className="form-input">
@@ -137,10 +137,10 @@ export function Filters(): JSX.Element {
               onBlur={handleMaxPriceOnBlur}
               value={maxPrice}
               type="number"
-              placeholder={String(startMaxPrice)}
+              placeholder={startMaxPrice ? String(startMaxPrice) : ''}
               id="priceMax"
               name="до"
-              max={String(startMaxPrice)}
+              max={startMaxPrice ? String(startMaxPrice) : ''}
             />
           </div>
         </div>
