@@ -5,16 +5,16 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import { CartItem } from './cart-item';
 import { AppRoute, NameSpace } from '../../const';
-import { makeFakeGuitars, GUITARS } from '../../mock';
+import { makeFakeGuitarsWithCount } from '../../mock';
 
 const mockStore = configureMockStore();
-const fakeGuitars = makeFakeGuitars(GUITARS);
+const fakeGuitars = makeFakeGuitarsWithCount(5);
 const history = createMemoryHistory();
 history.push(AppRoute.Root);
 
 const store = mockStore({
-  [NameSpace.Guitar]: {
-    guitar: fakeGuitars,
+  [NameSpace.Order]: {
+    guitarWithCount: fakeGuitars,
   },
 });
 
@@ -24,12 +24,11 @@ describe('Component: CartItem', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <CartItem guitar={fakeGuitars[0]} />
+          <CartItem guitarItem={fakeGuitars[0]} />
         </HistoryRouter>;
       </Provider>,
     );
     expect(screen.getByText(/Артикул/i)).toBeInTheDocument();
-    expect(screen.getByText(`${fakeGuitars[0].name}`)).toBeInTheDocument();
     expect(screen.getByLabelText(/Удалить/i)).toBeInTheDocument();
   });
 });

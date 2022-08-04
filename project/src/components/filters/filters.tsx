@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/';
 import { useComponentDidUpdate } from '../../hooks/use-component-did-update';
 import { loadFilters, defaultFilters } from '../../store/reducers/guitars';
 import { selectMinPrice, selectMaxPrice } from '../../store/reducers/selectors';
+import { StringsCount } from '../../const';
 
 export function Filters(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -29,16 +30,16 @@ export function Filters(): JSX.Element {
   const disabledFour = ((filters?.type?.includes('acoustic')
     && !filters?.type?.includes('electric')));
 
-  const enabledAll = ((!filters?.stringsCount?.includes('7')
-    && !filters?.stringsCount?.includes('6')) && !filters?.stringsCount?.includes('12') && !filters?.stringsCount?.includes('4'));
+  const enabledAll = ((!filters?.stringsCount?.includes(StringsCount.Seven)
+    && !filters?.stringsCount?.includes(StringsCount.Four)) && !filters?.stringsCount?.includes(StringsCount.Twelve) && !filters?.stringsCount?.includes(StringsCount.Four));
 
-  const disabledUkulele = ((!filters?.stringsCount?.includes('4')));
+  const disabledUkulele = ((!filters?.stringsCount?.includes(StringsCount.Twelve)));
 
-  const disabledAcoustic = ((filters?.stringsCount?.includes('7')
-    || filters?.stringsCount?.includes('6')) || filters?.stringsCount?.includes('12'));
+  const disabledAcoustic = ((filters?.stringsCount?.includes(StringsCount.Seven)
+    || filters?.stringsCount?.includes(StringsCount.Six)) || filters?.stringsCount?.includes(StringsCount.Twelve));
 
-  const disabledElectric = ((filters?.stringsCount?.includes('4')
-    || filters?.stringsCount?.includes('6')) || filters?.stringsCount?.includes('7'));
+  const disabledElectric = ((filters?.stringsCount?.includes(StringsCount.Four)
+    || filters?.stringsCount?.includes(StringsCount.Six)) || filters?.stringsCount?.includes(StringsCount.Seven));
 
   const handleMinPriceChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setMinPrice(evt.target.value);

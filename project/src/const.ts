@@ -13,12 +13,15 @@ export enum AppRoute {
 export enum APIRoute {
   Guitars = '/guitars/',
   Comments = '/comments',
+  Coupon = '/coupons',
 }
 
 export enum NameSpace {
   Guitars = 'GUITARS',
   Guitar = 'GUITAR',
   Reviews = 'COMMENTS',
+  Order = 'ORDER',
+  Coupon = 'COUPON',
 }
 
 export const months = [
@@ -44,17 +47,25 @@ export const RatingText = {
   5: 'Ужасно',
 } as const;
 
+export const GuitarType = {
+  electric: 'Электрогитара',
+  ukulele: 'Укулеле',
+  acoustic: 'Акустическая гитара',
+  unknown: 'Тип неизветен',
+} as const;
+
 export enum CommentFieldsName {
   UserName = 'user-name',
   Adv = 'adv',
   Disadv = 'disadv',
 }
 
-export const StringCounts = {
-  acoustic: ['6', '7', '12'],
-  electric: ['4', '6', '7'],
-  ukulele: ['4'],
-} as const;
+export enum StringsCount {
+  Four = '4',
+  Six = '6',
+  Seven = '7',
+  Twelve = '12',
+}
 
 export enum SortType {
   Default = 'default',

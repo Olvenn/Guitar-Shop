@@ -37,3 +37,8 @@ export type Filter = {
   type?: string;
   stringsCount?: string;
 }
+
+export type GuitarWithCount = {
+  guitar: Guitar;
+  count: number;
+}

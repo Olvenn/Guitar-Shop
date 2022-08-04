@@ -1,5 +1,5 @@
 import { Review } from './types/types';
-import { RATING_ITEMS } from './const';
+import { RATING_ITEMS, GuitarType } from './const';
 
 export const getPictureNumber = ((previewImg: string) => {
   const from = previewImg.search('.jpg');
@@ -32,5 +32,18 @@ export const startBodyScroll = () => {
     const scroll = document.body.dataset.scrollY
       ? +document.body.dataset.scrollY : 0;
     window.scrollTo(0, scroll);
+  }
+};
+
+export const adaptType = (type: string) => {
+  switch (type) {
+    case 'electric':
+      return GuitarType.electric;
+    case 'ukulele':
+      return GuitarType.ukulele;
+    case 'acoustic':
+      return GuitarType.acoustic;
+    default:
+      return GuitarType.unknown;
   }
 };

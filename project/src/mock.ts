@@ -1,5 +1,5 @@
 import { commerce, database, datatype, internet, image, random, lorem } from 'faker';
-import { Guitar, Review, Comment } from '../src/types/types';
+import { Guitar, Review, Comment, GuitarWithCount } from '../src/types/types';
 
 export const GUITARS = 25;
 const REVIEWS = 10;
@@ -12,6 +12,8 @@ const MIN_STRING = 5;
 const MAX_STRING = 7;
 const MIN_PRICE = 1000;
 const MAX_PRICE = 100000;
+const MIN_COUNT = 1;
+const MAX_COUNT = 99;
 
 export const makeFakeGuitar = (): Guitar => ({
   id: datatype.number({ min: MIN_ID }),
@@ -25,6 +27,11 @@ export const makeFakeGuitar = (): Guitar => ({
   price: datatype.number({ min: MIN_PRICE, max: MAX_PRICE }),
   comments: makeFakeReviews(Math.floor(Math.random() * (REVIEWS))),
 } as Guitar);
+
+export const makeFakeGuitarWithCount = (): GuitarWithCount => ({
+  guitar: makeFakeGuitar(),
+  count: datatype.number({ min: MIN_COUNT, max: MAX_COUNT }),
+} as GuitarWithCount);
 
 export const makeFakeReview = (): Review => ({
   id: datatype.number({ min: MIN_ID }),
@@ -55,4 +62,5 @@ export const makeFakeReviews = (quantity: number): Review[] => (
 export const makeFakeComments = (quantity: number): Comment[] => (
   new Array(quantity).fill(null).map(makeFakeComment) as Comment[]);
 
-
+export const makeFakeGuitarsWithCount = (quantity: number): GuitarWithCount[] => (
+  new Array(quantity).fill(null).map(makeFakeGuitarWithCount) as GuitarWithCount[]);
