@@ -14,7 +14,6 @@ export function AddCartModal({ onClose, onGuitarAdd, guitar }: Props): JSX.Eleme
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
-
     dispatch(addGuitarToCart(guitar.id));
     onGuitarAdd();
     onClose();

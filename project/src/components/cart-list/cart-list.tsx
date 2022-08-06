@@ -8,8 +8,6 @@ export function CartList(): JSX.Element {
   const dispatch = useAppDispatch();
   const guitars = useAppSelector(selectCartGuitars);
   const guitarsIds = useAppSelector(selectCartGuitarsIds);
-  console.log(guitarsIds);
-
 
   useEffect(() => {
     dispatch(fetchCartGuitarsAction(Object.keys(guitarsIds)));

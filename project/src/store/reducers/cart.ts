@@ -6,7 +6,7 @@ import { api } from '../../services/index';
 export const fetchCartGuitarsAction = createAsyncThunk(
   'data/fetchCartGuitar',
   async (guitarsIds: string[]) => {
-    const response = await api.get<Guitar>(`${APIRoute.Guitars}/?${guitarsIds.map((guitarId) => `id=${guitarId}`).join()}`);
+    const response = await api.get<Guitar>(`${APIRoute.Guitars}/?${guitarsIds.map((guitarId) => `id=${guitarId}`).join('&')}`);
     return response.data;
   },
 );
