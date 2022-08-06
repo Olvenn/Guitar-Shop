@@ -2,7 +2,7 @@ import { useAppDispatch } from '../../hooks';
 import { Modal } from '../modal/modal';
 import { getPictureNumber, adaptType } from '../../utils';
 import { Guitar } from '../../types/types';
-import { fetchCartGuitarsAction, setGuitarsId } from '../../store/reducers/cart';
+import { addGuitarToCart } from '../../store/reducers/cart';
 
 type Props = {
   onClose: () => void;
@@ -14,8 +14,8 @@ export function AddCartModal({ onClose, onGuitarAdd, guitar }: Props): JSX.Eleme
   const dispatch = useAppDispatch();
 
   const handleAddToCart = () => {
-    dispatch(fetchCartGuitarsAction(guitar.id));
-    dispatch(setGuitarsId(guitar.id));
+
+    dispatch(addGuitarToCart(guitar.id));
     onGuitarAdd();
     onClose();
   };

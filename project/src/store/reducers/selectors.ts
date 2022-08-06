@@ -1,6 +1,6 @@
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
-import { Guitar, Filter, GuitarWithCount } from '../../types/types';
+import { Guitar, Filter } from '../../types/types';
 import { Sort } from '../reducers/guitars';
 
 export const getGuitars = (state: State): Guitar[] => state[NameSpace.Guitars].guitars;
@@ -20,7 +20,7 @@ export const selectMaxPrice = (state: State): number | undefined => state[NameSp
 export const selectDiscount = (state: State): number | undefined => state[NameSpace.Coupon].discount;
 export const selectIsLoadingDiscount = (state: State): boolean => state[NameSpace.Coupon].loading;
 export const selectDiscountError = (state: State): string | undefined => state[NameSpace.Coupon].error;
-export const selectAddGuitarToCart = (state: State): GuitarWithCount[] | undefined => state[NameSpace.Order].guitarsWithCount;
-export const selectGuitarsIdInCart = (state: State): number[] | undefined => state[NameSpace.Order].guitarsId;
+export const selectCartGuitarsIds = (state: State): Record<number, number> => state[NameSpace.Order].guitarIds;
+export const selectCartGuitars = (state: State): Guitar[] | undefined => state[NameSpace.Order].guitars;
 export const selectFullPrice = (state: State): number | undefined => state[NameSpace.Order].price;
 

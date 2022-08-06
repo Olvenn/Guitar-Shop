@@ -1,35 +1,30 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { useAppDispatch } from '../../hooks/';
-import { GuitarWithCount } from '../../types/types';
+import { Guitar } from '../../types/types';
 import { capitalize, getPictureNumber } from '../../utils';
-import { setGuitarCount } from '../../store/reducers/cart';
+import { setGuitarCount, increaseGuitarsCount, decreaseGuitarsCount } from '../../store/reducers/cart';
 
 type CartItemProps = {
-  guitarItem: GuitarWithCount;
+  guitar: Guitar;
+  count: number;
 }
 
-export function CartItem({ guitarItem }: CartItemProps): JSX.Element {
+export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const [count, setCount] = useState(guitarItem.count);
-  const guitar = guitarItem.guitar;
 
   const handleIncrease = () => {
-    setCount(count + 1);
+    dispatch(increaseGuitarsCount(guitar.id));
   };
 
   const handleDecrease = () => {
     if (count > 1) {
-      setCount(count - 1);
+      dispatch(decreaseGuitarsCount(guitar.id));
     }
   };
 
   const handleInputNumber = (evt: ChangeEvent<HTMLInputElement>) => {
-    setCount(Number(evt.target.value));
+    dispatch(setGuitarCount({ quitarId: guitar.id, count: evt.target.value }));
   };
-
-  useEffect(() => {
-    dispatch(setGuitarCount([guitar.id, count]));
-  }, [count, dispatch, guitar.id]);
 
   return (
     <div className="cart-item">

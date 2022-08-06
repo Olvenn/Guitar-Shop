@@ -39,6 +39,12 @@ export type Filter = {
 }
 
 export type GuitarWithCount = {
-  guitar: Guitar;
+  guitar: number;
   count: number;
 }
+
+// export type GuitarWithCount = {
+//   guitar: number;
+//   count: number;
+// }
+

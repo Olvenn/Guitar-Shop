@@ -1,28 +1,28 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { NameSpace, APIRoute } from '../../const';
-import { Guitar, GuitarWithCount } from '../../types/types';
+import { Guitar } from '../../types/types';
 import { api } from '../../services/index';
 
 export const fetchCartGuitarsAction = createAsyncThunk(
   'data/fetchCartGuitar',
-  async (id: number, { rejectWithValue }) => {
-    const response = await api.get<Guitar>(`${APIRoute.Guitars}${id}`);
+  async (guitarsIds: string[]) => {
+    const response = await api.get<Guitar>(`${APIRoute.Guitars}/?${guitarsIds.map((guitarId) => `id=${guitarId}`).join()}`);
     return response.data;
   },
 );
 
-type StateProps = {
+type InitialState = {
   price: number;
-  guitarsId: number[];
-  guitarsWithCount?: GuitarWithCount[];
+  guitars: Guitar[];
+  guitarIds: Record<number, number>;
   loading: boolean;
   error?: string;
 };
 
-const initialState: StateProps = {
+const initialState: InitialState = {
   price: 0,
-  guitarsId: [],
-  guitarsWithCount: [],
+  guitars: [],
+  guitarIds: {},
   loading: false,
   error: undefined,
 };
@@ -31,18 +31,30 @@ export const order = createSlice({
   name: NameSpace.Order,
   initialState,
   reducers: {
-    setGuitarCount: (state, action) => {
-      const newGuitars = state.guitarsWithCount;
-
-      newGuitars?.map((guitar) => guitar?.guitar?.id === action?.payload[0] ? { ...guitar, count: action.payload[1] } : guitar);
-
-      state.guitarsWithCount = newGuitars;
-    },
-
-    setGuitarsId: (state, action) => {
-      if (!state?.guitarsId.includes(action.payload)) {
-        state.guitarsId.push(action.payload);
+    addGuitarToCart: (state, action) => {
+      if (state.guitarIds[action.payload]) {
+        state.guitarIds[action.payload] += 1;
+      } else {
+        state.guitarIds[action.payload] = 1;
       }
+    },
+    setGuitarCount: (state, action) => {
+      if (state.guitarIds[action.payload.quitarId]) {
+        state.guitarIds[action.payload.quitarId] = action.payload.count;
+      }
+    },
+    increaseGuitarsCount: (state, action) => {
+      if (state.guitarIds[action.payload]) {
+        state.guitarIds[action.payload] += 1;
+      }
+    },
+    decreaseGuitarsCount: (state, action) => {
+      if (state.guitarIds[action.payload]) {
+        state.guitarIds[action.payload] -= 1;
+      }
+    },
+    clearCart: (state) => {
+      state.guitarIds = {};
     },
   },
   extraReducers: (builder) => {
@@ -52,14 +64,7 @@ export const order = createSlice({
         state.error = undefined;
       })
       .addCase(fetchCartGuitarsAction.fulfilled, (state, action) => {
-        const newGuitars = state.guitarsWithCount;
-        if (!state.guitarsWithCount?.some((guitar) => guitar.guitar.id === action.payload.id)) {
-          newGuitars?.push({
-            guitar: action.payload,
-            count: 2,
-          });
-        }
-        state.guitarsWithCount = newGuitars;
+        state.guitars = action.payload;
         state.loading = false;
       })
       .addCase(fetchCartGuitarsAction.rejected, (state, action) => {
@@ -69,4 +74,4 @@ export const order = createSlice({
   },
 });
 
-export const { setGuitarCount, setGuitarsId } = order.actions;
+export const { setGuitarCount, addGuitarToCart, increaseGuitarsCount, decreaseGuitarsCount, clearCart } = order.actions;

@@ -7,24 +7,25 @@ import { getPictureNumber, ratingValues } from '../../utils';
 import { AppRoute } from '../../const';
 import { AddCartModal } from '../add-cart-modal/add-cart-modal';
 import { AddCartSuccessModal } from '../add-cart-success-modal/add-cart-success-modal';
-import { selectGuitarsIdInCart } from '../../store/reducers/selectors';
+import { selectCartGuitarsIds } from '../../store/reducers/selectors';
 
 type CatalogItemProps = {
   guitar: Guitar;
 }
 
 export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
+  const guitarsIds = useAppSelector(selectCartGuitarsIds);
   const [showAddCartModal, setShowAddCartModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const linkSrc = generatePath(AppRoute.Item, { id: `${guitar.id}` });
-  const guitarsId = useAppSelector(selectGuitarsIdInCart);
   const [isInCart, setIsInCart] = useState(false);
 
   useEffect(() => {
-    if (guitarsId?.includes(guitar.id)) {
+    if (Object.keys(guitarsIds)?.includes(String(guitar.id))) {
       setIsInCart(true);
     }
-  }, [guitarsId, guitar.id]);
+  }, [guitar.id, guitarsIds]);
+
 
   const handleAddCartAdd = () => {
     setShowAddCartModal(true);
