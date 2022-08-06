@@ -22,6 +22,10 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
     }
   };
 
+  const handleDelete = () => {
+    dispatch(setGuitarCount({ quitarId: guitar.id }));
+  };
+
   const handleInputNumber = (evt: ChangeEvent<HTMLInputElement>) => {
     dispatch(setGuitarCount({ quitarId: guitar.id, count: evt.target.value }));
   };
@@ -29,6 +33,7 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
   return (
     <div className="cart-item">
       <button
+        onClick={handleDelete}
         className="cart-item__close-button button-cross"
         type="button"
         aria-label="Удалить"
@@ -40,7 +45,7 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
         <img
           src={`img/content/catalog-product-${getPictureNumber(guitar.previewImg)}.jpg`}
           srcSet={`img/content/catalog-product-${getPictureNumber(guitar.previewImg)}@2x.jpg 2x`}
-          width="55" height="130" alt="ЭлектроГитара Честер bass"
+          width="55" height="130" alt={`${capitalize(guitar.type)}`}
         />
       </div>
       <div className="product-info cart-item__info">

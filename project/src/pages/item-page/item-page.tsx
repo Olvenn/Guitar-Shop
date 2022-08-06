@@ -1,16 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { fetchGuitarAction } from '../../store/reducers/guitar';
 import { getGuitar, getGuitarError, getGuitarLoading } from '../../store/reducers/selectors';
 import { AppRoute } from '../../const';
-import { capitalize, getPictureNumber } from '../../utils';
+import { capitalize, getPictureNumber, ratingValues } from '../../utils';
 import { Layout } from '../../components/layout/layout';
 import { ReviewList } from '../../components/reviews-list/reviews-list';
-import { ratingValues } from '../../utils';
+import { AddCartModal } from '../../components/add-cart-modal/add-cart-modal';
+import { AddCartSuccessModal } from '../../components/add-cart-success-modal/add-cart-success-modal';
 
 export function ItemPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const [showAddCartModal, setShowAddCartModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const guitar = useAppSelector(getGuitar);
   const error = useAppSelector(getGuitarError);
   const loading = useAppSelector(getGuitarLoading);
@@ -18,6 +22,24 @@ export function ItemPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
   const showCharacteristics = location.hash === '#characteristics';
   const showDescription = location.hash === '#description';
+
+
+  const handleAddCartAdd = () => {
+    setShowAddCartModal(true);
+  };
+
+  const handleAddCartModalClose = () => {
+    setShowAddCartModal(false);
+  };
+
+  const handleGuitarAdd = () => {
+    setShowAddCartModal(false);
+    setShowSuccessModal(true);
+  };
+
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
+  };
 
   useEffect(() => {
     if (id) {
@@ -28,6 +50,12 @@ export function ItemPage(): JSX.Element {
   return (
     <Layout>
       <main className="page-content">
+        {showAddCartModal && guitar && (
+          <AddCartModal onClose={handleAddCartModalClose} guitar={guitar} onGuitarAdd={handleGuitarAdd} />
+        )}
+        {showSuccessModal && guitar && (
+          <AddCartSuccessModal onClose={handleSuccessModalClose} id={guitar.id} />
+        )}
         <div className="container">
           {loading && (
             <h2 className="page-content__title title title--bigger">Идет загрузка...
@@ -123,7 +151,11 @@ export function ItemPage(): JSX.Element {
                   <p className="product-container__price-info product-container__price-info--value">
                     {guitar.price} ₽
                   </p>
-                  <Link className="button button--red button--big product-container__button" to="#">
+                  <Link
+                    onClick={handleAddCartAdd}
+                    className="button button--red button--big product-container__button"
+                    to="#"
+                  >
                     Добавить в корзину
                   </Link>
                 </div>

@@ -53,6 +53,13 @@ export const order = createSlice({
         state.guitarIds[action.payload] -= 1;
       }
     },
+    deleteGuitar: (state, action) => {
+      // if (state.guitarIds[action.payload.quitarId]) {
+      //   Array.from(state.guitarIds).map((guitar) => guitar.)
+      //   // state.guitarIds = ;
+
+      // }
+    },
     clearCart: (state) => {
       state.guitarIds = {};
     },
@@ -74,4 +81,4 @@ export const order = createSlice({
   },
 });
 
-export const { setGuitarCount, addGuitarToCart, increaseGuitarsCount, decreaseGuitarsCount, clearCart } = order.actions;
+export const { setGuitarCount, addGuitarToCart, increaseGuitarsCount, decreaseGuitarsCount, clearCart, deleteGuitar } = order.actions;

@@ -56,7 +56,7 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
         <img
           src={`/img/content/catalog-product-${getPictureNumber(guitar.previewImg)}.jpg`}
           srcSet={`/img/content/catalog-product-${getPictureNumber(guitar.previewImg)}@2x.jpg 2x`}
-          width="75" height="190" alt={`${guitar.name}`}
+          width="75" height="190" alt={`${guitar.name} ${guitar.name}`}
         />
         <div className="product-card__info">
           <div className="rate product-card__rate">
