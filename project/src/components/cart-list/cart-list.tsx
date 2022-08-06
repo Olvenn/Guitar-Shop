@@ -10,7 +10,9 @@ export function CartList(): JSX.Element {
   const guitarsIds = useAppSelector(selectCartGuitarsIds);
 
   useEffect(() => {
-    dispatch(fetchCartGuitarsAction(Object.keys(guitarsIds)));
+    if (guitarsIds !== {}) {
+      dispatch(fetchCartGuitarsAction(Object.keys(guitarsIds)));
+    }
   }, [dispatch, guitarsIds]);
 
   return (
