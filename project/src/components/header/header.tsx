@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/';
+import { selectCartGuitarsIds } from '../../store/reducers/selectors';
 import { MainNavList } from '../main-nav-list/main-nav-list';
 import { Search } from '../search/search';
 import { AppRoute } from '../../const';
+import { useEffect } from 'react';
+import { saveCart } from '../../services/cart';
 
 export function Header(): JSX.Element {
+  const guitarsIdsWithCount = useAppSelector(selectCartGuitarsIds);
+  const cartGuitarCount = Object.values(guitarsIdsWithCount).reduce((sum, guitarCount) => sum + guitarCount, 0);
+
+  useEffect(() => {
+    saveCart(guitarsIdsWithCount);
+  }, [guitarsIdsWithCount]);
+
   return (
     <header className="header" id="header">
       <div className="container header__wrapper">
@@ -21,7 +32,7 @@ export function Header(): JSX.Element {
             <use xlinkHref="#icon-basket" />
           </svg>
           <span className="visually-hidden">Перейти в корзину</span>
-          <span className="header__cart-count">2</span>
+          <span className="header__cart-count">{cartGuitarCount}</span>
         </Link>
       </div>
     </header>

@@ -1,8 +1,9 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks/';
 import { Guitar } from '../../types/types';
 import { capitalize, getPictureNumber } from '../../utils';
 import { setGuitarCount, increaseGuitarsCount, decreaseGuitarsCount } from '../../store/reducers/cart';
+import { DeleteModal } from '../delete-modal/delete-modal';
 
 type CartItemProps = {
   guitar: Guitar;
@@ -11,6 +12,7 @@ type CartItemProps = {
 
 export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const [showDeleteModal, setDeleteModal] = useState(false);
 
   const handleIncrease = () => {
     dispatch(increaseGuitarsCount(guitar.id));
@@ -19,21 +21,30 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
   const handleDecrease = () => {
     if (count > 1) {
       dispatch(decreaseGuitarsCount(guitar.id));
+    } else {
+      setDeleteModal(true);
     }
   };
 
-  const handleDelete = () => {
-    dispatch(setGuitarCount({ quitarId: guitar.id }));
+  const handleInputNumber = (evt: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setGuitarCount({ guitarId: guitar.id, count: evt.target.value }));
   };
 
-  const handleInputNumber = (evt: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setGuitarCount({ quitarId: guitar.id, count: evt.target.value }));
+  const handleDeleteModalAdd = () => {
+    setDeleteModal(true);
+  };
+
+  const handleDeleteModalClose = () => {
+    setDeleteModal(false);
   };
 
   return (
     <div className="cart-item">
+      {showDeleteModal && (
+        <DeleteModal onClose={handleDeleteModalClose} guitar={guitar} />
+      )}
       <button
-        onClick={handleDelete}
+        onClick={handleDeleteModalAdd}
         className="cart-item__close-button button-cross"
         type="button"
         aria-label="Удалить"

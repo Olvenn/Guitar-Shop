@@ -3,17 +3,20 @@ import { useAppSelector, useAppDispatch } from '../../hooks/';
 import { selectCartGuitars, selectCartGuitarsIds } from '../../store/reducers/selectors';
 import { CartItem } from '../cart-item/cart-item';
 import { fetchCartGuitarsAction } from '../../store/reducers/cart';
+import { saveCart } from '../../services/cart';
 
 export function CartList(): JSX.Element {
   const dispatch = useAppDispatch();
   const guitars = useAppSelector(selectCartGuitars);
-  const guitarsIds = useAppSelector(selectCartGuitarsIds);
+  const guitarsIdsWithCount = useAppSelector(selectCartGuitarsIds);
 
   useEffect(() => {
-    if (Object.keys(guitarsIds).length > 0) {
-      dispatch(fetchCartGuitarsAction(Object.keys(guitarsIds)));
+    saveCart(guitarsIdsWithCount);
+    const guitarsIdsKeys = Object.keys(guitarsIdsWithCount);
+    if (guitarsIdsKeys.length > 0) {
+      dispatch(fetchCartGuitarsAction(guitarsIdsKeys));
     }
-  }, [dispatch, guitarsIds]);
+  }, [dispatch, guitarsIdsWithCount]);
 
   return (
     <div className="cart">
@@ -21,7 +24,7 @@ export function CartList(): JSX.Element {
         <CartItem
           key={guitar.id}
           guitar={guitar}
-          count={guitarsIds[guitar.id]}
+          count={guitarsIdsWithCount[guitar.id]}
         />
       ))}
     </div>

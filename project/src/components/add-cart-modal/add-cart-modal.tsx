@@ -65,4 +65,3 @@ export function AddCartModal({ onClose, onGuitarAdd, guitar }: Props): JSX.Eleme
     </div>
   );
 }
-export default AddCartModal;

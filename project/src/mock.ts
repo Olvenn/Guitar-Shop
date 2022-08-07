@@ -1,5 +1,5 @@
 import { commerce, database, datatype, internet, image, random, lorem } from 'faker';
-import { Guitar, Review, Comment, GuitarWithCount } from '../src/types/types';
+import { Guitar, Review, Comment } from '../src/types/types';
 
 export const GUITARS = 25;
 const REVIEWS = 10;
@@ -12,8 +12,6 @@ const MIN_STRING = 5;
 const MAX_STRING = 7;
 const MIN_PRICE = 1000;
 const MAX_PRICE = 100000;
-const MIN_COUNT = 1;
-const MAX_COUNT = 99;
 
 export const makeFakeGuitar = (): Guitar => ({
   id: datatype.number({ min: MIN_ID }),

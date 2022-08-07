@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { NameSpace, APIRoute } from '../../const';
-import { Guitar } from '../../types/types';
+import { Guitar, GuitarsIdsWithCount } from '../../types/types';
 import { api } from '../../services/index';
+import { getCart } from '../../services/cart';
 
 export const fetchCartGuitarsAction = createAsyncThunk(
   'data/fetchCartGuitar',
   async (guitarsIds: string[]) => {
-    const response = await api.get<Guitar>(`${APIRoute.Guitars}/?${guitarsIds.map((guitarId) => `id=${guitarId}`).join('&')}`);
+    const response = await api.get<Guitar[]>(`${APIRoute.Guitars}/?${guitarsIds.map((guitarId) => `id=${guitarId}`).join('&')}`);
     return response.data;
   },
 );
@@ -14,7 +15,7 @@ export const fetchCartGuitarsAction = createAsyncThunk(
 type InitialState = {
   price: number;
   guitars: Guitar[];
-  guitarIds: Record<number, number>;
+  guitarIdsWithCount: GuitarsIdsWithCount;
   loading: boolean;
   error?: string;
 };
@@ -22,7 +23,7 @@ type InitialState = {
 const initialState: InitialState = {
   price: 0,
   guitars: [],
-  guitarIds: {},
+  guitarIdsWithCount: getCart(),
   loading: false,
   error: undefined,
 };
@@ -32,36 +33,33 @@ export const order = createSlice({
   initialState,
   reducers: {
     addGuitarToCart: (state, action) => {
-      if (state.guitarIds[action.payload]) {
-        state.guitarIds[action.payload] += 1;
+      if (state.guitarIdsWithCount[action.payload]) {
+        state.guitarIdsWithCount[action.payload] += 1;
       } else {
-        state.guitarIds[action.payload] = 1;
+        state.guitarIdsWithCount[action.payload] = 1;
       }
     },
     setGuitarCount: (state, action) => {
-      if (state.guitarIds[action.payload.quitarId]) {
-        state.guitarIds[action.payload.quitarId] = action.payload.count;
+      if (state.guitarIdsWithCount[action.payload.quitarId]) {
+        state.guitarIdsWithCount[action.payload.quitarId] = action.payload.count;
       }
     },
     increaseGuitarsCount: (state, action) => {
-      if (state.guitarIds[action.payload]) {
-        state.guitarIds[action.payload] += 1;
+      if (state.guitarIdsWithCount[action.payload]) {
+        state.guitarIdsWithCount[action.payload] += 1;
       }
     },
     decreaseGuitarsCount: (state, action) => {
-      if (state.guitarIds[action.payload]) {
-        state.guitarIds[action.payload] -= 1;
+      if (state.guitarIdsWithCount[action.payload]) {
+        state.guitarIdsWithCount[action.payload] -= 1;
       }
     },
     deleteGuitar: (state, action) => {
-      // if (state.guitarIds[action.payload.quitarId]) {
-      //   Array.from(state.guitarIds).map((guitar) => guitar.)
-      //   // state.guitarIds = ;
-
-      // }
+      state.guitars = [];
+      delete state.guitarIdsWithCount[action.payload.guitarId];
     },
     clearCart: (state) => {
-      state.guitarIds = {};
+      state.guitarIdsWithCount = {};
     },
   },
   extraReducers: (builder) => {

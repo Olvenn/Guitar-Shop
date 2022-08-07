@@ -29,7 +29,8 @@ export function PaginationList(): JSX.Element {
       </li>
       {pages.map((page) => (
         <li
-          className={`${page === currentPage ? 'pagination__page pagination__page--active' : 'pagination__page'}`} key={page}
+          className={`${page === currentPage ? 'pagination__page pagination__page--active' : 'pagination__page'}`}
+          key={page}
         >
           <Link
             className="link pagination__page-link"
