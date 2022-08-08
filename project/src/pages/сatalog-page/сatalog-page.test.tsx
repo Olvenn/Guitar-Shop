@@ -27,6 +27,12 @@ describe('Component: CatalogPage', () => {
         totalCounts: 0,
         searchGuitars: [],
       },
+      [NameSpace.Cart]: {
+        guitars: [],
+        guitarIdsWithCount: { 1: 1 },
+        loading: false,
+        error: undefined,
+      },
     });
 
     render(

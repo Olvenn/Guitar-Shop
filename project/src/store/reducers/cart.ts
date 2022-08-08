@@ -13,7 +13,6 @@ export const fetchCartGuitarsAction = createAsyncThunk(
 );
 
 type InitialState = {
-  price: number;
   guitars: Guitar[];
   guitarIdsWithCount: GuitarsIdsWithCount;
   loading: boolean;
@@ -21,15 +20,14 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-  price: 0,
   guitars: [],
   guitarIdsWithCount: getCart(),
   loading: false,
   error: undefined,
 };
 
-export const order = createSlice({
-  name: NameSpace.Order,
+export const cart = createSlice({
+  name: NameSpace.Cart,
   initialState,
   reducers: {
     addGuitarToCart: (state, action) => {
@@ -40,8 +38,9 @@ export const order = createSlice({
       }
     },
     setGuitarCount: (state, action) => {
-      if (state.guitarIdsWithCount[action.payload.quitarId]) {
-        state.guitarIdsWithCount[action.payload.quitarId] = action.payload.count;
+      const { guitarId, count } = action.payload;
+      if (state.guitarIdsWithCount[guitarId]) {
+        state.guitarIdsWithCount[guitarId] = count;
       }
     },
     increaseGuitarsCount: (state, action) => {
@@ -59,6 +58,7 @@ export const order = createSlice({
       delete state.guitarIdsWithCount[action.payload.guitarId];
     },
     clearCart: (state) => {
+      state.guitars = [];
       state.guitarIdsWithCount = {};
     },
   },
@@ -79,4 +79,4 @@ export const order = createSlice({
   },
 });
 
-export const { setGuitarCount, addGuitarToCart, increaseGuitarsCount, decreaseGuitarsCount, clearCart, deleteGuitar } = order.actions;
+export const { setGuitarCount, addGuitarToCart, increaseGuitarsCount, decreaseGuitarsCount, clearCart, deleteGuitar } = cart.actions;

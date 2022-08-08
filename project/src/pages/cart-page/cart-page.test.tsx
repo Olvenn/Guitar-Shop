@@ -24,6 +24,15 @@ describe('Component: CartPage', () => {
       [NameSpace.Guitars]: {
         guitars: fakeGuitars,
       },
+      [NameSpace.Cart]: {
+        guitars: [],
+        guitarIdsWithCount: { 1: 1 },
+        loading: false,
+        error: undefined,
+      },
+      [NameSpace.Coupon]: {
+        discount: undefined,
+      },
     });
 
     render(

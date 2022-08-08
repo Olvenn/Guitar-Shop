@@ -26,7 +26,6 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
     }
   }, [guitar.id, guitarsIds]);
 
-
   const handleAddCartAdd = () => {
     setShowAddCartModal(true);
   };

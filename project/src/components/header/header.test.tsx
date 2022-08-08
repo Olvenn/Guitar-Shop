@@ -17,6 +17,12 @@ const history = createMemoryHistory();
 history.push(AppRoute.Root);
 
 const store = mockStore({
+  [NameSpace.Cart]: {
+    guitars: [],
+    guitarIdsWithCount: { 1: 1 },
+    loading: false,
+    error: undefined,
+  },
   [NameSpace.Guitars]: {
     guitar: fakeGuitars,
     searchGuitars: [],
@@ -26,7 +32,6 @@ const store = mockStore({
 describe('Component: header', () => {
   it('should render correctly', () => {
     const dispatch = jest.fn();
-
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     useDispatch.mockReturnValue(dispatch);
     render(

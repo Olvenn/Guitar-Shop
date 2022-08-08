@@ -39,6 +39,16 @@ export const fetchGuitarsAction = createAsyncThunk<void, void, {
   },
 );
 
+// export const fetchGuitarAction = createAsyncThunk<Guitar, number, {
+//   extra: AxiosInstance,
+// }>(
+//   'data/fetchGuitar',
+//   async (id: number, { extra: api, rejectWithValue }) => {
+//     const response = await api.get<Guitar>(`${APIRoute.Guitars}${id}?_embed=comments`);
+//     return response.data;
+//   },
+// );
+
 export const searchAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch,
   state: State,

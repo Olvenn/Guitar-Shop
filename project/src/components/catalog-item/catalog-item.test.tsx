@@ -1,3 +1,4 @@
+import * as Redux from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import { Routes, Route, generatePath } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
@@ -16,6 +17,12 @@ const history = createMemoryHistory();
 const store = mockStore({
   [NameSpace.Guitar]: {
     guitar: fakeGuitar,
+  },
+  [NameSpace.Cart]: {
+    guitars: [],
+    guitarIdsWithCount: { 1: 1 },
+    loading: false,
+    error: undefined,
   },
 });
 
@@ -40,19 +47,26 @@ describe('Component: CatalogItem', () => {
     history.push('/fake');
     const linkSrc = generatePath(AppRoute.Item, { id: `${fakeGuitar.id}` });
 
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+
     render(
-      <HistoryRouter history={history}>
-        <Routes>
-          <Route
-            path={linkSrc}
-            element={<h1>This is main page</h1>}
-          />
-          <Route
-            path='*'
-            element={<CatalogItem guitar={fakeGuitar} />}
-          />
-        </Routes>
-      </HistoryRouter>);
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Routes>
+            <Route
+              path={linkSrc}
+              element={<h1>This is main page</h1>}
+            />
+            <Route
+              path='*'
+              element={<CatalogItem guitar={fakeGuitar} />}
+            />
+          </Routes>
+        </HistoryRouter>
+      </Provider>,
+    );
 
     expect(screen.queryByText(/This is main page/i)).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Подробнее/i })).toBeInTheDocument();

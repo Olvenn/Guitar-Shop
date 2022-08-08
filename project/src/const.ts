@@ -20,7 +20,7 @@ export enum NameSpace {
   Guitars = 'GUITARS',
   Guitar = 'GUITAR',
   Reviews = 'COMMENTS',
-  Order = 'ORDER',
+  Cart = 'CART',
   Coupon = 'COUPON',
 }
 

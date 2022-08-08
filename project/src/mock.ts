@@ -26,11 +26,6 @@ export const makeFakeGuitar = (): Guitar => ({
   comments: makeFakeReviews(Math.floor(Math.random() * (REVIEWS))),
 } as Guitar);
 
-// export const makeFakeGuitarWithCount = (): GuitarWithCount => ({
-//   guitar: makeFakeGuitar(),
-//   count: datatype.number({ min: MIN_COUNT, max: MAX_COUNT }),
-// } as GuitarWithCount);
-
 export const makeFakeReview = (): Review => ({
   id: datatype.number({ min: MIN_ID }),
   createAt: datatype.datetime.toString(),
@@ -59,6 +54,3 @@ export const makeFakeReviews = (quantity: number): Review[] => (
 
 export const makeFakeComments = (quantity: number): Comment[] => (
   new Array(quantity).fill(null).map(makeFakeComment) as Comment[]);
-
-// export const makeFakeGuitarsWithCount = (quantity: number): GuitarWithCount[] => (
-//   new Array(quantity).fill(null).map(makeFakeGuitarWithCount) as GuitarWithCount[]);

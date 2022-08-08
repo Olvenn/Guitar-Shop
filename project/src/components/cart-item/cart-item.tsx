@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/';
 import { Guitar } from '../../types/types';
 import { capitalize, getPictureNumber } from '../../utils';
@@ -13,21 +13,29 @@ type CartItemProps = {
 export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [showDeleteModal, setDeleteModal] = useState(false);
+  const [valueInput, setValueInput] = useState(count);
 
   const handleIncrease = () => {
     dispatch(increaseGuitarsCount(guitar.id));
+    setValueInput(valueInput + 1);
   };
 
   const handleDecrease = () => {
     if (count > 1) {
       dispatch(decreaseGuitarsCount(guitar.id));
+      setValueInput(valueInput - 1);
     } else {
       setDeleteModal(true);
     }
   };
 
+  useEffect(() => {
+    dispatch(setGuitarCount({ guitarId: guitar.id, count: valueInput }));
+  }, [dispatch, valueInput, guitar.id, count]);
+
+
   const handleInputNumber = (evt: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setGuitarCount({ guitarId: guitar.id, count: evt.target.value }));
+    setValueInput(+evt.target.value);
   };
 
   const handleDeleteModalAdd = () => {
@@ -75,7 +83,7 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
         </button>
         <input
           onChange={handleInputNumber}
-          value={count}
+          value={valueInput}
           className="quantity__input"
           type="number"
           placeholder="1"

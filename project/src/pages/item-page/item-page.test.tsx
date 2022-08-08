@@ -27,6 +27,12 @@ const store = mockStore({
     isLoading: true,
     isSuccessfully: true,
   },
+  [NameSpace.Cart]: {
+    guitarIdsWithCount: { 1: 1 },
+  },
+  [NameSpace.Coupon]: {
+    guitarIdsWithCount: { 1: 1 },
+  },
 });
 
 describe('Component: ItemPage', () => {
