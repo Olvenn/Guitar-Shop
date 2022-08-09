@@ -127,6 +127,7 @@ export function Filters(): JSX.Element {
               type="number"
               placeholder={startMinPrice ? String(startMinPrice) : ''}
               id="priceMin"
+              data-testid="priceMin"
               name="от"
               min={startMinPrice ? String(startMinPrice) : ''}
             />
@@ -140,6 +141,7 @@ export function Filters(): JSX.Element {
               type="number"
               placeholder={startMaxPrice ? String(startMaxPrice) : ''}
               id="priceMax"
+              data-testid="priceMax"
               name="до"
               max={startMaxPrice ? String(startMaxPrice) : ''}
             />
