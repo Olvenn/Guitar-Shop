@@ -4,13 +4,10 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import { createAPI } from '../../services/api';
 import { State } from '../../types/state';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { cart, fetchCartGuitarsAction, addGuitarToCart, decreaseGuitarsCount, clearCart } from '../reducers/cart';
+import { cart, fetchCartGuitarsAction, addGuitarToCart, decreaseGuitarsCount, clearCart, deleteGuitar, setGuitarCount } from '../reducers/cart';
 import { APIRoute } from '../../const';
 import { getCart } from '../../services/cart';
 import { makeFakeGuitars } from '../../mock';
-
-// import { setGuitarCount, deleteGuitar } from '../reducers/cart';
-
 
 describe('Reducer: coupon', () => {
   const api = createAPI();
@@ -158,42 +155,42 @@ describe('Reducer: coupon', () => {
       });
   });
 
-  // it('should delete guitar when click on "x"', () => {
-  //   const id = 1;
+  it('should delete guitar when click on "x"', () => {
+    const id = 1;
 
-  //   const state = {
-  //     guitars: [],
-  //     guitarIdsWithCount: { 1: 2, 2: 3 },
-  //     loading: false,
-  //     error: undefined,
-  //   };
-  //   expect(cart.reducer(state, deleteGuitar(id)))
-  //     .toEqual({
-  //       guitars: [],
-  //       guitarIdsWithCount: { 2: 3 },
-  //       loading: false,
-  //       error: undefined,
-  //     });
-  // });
+    const state = {
+      guitars: [],
+      guitarIdsWithCount: { 1: 2, 2: 3 },
+      loading: false,
+      error: undefined,
+    };
+    expect(cart.reducer(state, deleteGuitar({ guitarId: id })))
+      .toEqual({
+        guitars: [],
+        guitarIdsWithCount: { 2: 3 },
+        loading: false,
+        error: undefined,
+      });
+  });
 
-  // it('should change guitar count by input a value', () => {
-  //   const id = 1;
-  //   const count = 3;
+  it('should change guitar count by input a value', () => {
+    const id = 1;
+    const count = 3;
 
-  //   const state = {
-  //     guitars: [],
-  //     guitarIdsWithCount: { 1: 2 },
-  //     loading: false,
-  //     error: undefined,
-  //   };
-  //   expect(cart.reducer(state, setGuitarCount({ id, count })))
-  //     .toEqual({
-  //       guitars: [],
-  //       guitarIdsWithCount: { 1: 3 },
-  //       loading: false,
-  //       error: undefined,
-  //     });
-  // });
+    const state = {
+      guitars: [],
+      guitarIdsWithCount: { 1: 2 },
+      loading: false,
+      error: undefined,
+    };
+    expect(cart.reducer(state, setGuitarCount({ guitarId: id, count })))
+      .toEqual({
+        guitars: [],
+        guitarIdsWithCount: { 1: 3 },
+        loading: false,
+        error: undefined,
+      });
+  });
 
   it('should update cart by clear cart', () => {
     const state = {

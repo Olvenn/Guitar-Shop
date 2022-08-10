@@ -3,8 +3,6 @@ import { makeFakeGuitars } from '../../mock';
 import { datatype } from 'faker';
 
 const MAX_GUITARS = 25;
-// const MIN_PRICE = 1000;
-// const MAX_PRICE = 40000;
 const GUITARS = datatype.number({ min: 0, max: MAX_GUITARS });
 
 const fakeGuitars = makeFakeGuitars(GUITARS);

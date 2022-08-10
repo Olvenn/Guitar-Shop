@@ -10,6 +10,7 @@ export function CartList(): JSX.Element {
   const guitars = useAppSelector(selectCartGuitars);
   const guitarsIdsWithCount = useAppSelector(selectCartGuitarsIds);
 
+
   useEffect(() => {
     saveCart(guitarsIdsWithCount);
     const guitarsIdsKeys = Object.keys(guitarsIdsWithCount);

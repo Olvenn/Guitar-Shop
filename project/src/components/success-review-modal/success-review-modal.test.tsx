@@ -25,27 +25,4 @@ describe('Component: SuccessReviewModal', () => {
     expect(screen.getByText(/Спасибо за ваш отзыв!/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /К покупкам!/i })).toBeInTheDocument();
   });
-
-  // it('should redirect to root url when user clicked to link Подробнее', () => {
-  //   history.push('/fake');
-
-  //   render(
-  //     <Provider store={mockStore({})}>
-  //       <HistoryRouter history={history}>
-  //         <Routes>
-  //           <Route
-  //             path={AppRoute.Root}
-  //             element={<h1>This is main page</h1>}
-  //           />
-  //           <Route
-  //             path='*'
-  //             element={<SuccessReviewModal onClose={jest.fn()} id={id} />}
-  //           />
-  //         </Routes>
-  //       </HistoryRouter>
-  //     </Provider>);
-
-  //   userEvent.click(screen.getByRole('button', { name: /К покупкам!/i }));
-  //   expect(screen.getByText(/This is main page/i)).toBeInTheDocument();
-  // });
 });

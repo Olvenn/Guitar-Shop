@@ -56,7 +56,6 @@ describe('Async actions', () => {
     await store.dispatch(loadSearchData(fakeSearchGuitars));
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toContain(loadSearchData.toString());
-    // expect(actions).toContain(setTotalCounts.toString());
   });
 
   it('should dispatch setComments when add Comment when POST', async () => {

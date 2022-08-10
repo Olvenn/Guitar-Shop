@@ -55,7 +55,8 @@ export const cart = createSlice({
     },
     deleteGuitar: (state, action) => {
       state.guitars = [];
-      delete state.guitarIdsWithCount[action.payload.guitarId];
+      const { [action.payload.guitarId]: _, ...guitarIdsWithCount } = state.guitarIdsWithCount;
+      state.guitarIdsWithCount = guitarIdsWithCount;
     },
     clearCart: (state) => {
       state.guitars = [];
