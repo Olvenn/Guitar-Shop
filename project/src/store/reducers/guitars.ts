@@ -68,6 +68,8 @@ export const guitars = createSlice({
     },
     loadSearchData: (state, action) => {
       state.searchGuitars = action.payload;
+      // console.log(action.payload);
+
     },
     loadFilters: (state, action) => {
       state.page = DEFAULT_PAGE;

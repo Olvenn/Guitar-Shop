@@ -47,7 +47,7 @@ export const searchAction = createAsyncThunk<void, string, {
   'data/fetchSearch',
   async (query, { dispatch, extra: api }) => {
     try {
-      const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}?name_like = ${query} `);
+      const { data, headers } = await api.get<Guitar[]>(`${APIRoute.Guitars}?name_like=${query} `);
       const totalCount = headers['x-total-count'];
       dispatch(loadSearchData(data));
       dispatch(setTotalCounts(totalCount));

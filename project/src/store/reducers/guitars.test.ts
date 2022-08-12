@@ -1,4 +1,4 @@
-import { guitars, loadGuitars, setTotalCounts } from '../reducers/guitars';
+import { guitars, loadGuitars, setTotalCounts, loadSearchData } from '../reducers/guitars';
 import { makeFakeGuitars } from '../../mock';
 import { datatype } from 'faker';
 
