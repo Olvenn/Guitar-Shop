@@ -1,7 +1,5 @@
 export const ITEMS_PER_PAGE = 9;
 export const RATING_ITEMS = 5;
-export const MIN_PRICE = 1700;
-export const MAX_PRICE = 35000;
 
 export enum AppRoute {
   Root = '/',

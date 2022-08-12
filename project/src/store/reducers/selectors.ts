@@ -17,9 +17,6 @@ export const selectSort = (state: State): Sort | undefined => state[NameSpace.Gu
 export const selectMinPrice = (state: State): number | undefined => state[NameSpace.Guitars].minPriceDefault;
 export const selectMaxPrice = (state: State): number | undefined => state[NameSpace.Guitars].maxPriceDefault;
 export const selectDiscount = (state: State): number | undefined => state[NameSpace.Coupon].discount;
-export const selectIsLoadingDiscount = (state: State): boolean => state[NameSpace.Coupon].loading;
 export const selectDiscountError = (state: State): string | undefined => state[NameSpace.Coupon].error;
 export const selectCartGuitarsIds = (state: State): GuitarsIdsWithCount => state[NameSpace.Cart].guitarIdsWithCount;
 export const selectCartGuitars = (state: State): Guitar[] | undefined => state[NameSpace.Cart].guitars;
-
-
