@@ -18,7 +18,7 @@ export function CartList(): JSX.Element {
   }, [dispatch, guitarsIdsWithCount]);
 
   return (
-    <div className="cart">
+    <div className="cart" data-testid='cart'>
       {guitars?.map((guitar) => (
         <CartItem
           key={guitar.id}

@@ -39,7 +39,7 @@ export function CatalogList(): JSX.Element {
 
   return (
     <>
-      <div className="cards catalog__cards">
+      <div className="cards catalog__cards" data-testid='catalogCards'>
         {guitars.map((guitar) => (
           <CatalogItem
             key={guitar.id}

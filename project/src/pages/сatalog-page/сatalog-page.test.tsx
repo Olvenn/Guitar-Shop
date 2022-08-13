@@ -6,11 +6,11 @@ import HistoryRouter from '../../components/history-router/history-router';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { CatalogPage } from './сatalog-page';
 import { AppRoute, NameSpace } from '../../const';
-import { makeFakeGuitars } from '../../mock';
+import { makeFakeGuitars, GUITARS } from '../../mock';
 import { Provider } from 'react-redux';
 
 const mockStore = configureMockStore();
-const fakeGuitars = makeFakeGuitars(25).slice(6, 9);
+const fakeGuitars = makeFakeGuitars(GUITARS).slice(6, 9);
 const history = createMemoryHistory();
 const linkSrc = generatePath(AppRoute.Catalog);
 history.push(linkSrc);
