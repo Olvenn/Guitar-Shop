@@ -9,7 +9,6 @@ export function PromoCode(): JSX.Element {
   const dispatch = useAppDispatch();
   const discount = useAppSelector(selectDiscount);
   const discountError = useAppSelector(selectDiscountError);
-
   const [coupon, setCoupon] = useState('');
   const [isValid, setIsValid] = useState(false);
 
@@ -49,7 +48,7 @@ export function PromoCode(): JSX.Element {
           {((!isValid && coupon !== '') || discountError) &&
             <p className="form-input__message form-input__message--error">неверный промокод
             </p>}
-          {discount &&
+          {discount && isValid &&
             <p className="form-input__message form-input__message--success">
               Промокод принят
             </p>}

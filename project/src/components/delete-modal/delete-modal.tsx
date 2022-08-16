@@ -25,7 +25,7 @@ export function DeleteModal({ onClose, guitar }: Props): JSX.Element {
   };
 
   return (
-    <div style={{ position: 'relative', width: '550px', height: '440px', marginBottom: '50px' }}>
+    <div style={{ position: 'absolute', width: '550px', height: '440px', marginBottom: '50px' }}>
       <div className="modal is-active modal-for-ui-kit">
         <Modal onClose={onClose}>
           <h2 className="modal__header title title--medium title--red">Удалить этот товар?</h2>

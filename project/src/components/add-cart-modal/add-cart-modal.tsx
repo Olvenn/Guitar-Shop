@@ -20,7 +20,7 @@ export function AddCartModal({ onClose, onGuitarAdd, guitar }: Props): JSX.Eleme
   };
 
   return (
-    <div style={{ position: 'relative', width: '550px', height: '440px', marginBottom: '50px' }}>
+    <div style={{ position: 'fixed', width: '550px', height: '440px', marginBottom: '50px' }}>
       <div className="modal is-active">
         <Modal onClose={onClose}>
           <h2 className="modal__header title title--medium">Добавить товар в корзину</h2>

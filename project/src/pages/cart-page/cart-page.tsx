@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/';
 import { Layout } from '../../components/layout/layout';
+import { AppRoute } from '../../const';
 import { CartList } from '../../components/cart-list/cart-list';
 import { PromoCode } from '../../components/promo-сode/promo-code';
 import { selectCartGuitars, selectCartGuitarsIds, selectDiscount } from '../../store/reducers/selectors';
@@ -36,10 +37,10 @@ export function CartPage(): JSX.Element {
           <h1 className="title title--bigger page-content__title">Корзина</h1>
           <ul className="breadcrumbs page-content__breadcrumbs page-content__breadcrumbs--on-cart-page">
             <li className="breadcrumbs__item">
-              <a className="link" href="./main.html">Главная</a>
+              <Link className="link" to={AppRoute.Catalog}>Главная</Link>
             </li>
             <li className="breadcrumbs__item">
-              <a className="link" href="./main.html">Каталог</a>
+              <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
             </li>
             <li className="breadcrumbs__item">
               <Link className="link" to='#'>Корзина</Link>
@@ -59,7 +60,8 @@ export function CartPage(): JSX.Element {
                   <span
                     className={`${discountAmount === 0 ? 'cart__total-value' : 'cart__total-value cart__total-value--bonus'}`}
                   >
-                    - {discountAmount} ₽
+                    {discountAmount !== 0 && '-'}
+                    {discountAmount} ₽
                   </span>
                 </p>
                 <p className="cart__total-item">

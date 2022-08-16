@@ -87,7 +87,7 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
             className={`${!isInCart ? 'button button--red button--mini button--add-to-cart' : 'button button--red-border button--mini button--in-cart'}`}
             to="#"
           >
-            Купить
+            {`${!isInCart ? 'Купить' : 'В корзине'}`}
           </Link>
         </div>
       </div>

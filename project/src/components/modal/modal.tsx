@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 type Params = {
   onClose: () => void,
@@ -6,6 +6,20 @@ type Params = {
 }
 
 export function Modal({ children, onClose }: Params): JSX.Element {
+
+  useEffect(() => {
+    const handleCloseEscapeKeydown = (evt: KeyboardEvent) => {
+      if (evt.key === 'Escape' || evt.key === 'Esc') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleCloseEscapeKeydown);
+
+    return () => {
+      document.removeEventListener('keydown', handleCloseEscapeKeydown);
+    };
+  }, [onClose]);
 
   return (
     <div className="modal__wrapper">

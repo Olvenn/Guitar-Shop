@@ -9,9 +9,7 @@ type Props = {
 
 export function AddCartSuccessModal({ onClose, id }: Props): JSX.Element {
   const navigate = useNavigate();
-
   const handleCloseClick = async () => {
-    navigate(AppRoute.Catalog, { replace: true });
     onClose();
   };
 
@@ -21,7 +19,7 @@ export function AddCartSuccessModal({ onClose, id }: Props): JSX.Element {
   };
 
   return (
-    <div style={{ position: 'absolute', width: '550px', height: '410px', marginBottom: '50px' }}>
+    <div style={{ position: 'fixed', width: '550px', height: '410px', marginBottom: '50px' }}>
       <div className="modal is-active modal--success">
         <Modal onClose={handleCloseClick} >
           <svg className="modal__icon" width="26" height="20" aria-hidden="true">

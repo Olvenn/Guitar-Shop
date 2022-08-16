@@ -21,7 +21,7 @@ export function SuccessReviewModal({ onClose, id }: SuccessReviewModalProps): JS
   };
 
   return (
-    <div style={{ position: 'absolute', width: '550px', height: '410px', marginBottom: '50px' }}>
+    <div style={{ position: 'relative', width: '550px', height: '410px', marginBottom: '50px' }}>
       <div className="is-active modal modal--success modal-for-ui-kit">
         <Modal onClose={handleCloseClick} >
           <svg className="modal__icon" width="26" height="20" aria-hidden="true">
