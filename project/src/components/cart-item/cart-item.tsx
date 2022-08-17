@@ -35,7 +35,9 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
 
 
   const handleInputNumber = (evt: ChangeEvent<HTMLInputElement>) => {
-    setValueInput(+evt.target.value);
+    if (+evt.target.value !== 0) {
+      setValueInput(Number(evt.target.value));
+    }
   };
 
   const handleDeleteModalAdd = () => {
@@ -52,7 +54,7 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
         <DeleteModal onClose={handleDeleteModalClose} guitar={guitar} />
       )}
       <button
-        onClick={handleDeleteModalAdd}
+        onBlur={handleDeleteModalAdd}
         className="cart-item__close-button button-cross"
         type="button"
         aria-label="Удалить"
@@ -90,6 +92,7 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
           id={`${guitar.id}-count`}
           name={`${guitar.id}-count`}
           max="99"
+          min="1"
         />
         <button onClick={handleIncrease} className="quantity__button" aria-label="Увеличить количество">
           <svg width="8" height="8" aria-hidden="true">
@@ -98,6 +101,6 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
         </button>
       </div>
       <div className="cart-item__price-total">{guitar.price * count} ₽</div>
-    </div>
+    </div >
   );
 }
