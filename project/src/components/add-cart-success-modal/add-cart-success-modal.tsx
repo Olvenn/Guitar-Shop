@@ -3,7 +3,6 @@ import { Modal } from '../modal/modal';
 import { AppRoute } from '../../const';
 import { startScroll } from '../../utils';
 
-
 type Props = {
   onClose: () => void;
   id: number;
