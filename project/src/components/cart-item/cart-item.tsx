@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/';
 import { Guitar } from '../../types/types';
-import { capitalize, getPictureNumber } from '../../utils';
+import { capitalize, getPictureNumber, stopScroll, startScroll } from '../../utils';
 import { setGuitarCount, increaseGuitarsCount, decreaseGuitarsCount } from '../../store/reducers/cart';
 import { DeleteModal } from '../delete-modal/delete-modal';
 
@@ -42,10 +42,12 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
 
   const handleDeleteModalAdd = () => {
     setDeleteModal(true);
+    stopScroll();
   };
 
   const handleDeleteModalClose = () => {
     setDeleteModal(false);
+    startScroll();
   };
 
   return (
@@ -54,7 +56,7 @@ export function CartItem({ guitar, count }: CartItemProps): JSX.Element {
         <DeleteModal onClose={handleDeleteModalClose} guitar={guitar} />
       )}
       <button
-        onBlur={handleDeleteModalAdd}
+        onClick={handleDeleteModalAdd}
         className="cart-item__close-button button-cross"
         type="button"
         aria-label="Удалить"

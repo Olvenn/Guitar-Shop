@@ -3,7 +3,7 @@ import { generatePath } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { Guitar } from '../../types/types';
-import { getPictureNumber, ratingValues } from '../../utils';
+import { getPictureNumber, ratingValues, stopScroll } from '../../utils';
 import { AppRoute } from '../../const';
 import { AddCartModal } from '../add-cart-modal/add-cart-modal';
 import { AddCartSuccessModal } from '../add-cart-success-modal/add-cart-success-modal';
@@ -27,7 +27,10 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
   }, [guitar.id, guitarsIds]);
 
   const handleAddCartAdd = () => {
-    setShowAddCartModal(true);
+    if (!isInCart) {
+      setShowAddCartModal(true);
+      stopScroll();
+    }
   };
 
   const handleAddCartModalClose = () => {
@@ -41,6 +44,7 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
 
   const handleSuccessModalClose = () => {
     setShowSuccessModal(false);
+    stopScroll();
   };
 
   return (
@@ -85,7 +89,7 @@ export function CatalogItem({ guitar }: CatalogItemProps): JSX.Element {
           <Link
             onClick={handleAddCartAdd}
             className={`${!isInCart ? 'button button--red button--mini button--add-to-cart' : 'button button--red-border button--mini button--in-cart'}`}
-            to="#"
+            to={`${isInCart ? AppRoute.Cart : '#'}`}
           >
             {`${!isInCart ? 'Купить' : 'В корзине'}`}
           </Link>

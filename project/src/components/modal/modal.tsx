@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react';
-
+import { startScroll } from '../../utils';
 type Params = {
   onClose: () => void,
   children: ReactNode,
@@ -11,6 +11,7 @@ export function Modal({ children, onClose }: Params): JSX.Element {
     const handleCloseEscapeKeydown = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape' || evt.key === 'Esc') {
         onClose();
+        startScroll();
       }
     };
 
@@ -21,13 +22,19 @@ export function Modal({ children, onClose }: Params): JSX.Element {
     };
   }, [onClose]);
 
+  const handleCloseClick = async () => {
+    onClose();
+    startScroll();
+  };
+
+
   return (
     <div className="modal__wrapper">
-      <div onClick={onClose} className="modal__overlay" data-close-modal />
+      <div onClick={handleCloseClick} className="modal__overlay" data-close-modal />
       <div className="modal__content">
         {children}
         <button
-          onClick={onClose}
+          onClick={handleCloseClick}
           className="modal__close-btn button-cross"
           type="button"
           aria-label="Закрыть"

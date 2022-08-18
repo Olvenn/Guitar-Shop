@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../modal/modal';
 import { useAppDispatch } from '../../hooks/';
-import { getPictureNumber, adaptType } from '../../utils';
+import { getPictureNumber, adaptType, startScroll } from '../../utils';
 import { AppRoute } from '../../const';
 import { Guitar } from '../../types/types';
 import { deleteGuitar } from '../../store/reducers/cart';
@@ -17,15 +17,17 @@ export function DeleteModal({ onClose, guitar }: Props): JSX.Element {
 
   const handleDelete = () => {
     dispatch(deleteGuitar({ guitarId: guitar.id }));
+    startScroll();
   };
 
   const handleCloseClick = async () => {
     navigate(AppRoute.Catalog, { replace: true });
     onClose();
+    startScroll();
   };
 
   return (
-    <div style={{ position: 'absolute', width: '550px', height: '440px', marginBottom: '50px' }}>
+    <div style={{ position: 'absolute', width: '550px', height: '640px', marginBottom: '50px' }}>
       <div className="modal is-active modal-for-ui-kit">
         <Modal onClose={onClose}>
           <h2 className="modal__header title title--medium title--red">Удалить этот товар?</h2>

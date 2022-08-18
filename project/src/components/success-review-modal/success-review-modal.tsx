@@ -21,13 +21,13 @@ export function SuccessReviewModal({ onClose, id }: SuccessReviewModalProps): JS
   };
 
   return (
-    <div style={{ position: 'relative', width: '550px', height: '410px', marginBottom: '50px' }}>
+    <div style={{ position: 'relative', zIndex: '1000000', width: '550px', height: '410px', marginBottom: '50px' }}>
       <div className="is-active modal modal--success modal-for-ui-kit">
         <Modal onClose={handleCloseClick} >
           <svg className="modal__icon" width="26" height="20" aria-hidden="true">
             <use xlinkHref="#icon-success" />
           </svg>
-          <p className="modal__message">Спасибо за ваш отзыв!</p>
+          <p className="modal__message" style={{ marginBottom: '32px' }}>Спасибо за ваш отзыв!</p>
           <div className="modal__button-container modal__button-container--review">
             <button
               onClick={handleCloseClick}
